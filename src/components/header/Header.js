@@ -9,6 +9,8 @@ export default class Header extends Component{
                     <Link to='/'><div>Home</div></Link>
                     <Link to='/profile'><div>Profile</div></Link>
                     <Link to='/search'><div>Search Locations</div></Link>
+                    <Link to='/planner'><div>Plan a trip</div></Link>
+                    <a href={process.env.REACT_APP_LOGIN}><div>Login</div></a>
                 </nav>
             </div>
         )
