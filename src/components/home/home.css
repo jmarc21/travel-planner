@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Permanent+Marker');
+.home{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.title{
+    font-size: 62px;
+    font-family: 'Permanent Marker';
+    margin: -100px 0 20px;
+
+}
+h3{
+    font-size: 24px;
+    font-family: 'Abril Fatface';
+    margin-bottom: 20px;
+}
+.login{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 40px;
+    width: 100px;
+    background-color: rgb(128, 128, 128);
+    border-radius: 4px;
+}
