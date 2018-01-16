@@ -6,17 +6,24 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-image: url('https://images.pexels.com/photos/66997/pexels-photo-66997.jpeg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 .title{
     font-size: 62px;
     font-family: 'Permanent Marker';
     margin: -100px 0 20px;
-
+    color: white;
+    text-shadow: 4px 5px #212121;
 }
 h3{
     font-size: 24px;
     font-family: 'Abril Fatface';
     margin-bottom: 20px;
+    color: white;
+    text-shadow: 2px 2px #212121;
 }
 .login{
     display: flex;
@@ -25,6 +32,7 @@ h3{
     justify-content: space-around;
     height: 40px;
     width: 100px;
-    background-color: rgb(128, 128, 128);
-    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+    font-family: 'Abril Fatface';
 }

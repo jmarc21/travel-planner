@@ -6,7 +6,7 @@ export default class Home extends Component{
         return(
             <div>
                 <Header/>
-                <h1>This is the Feed page</h1>
+                <h1>Feed:</h1>
             </div>
         )
     }

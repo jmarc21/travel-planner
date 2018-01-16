@@ -8,17 +8,23 @@ export default class Search extends Component{
     constructor(){
         super();
         this.state = {
-            clientID: '8f4b58587ff24fd7ac70647e31233bfd'
+            
         }
     }
-    // componentDidMount(){
-    //     let promise = axios.get('')
-    // }
+    hitApi(){
+        axios.get()
+        .then( res => {
+            console.log(res)
+        })
+    }
+    
     render(){
         return(
             <div>
                 <Header/>
                 <h1>This is the search page</h1>
+                <button onClick = { ()=> this.hitApi }>Hit the api</button>
+                <input type="date" name="" id=""/>
             </div>
         )
     }

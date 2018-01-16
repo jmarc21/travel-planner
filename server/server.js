@@ -40,7 +40,7 @@ passport.use(new Auth0Strategy({
                 picture,
                 user_id
             ]).then(user => {
-                return done(null, uesr[0].id)
+                return done(null, user[0].id)
             })
         } else {
             return done(null, users[0].id)

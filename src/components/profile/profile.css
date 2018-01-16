@@ -1,0 +1,21 @@
+.name{
+    color: black;
+}
+.profile-pic{
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    border: 2px solid black;
+}
+.text{
+    color: black;
+}
+.addtrip{
+    color: black;
+}
+.trip-title{
+    color: black;
+}
+.trip-list{
+    color: black;
+}
