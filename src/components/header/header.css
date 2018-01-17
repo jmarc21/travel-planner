@@ -2,7 +2,7 @@
     height: 50px;
     display: flex;
     flex-direction: row-reverse;
-    background: gray;
+    background: rgb(19, 72, 106);
     margin: 5px;
     border-radius: 5px;
 }

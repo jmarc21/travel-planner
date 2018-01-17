@@ -29,6 +29,7 @@ passport.use(new Auth0Strategy({
     callbackURL: AUTH_CALLBACK_URL,
     scope: 'openid profile'
 }, function(accessToken, refreshToken, extraParams, profile, done){
+    console.log(accessToken)
     let { displayName, user_id, picture} = profile;
     const db = app.get('db')
 

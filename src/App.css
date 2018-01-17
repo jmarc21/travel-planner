@@ -1,29 +1,41 @@
-
-.App {
-  text-align: center;
+.flexWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.flexWrapper left {
+    flex: 1;
+    order: 1;
+    padding: 20px;
+}
+.flexWrapper right {
+    flex: 1;
+    order: 2;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.flexWrapper form {
+    margin: 20px auto;
+    position: relative;
+    height: 30px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.flexWrapper form input {
+      height: 100%;
+      font-size: 2.4em;
 }
 
-.App-title {
-  font-size: 1.5em;
+.flexWrapper form input[type=text] {
+      width: 80%;
+      position: absolute;
+      top: 0;
+      left: 0;
 }
 
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.flexWrapper form input[type=submit] {
+      width: 20%;
+      position: absolute;
+      right: 0;
+      top: 2px;
+      border: 1px solid #ddd;
+      background: #FFF;
 }
