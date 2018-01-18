@@ -4,11 +4,14 @@ const express = require('express')
     , session = require('express-session')
     , passport = require('passport')
     , Auth0Strategy = require('passport-auth0')
-    , massive = require('massive');
+    , massive = require('massive')
+    , cors = require('cors')
+    , axios = require('axios');
 
 const { AUTH_DOMAIN, AUTH_CLIENT_ID, AUTH_CLIENT_SECRET, AUTH_CALLBACK_URL, CONNECTION_STRING } = process.env
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json())
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -75,6 +78,40 @@ app.get('/auth/me', (req,res) => {
 app.get('/auth/logout', function(req,res){
     req.logOut();
     res.redirect('http://localhost:3000/#/')
+})
+app.post('/hotels', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=lodging&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/airports', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=airport&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/restaurants', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=restaurant&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/hotel-detail', (req,res) => {
+    console.log(req.body.place_id)
+    axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${req.body.place_id}&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        // console.log(resp)
+        res.status(200).send(resp.data)
+    })
+})
+app.post('/get-pic', (req,res) => {
+    console.log(req.body)
+    axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${req.body.pic}&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        console.log(resp.request.res.responseUrl)
+        res.status(200).send(resp.request.res.responseUrl)
+    })
 })
 
 
