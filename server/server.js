@@ -82,6 +82,7 @@ app.get('/auth/logout', function(req,res){
 app.post('/hotels', (req,res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=lodging&key=${process.env.GOOGLE_API}`)
     .then(resp => {
+        // console.log(resp)
         res.status(200).send(resp.data.results)
     })
 })
@@ -98,21 +99,21 @@ app.post('/restaurants', (req,res) => {
     })
 })
 app.post('/hotel-detail', (req,res) => {
-    console.log(req.body.place_id)
+    // console.log(req.body.place_id)
     axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${req.body.place_id}&key=${process.env.GOOGLE_API}`)
     .then(resp => {
         // console.log(resp)
         res.status(200).send(resp.data)
     })
 })
-app.post('/get-pic', (req,res) => {
-    console.log(req.body)
-    axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${req.body.pic}&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        console.log(resp.request.res.responseUrl)
-        res.status(200).send(resp.request.res.responseUrl)
-    })
-})
+// app.post('/get-pic', (req,res) => {
+//     console.log(req.body)
+//     axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${req.body.pic}&key=${process.env.GOOGLE_API}`)
+//     .then(resp => {
+//         console.log(resp.request.res.responseUrl)
+//         res.status(200).send(resp.request.res.responseUrl)
+//     })
+// })
 
 
 const { SERVER_PORT } = process.env

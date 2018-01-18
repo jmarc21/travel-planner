@@ -21,7 +21,8 @@ class Contents extends Component {
             hotelMarker: [{
                 lat: null,
                 lng: null
-            }]
+            }],
+            pinDetails: null
         }
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClicked = this.onMapClicked.bind(this);
@@ -80,22 +81,22 @@ class Contents extends Component {
         console.log(coordin)
 
         axios.post('http://localhost:4000/hotels', coordin).then(res => {
-            console.log(res.data[0].photos[0].photo_reference)
             this.setState({
                 hotelData: res.data
             })
+            console.log(res.data)
         })
         axios.post('http://localhost:4000/airports', coordin).then(res => {
-            // console.log(res.data)
             this.setState({
                 airportData: res.data
             })
+            console.log(res.data)
         })
         axios.post('http://localhost:4000/restaurants', coordin).then(res => {
-            // console.log(res.data)
             this.setState({
                 restaurantsData: res.data
             })
+            console.log(res.data)
         })
 
     }
@@ -114,24 +115,15 @@ class Contents extends Component {
             })
         }
     }
-    updateDeparture(val) {
-        this.setState({
-            departureDate: val
-        }, _ => console.log(this.state.departureDate))
-    }
-    updateReturning(val) {
-        this.setState({
-            returningDate: val
-        }, _ => console.log(this.state.returningDate))
-    }
     showDetails(i) {
-        console.log(this.state.hotelData[i])
         var place_id = {
             place_id: this.state.hotelData[i].place_id
         }
-        console.log(this.state.hotelData[i].place_id)
         axios.post('http://localhost:4000/hotel-detail', place_id).then(res => {
             console.log(res.data)
+            this.setState({
+                pinDetails: res.data
+            })
         })
     }
     render() {
@@ -167,93 +159,75 @@ class Contents extends Component {
                 className='restaurant-icon'
             />
         )
-        let hotelMarker = this.state.hotelMarker.map((e, i) =>
-            <Marker key={i}
-                position={{ lat: e.lat, lng: e.lng }}
-            />
-        )
-        var counter = 0
-        let hotel_list = this.state.hotelData.map((e, i) => {
-                var pic = {
-                    pic: e.photos[0].photo_reference
-                }
-                axios.post('http://localhost:4000/get-pic', pic).then(res => {
-                    console.log(res)
-                    counter++
-                    if(counter == this.state.hotelData.length){
-                        this.setState({
-                            
-                        })
-                    }
-                    return(
-                <div key={i}>
-                <h1>{e.name}</h1>
-                <img src={res.data} alt=""/>
-                <h2>Rating: {e.rating}</h2>
-                <div onClick={() => this.showDetails(i)}>Show Details</div>
+        let hotelList = this.state.hotelData.map((e,i)=>{
+            return(
+                <div key={i} onClick={ () => this.showDetails(i)}>
+                    <h1>{e.name}</h1>
+                    <h2>Rating: {e.rating}/5</h2>
+                    <h2>-------------------------</h2>
                 </div>
             )
-            })
         })
-    console.log(hotel_list)
-    return(
-            <div className= { styles.flexWrapper } >
-            <div className={styles.left}>
-                <form onSubmit={this.onSubmit}
-                >
-                    <input
-                        className='location-input'
-                        ref='autocomplete'
-                        type="text"
-                        placeholder="Enter a location" />
-                    <input
-                        className='go-button'
-                        type='submit'
-                        value='Go'
-                        onClick={() => this.search()} />
-                </form>
-            </div>
-            <div className='map'>
-                <div className='map-container'>
-                    <Map {...props}
-                        containerStyle={{
-                            position: 'relative',
-                            height: '88vh',
-                            width: '50%',
-                            float: 'right',
-                            top: '-35px',
-                            right: '10px'
-                        }}
-                        className='map-container'
-                        defaultZoom={5}
-                        center={this.state.position}
-                        centerAroundCurrentLocation={false}>
-                        <Marker position={this.state.position} />
-                        {position_marker_hotel}
-                        {position_marker_airport}
-                        {position_marker_restaurants}
-                        <InfoWindow marker={this.state.activeMarker}
+        return (
+            <div className={styles.flexWrapper} >
+                <div className={styles.left}>
+                    <form onSubmit={this.onSubmit}
+                    >
+                        <input
+                            className='location-input'
+                            ref='autocomplete'
+                            type="text"
+                            placeholder="Enter a location" />
+                        <input
+                            className='go-button'
+                            type='submit'
+                            value='Go'
+                            onClick={() => this.search()} />
+                    </form>
+                </div>
+                <div className='map'>
+                    <div className='map-container'>
+                        <Map {...props}
+                            containerStyle={{
+                                position: 'relative',
+                                height: '88vh',
+                                width: '50%',
+                                float: 'right',
+                                top: '-35px',
+                                right: '10px'
+                            }}
+                            className='map-container'
+                            defaultZoom={5}
+                            center={this.state.position}
+                            centerAroundCurrentLocation={false}>
+                            <Marker position={this.state.position} />
+                            {position_marker_hotel}
+                            {position_marker_airport}
+                            {position_marker_restaurants}
+                            <InfoWindow marker={this.state.activeMarker}
                             visible={this.state.showingInfoWindow}
                         >
                             <div>
                                 <h1>{this.state.selectedPlace.name}</h1>
                                 <h1>Rating: {this.state.selectedPlace.rating}</h1>
-                                <div>Add To Trip</div>
                             </div>
 
                         </InfoWindow>
-                    </Map>
+                        </Map>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <div>Hotels:</div>
-                {hotel_list}
-                <div>Airtports:</div>
-                <div>Restaurant:</div>
-            </div>
+                <div>
+                    <div>Hotels: {`Locating ${this.state.hotelData.length} hotels.`} </div>
+                    {hotelList}
+                    <div>Airtports: {`Locating ${this.state.airportData.length} airports.`} </div>
+                    <div>Restaurant: {`Locating ${this.state.restaurantsData.length} restaurants.`}</div>
+                </div>
+                <div>
+                     <h1></h1>
+                </div>  
             </div>
         )
-}
+    }
 }
 
 class MapWrapper extends Component {
