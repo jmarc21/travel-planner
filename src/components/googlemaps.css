@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700,900');
 .location-input{
       width: 200px;
       height: 33px;
@@ -89,7 +90,7 @@ h2 h1{
     top: 55px;
     left: 30px;
     z-index: 1;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(236, 236, 236);
     border-radius: 5px;
     padding: 10px;
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
@@ -103,10 +104,25 @@ h2 h1{
     opacity: 1;
 }
 .hotel-list{
-    height: 30px;
+    height: 40px;
     margin-top: 3px;
     border-radius: 3px;
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+    background-color: white;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+.hotel-text{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+.hotel-name{
+    font-weight: 700;
+    margin-bottom: 2px;
 }

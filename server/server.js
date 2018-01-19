@@ -98,6 +98,102 @@ app.post('/restaurants', (req,res) => {
         res.status(200).send(resp.data.results)
     })
 })
+app.post('/car-rental', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=car_rental&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/amusement-park', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=amusement_park&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/museum', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=museum&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/aquarium', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=aquarium&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/bakery', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=bakery&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/night-club', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=night_club&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/spa', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=spa&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/liquor-store', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=liquir_store&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/bowling-alley', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=bowling_alley&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/cafe', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=cafe&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/casino', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=casino&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/clothing-store', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=clothing_store&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/department-store', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=department_store&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/shoe-store', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=shoe_store&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/shopping-mall', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=shopping_mall&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
+app.post('/supermarket', (req,res) => {
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=supermarket&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.data.results)
+    })
+})
 app.post('/hotel-detail', (req,res) => {
     // console.log(req.body.place_id)
     axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${req.body.place_id}&key=${process.env.GOOGLE_API}`)

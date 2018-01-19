@@ -3,6 +3,25 @@ import ReactDOM from 'react-dom';
 import Map, { Marker, GoogleApiWrapper, InfoWindow } from 'google-maps-react';
 import styles from './googlemaps.css';
 import axios from 'axios';
+import lodgingSVG from './svg/lodging.svg'
+import airportSVG from './svg/airport.svg'
+import amusementParkSVG from './svg/amusement-park.svg'
+import aquariumSVG from './svg/aquarium.svg'
+import bowlingAlleySVG from './svg/bowling-alley.svg'
+import cafeSVG from './svg/cafe.svg'
+import carRentalSVG from './svg/car-rental.svg'
+import casinoSVG from './svg/casino.svg'
+import clothingStoreSVG from './svg/clothing-store.svg'
+import departmentStoreSVG from './svg/department-store.svg'
+import foodSVG from './svg/food.svg'
+import supermarketSVG from './svg/grocery-or-supermarket.svg'
+import museumSVG from './svg/museum.svg'
+import nightClubSVG from './svg/night-club.svg'
+import pointOfIntSVG from './svg/point-of-interest.svg'
+import restaurantSVG from './svg/restaurant.svg'
+import searchSVG from './svg/search.svg'
+import shoppingMallSVG from './svg/shopping-mall.svg'
+import spaSVG from './svg/spa.svg'
 
 class Contents extends Component {
     constructor(props) {
@@ -13,6 +32,22 @@ class Contents extends Component {
             hotelData: [],
             airportData: [],
             restaurantsData: [],
+            carRentalData: [],
+            amusementParkData: [],
+            museumData: [],
+            aquariumData: [],
+            bakeryData: [],
+            nightClubData: [],
+            spaData: [],
+            liquorStoreData: [],
+            bowlingAlleyData: [],
+            cafeData: [],
+            casinoData: [],
+            clothingStoreData: [],
+            departmentStoreData: [],
+            shoeStoreData: [],
+            shoppingMallData: [],
+            supermarketData: [],
             showingInfoWindow: false,
             activeMarker: {},
             selectedPlace: {},
@@ -151,6 +186,90 @@ class Contents extends Component {
             })
             console.log(res.data)
         })
+        axios.post('http://localhost:4000/car-rental', coordin).then(res => {
+            this.setState({
+                carRentalData: res.data
+            })
+            console.log(res.data)
+        })
+        axios.post('http://localhost:4000/amusement-park', coordin).then(res => {
+            this.setState({
+                amusementParkData: res.data
+            })
+            console.log(res.data)
+        })
+        axios.post('http://localhost:4000/museum', coordin).then(res => {
+            this.setState({
+                museumData: res.data
+            })
+            console.log(res.data)
+        })
+        axios.post('http://localhost:4000/aquarium', coordin).then(res => {
+            this.setState({
+                aquariumData: res.data
+            })
+            console.log(res.data)
+        })
+        axios.post('http://localhost:4000/night-club', coordin).then(res => {
+            this.setState({
+                nightClubData: res.data
+            })
+            console.log(res.data)
+        })
+        axios.post('http://localhost:4000/spa', coordin).then(res => {
+            this.setState({
+                spaData: res.data
+            })
+            console.log(res.data)
+        })
+        axios.post('http://localhost:4000/bowling-alley', coordin).then(res => {
+            this.setState({
+                bowlingAlleyData: res.data
+            })
+            console.log(res.data)
+        })
+        axios.post('http://localhost:4000/cafe', coordin).then(res => {
+            this.setState({
+                cafeData: res.data
+            })
+            console.log(res.data)
+        })
+        axios.post('http://localhost:4000/casino', coordin).then(res => {
+            this.setState({
+                casinoData: res.data
+            })
+            console.log(res.data)
+        })
+        axios.post('http://localhost:4000/clothing-store', coordin).then(res => {
+            this.setState({
+                clothingStoreData: res.data
+            })
+            console.log(res.data)
+        })
+        axios.post('http://localhost:4000/department-store', coordin).then(res => {
+            this.setState({
+                departmentStoreData: res.data
+            })
+            console.log(res.data)
+        })
+        axios.post('http://localhost:4000/shoe-store', coordin).then(res => {
+            this.setState({
+                shoeStoreData: res.data
+            })
+            console.log(res.data)
+        })
+        axios.post('http://localhost:4000/shopping-mall', coordin).then(res => {
+            this.setState({
+                shoppingMallData: res.data
+            })
+            console.log(res.data)
+        })
+        axios.post('http://localhost:4000/supermarket', coordin).then(res => {
+            this.setState({
+                supermarketData: res.data
+            })
+            console.log(res.data)
+        })
 
     }
     onMarkerClick(props, marker, e) {
@@ -173,23 +292,22 @@ class Contents extends Component {
             place_id: this.state.hotelData[i].place_id
         }
         axios.post('http://localhost:4000/hotel-detail', place_id).then(res => {
-            console.log(res.data)
+            // console.log(res.data.result.opening_hours.weekday_text[0])
             this.setState({
                 slide: true,
                 pinDetails: {
                     name: res.data.result.name,
                     address: res.data.result.formatted_address,
                     hours: {
-                        monday: res.data.result.opening_hours.weekday_text[0],
-                        tuesday: res.data.result.opening_hours.weekday_text[1],
-                        wednesday: res.data.result.opening_hours.weekday_text[2],
-                        thursday: res.data.result.opening_hours.weekday_text[3],
-                        friday: res.data.result.opening_hours.weekday_text[4],
-                        saturday: res.data.result.opening_hours.weekday_text[5],
-                        sunday: res.data.result.opening_hours.weekday_text[6]
+                        monday: res.data.result.opening_hours ? res.data.result.opening_hours.weekday_text[0] : null,
+                        tuesday: res.data.result.opening_hours ? res.data.result.opening_hours.weekday_text[1] : null,
+                        wednesday: res.data.result.opening_hours ? res.data.result.opening_hours.weekday_text[2] : null,
+                        thursday: res.data.result.opening_hours ? res.data.result.opening_hours.weekday_text[3] : null,
+                        friday: res.data.result.opening_hours ? res.data.result.opening_hours.weekday_text[4] : null,
+                        saturday: res.data.result.opening_hours ? res.data.result.opening_hours.weekday_text[5] : null,
+                        sunday: res.data.result.opening_hours ? res.data.result.opening_hours.weekday_text[6] : null
                     },
                     internationalPhone: res.data.result.international_phone_number,
-                    openNow: res.data.result.opening_hours.open_now,
                     reviews: {
                         one: {
                             authorName: res.data.result.reviews[0].author_name,
@@ -226,8 +344,8 @@ class Contents extends Component {
                 }
             })
         })
-        
-        
+
+
     }
     slide() {
         this.setState({
@@ -235,6 +353,7 @@ class Contents extends Component {
         })
     }
     render() {
+        console.log(this.state.pinDetails)
         const props = this.props;
         const { position } = this.state;
         let position_marker_hotel = this.state.hotelData.map((e, i) =>
@@ -242,9 +361,9 @@ class Contents extends Component {
                 name={e.name}
                 rating={e.rating}
                 /* onClick={this.onMarkerClick}  */
-                onClick={()=> this.showDetails(i)}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
-                icon={'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjIiIGJhc2VQcm9maWxlPSJ0aW55IiB4bWxucz0iaHR0cDovL3d3dy53%0D%0AMy5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUw%0D%0AIiBvdmVyZmxvdz0iaW5oZXJpdCI+PHBhdGggZD0iTTQ2IDMydjhoNHYtMTJoLTQ2di0xNi4zNGMw%0D%0ALTEuMTIzLS44NjktMi4wNDItMi0yLjA0Mi0xLjEyNyAwLTIgLjkxOC0yIDIuMDQydjI4LjM0aDR2%0D%0ALThoNDJ6bS0zNS42Ny0xMi4xNDhjMi4wNDEgMCAzLjY4Ny0xLjY1MyAzLjY4Ny0zLjY5NCAwLTIu%0D%0AMDI3LTEuNjQ2LTMuNjc1LTMuNjg3LTMuNjc1LTIuMDM4IDAtMy42ODMgMS42NDctMy42ODMgMy42%0D%0ANzUgMCAyLjA0IDEuNjQ1IDMuNjk0IDMuNjgzIDMuNjk0em0zOS42NyA1LjE0OGwtLjAxNC00Ljg3%0D%0AMWMtLjAxMy0xLjYwNi0xLjM2LTIuNjE4LTIuOTM5LTIuODA5bC0yOC45NTctMi44MzMtLjIxNS0u%0D%0AMDA5Yy0xLjAwNiAwLTEuODc1LjgzNC0xLjg3NSAxLjgzNXY1LjY4N2gtNy40NTNjLTEuMDExIDAt%0D%0AMS44MjYuNS0xLjgyNiAxLjQ5OSAwIDEuMDE1LjgxNSAxLjUwMSAxLjgyNiAxLjUwMWg0MS40NTN6%0D%0AIi8+PC9zdmc+'}
+                icon={lodgingSVG}
                 className='hotel-icon'
             />
         )
@@ -254,7 +373,7 @@ class Contents extends Component {
                 rating={e.rating}
                 onClick={this.onMarkerClick}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
-                icon={e.icon}
+                icon={airportSVG}
                 className='airport-icon'
             />
         )
@@ -264,15 +383,162 @@ class Contents extends Component {
                 rating={e.rating}
                 onClick={this.onMarkerClick}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
-                icon={'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjIiIGJhc2VQcm9maWxlPSJ0aW55IiB4bWxucz0iaHR0cDovL3d3dy53%0D%0AMy5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUw%0D%0AIiBvdmVyZmxvdz0iaW5oZXJpdCI+PHBhdGggZD0iTTIyIDEuOTMydjExLjA2OGgtMnYtMTFjMC0u%0D%0ANTUyLS40NDgtMS0xLTFzLTEgLjQ0OC0xIDF2MTFoLTJ2LTExLjAzNmMwLTEuMjg3LTItMS4yNDMt%0D%0AMi0uMDMzdjExLjA2OWgtMnYtMTAuOTljMC0xLjM2My0yLTEuMzEzLTItLjA1NHYxNC40NzJjMCAy%0D%0ALjA4NyAyIDMuNDYzIDQgMy40NjN2MjYuMTA5YzAgNCA2IDQgNiAwdi0yNi4xMDhjMiAwIDQtMS42%0D%0ANjIgNC0zLjIyN3YtMTQuNzAxYzAtMS4yNzUtMi0xLjIyNi0yLS4wMzJ6bTkgMy4wNjh2MjVoMnYx%0D%0ANmMwIDQgNyA0IDcgMHYtNDFjMC01LTktNS05IDB6Ii8+PC9zdmc+'}
+                icon={restaurantSVG}
+                className='restaurant-icon'
+            />
+        )
+        let position_marker_carRental = this.state.carRentalData.map((e, i) =>
+            <Marker key={i}
+                name={e.name}
+                rating={e.rating}
+                onClick={this.onMarkerClick}
+                position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
+                icon={carRentalSVG}
+                className='restaurant-icon'
+            />
+        )
+        let position_marker_amusementPark = this.state.amusementParkData.map((e, i) =>
+            <Marker key={i}
+                name={e.name}
+                rating={e.rating}
+                onClick={this.onMarkerClick}
+                position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
+                icon={amusementParkSVG}
+                className='restaurant-icon'
+            />
+        )
+        let position_marker_museum = this.state.museumData.map((e, i) =>
+            <Marker key={i}
+                name={e.name}
+                rating={e.rating}
+                onClick={this.onMarkerClick}
+                position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
+                icon={museumSVG}
+                className='restaurant-icon'
+            />
+        )
+        let position_marker_aquarium = this.state.aquariumData.map((e, i) =>
+            <Marker key={i}
+                name={e.name}
+                rating={e.rating}
+                onClick={this.onMarkerClick}
+                position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
+                icon={aquariumSVG}
+                className='restaurant-icon'
+            />
+        )
+        let position_marker_nightClub = this.state.nightClubData.map((e, i) =>
+            <Marker key={i}
+                name={e.name}
+                rating={e.rating}
+                onClick={this.onMarkerClick}
+                position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
+                icon={nightClubSVG}
+                className='restaurant-icon'
+            />
+        )
+        let position_marker_spa = this.state.spaData.map((e, i) =>
+            <Marker key={i}
+                name={e.name}
+                rating={e.rating}
+                onClick={this.onMarkerClick}
+                position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
+                icon={spaSVG}
+                className='restaurant-icon'
+            />
+        )
+        let position_marker_bowlingAlley = this.state.bowlingAlleyData.map((e, i) =>
+            <Marker key={i}
+                name={e.name}
+                rating={e.rating}
+                onClick={this.onMarkerClick}
+                position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
+                icon={bowlingAlleySVG}
+                className='restaurant-icon'
+            />
+        )
+        let position_marker_cafe = this.state.cafeData.map((e, i) =>
+            <Marker key={i}
+                name={e.name}
+                rating={e.rating}
+                onClick={this.onMarkerClick}
+                position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
+                icon={cafeSVG}
+                className='restaurant-icon'
+            />
+        )
+        let position_marker_casino = this.state.casinoData.map((e, i) =>
+            <Marker key={i}
+                name={e.name}
+                rating={e.rating}
+                onClick={this.onMarkerClick}
+                position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
+                icon={casinoSVG}
+                className='restaurant-icon'
+            />
+        )
+        let position_marker_clothingStore = this.state.clothingStoreData.map((e, i) =>
+            <Marker key={i}
+                name={e.name}
+                rating={e.rating}
+                onClick={this.onMarkerClick}
+                position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
+                icon={clothingStoreSVG}
+                className='restaurant-icon'
+            />
+        )
+        let position_marker_departmentStore = this.state.departmentStoreData.map((e, i) =>
+            <Marker key={i}
+                name={e.name}
+                rating={e.rating}
+                onClick={this.onMarkerClick}
+                position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
+                icon={departmentStoreSVG}
+                className='restaurant-icon'
+            />
+        )
+        let position_marker_shoeStore = this.state.shoeStoreData.map((e, i) =>
+            <Marker key={i}
+                name={e.name}
+                rating={e.rating}
+                onClick={this.onMarkerClick}
+                position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
+                icon={clothingStoreSVG}
+                className='restaurant-icon'
+            />
+        )
+        let position_marker_shoppingMall = this.state.shoppingMallData.map((e, i) =>
+            <Marker key={i}
+                name={e.name}
+                rating={e.rating}
+                onClick={this.onMarkerClick}
+                position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
+                icon={shoppingMallSVG}
+                className='restaurant-icon'
+            />
+        )
+        let position_marker_supermarket = this.state.supermarketData.map((e, i) =>
+            <Marker key={i}
+                name={e.name}
+                rating={e.rating}
+                onClick={this.onMarkerClick}
+                position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
+                icon={supermarketSVG}
                 className='restaurant-icon'
             />
         )
         let hotelList = this.state.hotelData.map((e, i) => {
             return (
-                <div key={i} onClick={() => this.showDetails(i)} className='hotel-list'>
-                    <h1 className='hotel-name'>{e.name}</h1>
-                    <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={lodgingSVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i)} className='details-hotel'>Details</div>
+
                 </div>
             )
         })
@@ -311,12 +577,26 @@ class Contents extends Component {
                             {position_marker_hotel}
                             {position_marker_airport}
                             {position_marker_restaurants}
+                            {position_marker_carRental}
+                            {position_marker_amusementPark}
+                            {position_marker_museum}
+                            {position_marker_aquarium}
+                            {position_marker_nightClub}
+                            {position_marker_spa}
+                            {position_marker_bowlingAlley}
+                            {position_marker_cafe}
+                            {position_marker_casino}
+                            {position_marker_clothingStore}
+                            {position_marker_departmentStore}
+                            {position_marker_shoeStore}
+                            {position_marker_shoppingMall}
+                            {position_marker_supermarket}
                             <InfoWindow marker={this.state.activeMarker}
                                 visible={this.state.showingInfoWindow}
                             >
                                 <div>
-                                    <h1>{this.state.pinDetails.name}</h1>
-                                    <h1>Rating: {this.state.pinDetails.rating}</h1>
+                                    <h1>{this.state.selectedPlace.name}</h1>
+                                    <h1>Rating: {this.state.selectedPlace.rating}</h1>
                                 </div>
 
                             </InfoWindow>
@@ -324,11 +604,8 @@ class Contents extends Component {
                     </div>
                 </div>
                 <div>
-                    <div className={this.state.displayOpacity ? 'lists display-opacity': 'lists'}>
-                        <div className='hotel-title'>Hotels: {`Locating ${this.state.hotelData.length} hotels.`} </div>
+                    <div className={this.state.displayOpacity ? 'lists display-opacity' : 'lists'}>
                         {hotelList}
-                        <div className='travel-title'>Travel: {`Locating ${this.state.airportData.length} airports.`} </div>
-                        <div className='restaurant-title'>Restaurant: {`Locating ${this.state.restaurantsData.length} restaurants.`}</div>
                     </div>
                 </div>
                 <div className={this.state.slide ? 'slide-details slide' : 'slide-details'}>
@@ -339,7 +616,6 @@ class Contents extends Component {
                     <h1 className='name'>{this.state.pinDetails.name}</h1>
                     <div>Add to trip</div>
                     <h2 className='address'>{this.state.pinDetails.address}</h2>
-                    <h2 className='hours-tag'>Hours:</h2>
                     <h2 className='monday'>{this.state.pinDetails.hours.monday}</h2>
                     <h2 className='tuesday'>{this.state.pinDetails.hours.tuesday}</h2>
                     <h2 className='wednesday'>{this.state.pinDetails.hours.wednesday}</h2>
