@@ -70,10 +70,12 @@ class Contents extends Component {
                     website: null
                 }
             },
-            slide: false
+            slide: false,
+            displayOpacity: false
         }
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClicked = this.onMapClicked.bind(this);
+        this.slide = this.slide.bind(this)
     }
 
     onSubmit(e) {
@@ -121,6 +123,9 @@ class Contents extends Component {
         })
     }
     search() {
+        this.setState({
+            displayOpacity: true
+        })
         var coordin = {
             Lat: this.state.position.lat(),
             Lng: this.state.position.lng()
@@ -218,14 +223,17 @@ class Contents extends Component {
                         },
                         website: res.data.result.website
                     }
-                }})
+                }
+            })
+        })
+        
+        
+    }
+    slide() {
+        this.setState({
+            slide: false
         })
     }
-    // slide(){
-    //     this.setState({
-    //         slide: true
-    //     })
-    // }
     render() {
         const props = this.props;
         const { position } = this.state;
@@ -233,9 +241,10 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                /* onClick={this.onMarkerClick}  */
+                onClick={()=> this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
-                icon={e.icon}
+                icon={'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjIiIGJhc2VQcm9maWxlPSJ0aW55IiB4bWxucz0iaHR0cDovL3d3dy53%0D%0AMy5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUw%0D%0AIiBvdmVyZmxvdz0iaW5oZXJpdCI+PHBhdGggZD0iTTQ2IDMydjhoNHYtMTJoLTQ2di0xNi4zNGMw%0D%0ALTEuMTIzLS44NjktMi4wNDItMi0yLjA0Mi0xLjEyNyAwLTIgLjkxOC0yIDIuMDQydjI4LjM0aDR2%0D%0ALThoNDJ6bS0zNS42Ny0xMi4xNDhjMi4wNDEgMCAzLjY4Ny0xLjY1MyAzLjY4Ny0zLjY5NCAwLTIu%0D%0AMDI3LTEuNjQ2LTMuNjc1LTMuNjg3LTMuNjc1LTIuMDM4IDAtMy42ODMgMS42NDctMy42ODMgMy42%0D%0ANzUgMCAyLjA0IDEuNjQ1IDMuNjk0IDMuNjgzIDMuNjk0em0zOS42NyA1LjE0OGwtLjAxNC00Ljg3%0D%0AMWMtLjAxMy0xLjYwNi0xLjM2LTIuNjE4LTIuOTM5LTIuODA5bC0yOC45NTctMi44MzMtLjIxNS0u%0D%0AMDA5Yy0xLjAwNiAwLTEuODc1LjgzNC0xLjg3NSAxLjgzNXY1LjY4N2gtNy40NTNjLTEuMDExIDAt%0D%0AMS44MjYuNS0xLjgyNiAxLjQ5OSAwIDEuMDE1LjgxNSAxLjUwMSAxLjgyNiAxLjUwMWg0MS40NTN6%0D%0AIi8+PC9zdmc+'}
                 className='hotel-icon'
             />
         )
@@ -261,10 +270,9 @@ class Contents extends Component {
         )
         let hotelList = this.state.hotelData.map((e, i) => {
             return (
-                <div key={i} onClick={() => this.showDetails(i)}>
-                    <h1>{e.name}</h1>
-                    <h2>Rating: {e.rating}/5</h2>
-                    <h2>-------------------------</h2>
+                <div key={i} onClick={() => this.showDetails(i)} className='hotel-list'>
+                    <h1 className='hotel-name'>{e.name}</h1>
+                    <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
                 </div>
             )
         })
@@ -277,7 +285,7 @@ class Contents extends Component {
                             className='location-input'
                             ref='autocomplete'
                             type="text"
-                            placeholder="Enter a location" />
+                            placeholder="Where shall we take you?" />
                         <input
                             className='go-button'
                             type='submit'
@@ -290,11 +298,10 @@ class Contents extends Component {
                         <Map {...props}
                             containerStyle={{
                                 position: 'relative',
-                                height: '88vh',
-                                width: '50%',
-                                float: 'right',
-                                top: '-35px',
-                                right: '10px'
+                                height: '90vh',
+                                width: '100%',
+                                position: "absolute",
+                                top: '0px'
                             }}
                             className='map-container'
                             defaultZoom={5}
@@ -308,8 +315,8 @@ class Contents extends Component {
                                 visible={this.state.showingInfoWindow}
                             >
                                 <div>
-                                    <h1>{this.state.selectedPlace.name}</h1>
-                                    <h1>Rating: {this.state.selectedPlace.rating}</h1>
+                                    <h1>{this.state.pinDetails.name}</h1>
+                                    <h1>Rating: {this.state.pinDetails.rating}</h1>
                                 </div>
 
                             </InfoWindow>
@@ -317,12 +324,18 @@ class Contents extends Component {
                     </div>
                 </div>
                 <div>
-                    <div>Hotels: {`Locating ${this.state.hotelData.length} hotels.`} </div>
-                    {hotelList}
-                    <div>Airtports: {`Locating ${this.state.airportData.length} airports.`} </div>
-                    <div>Restaurant: {`Locating ${this.state.restaurantsData.length} restaurants.`}</div>
+                    <div className={this.state.displayOpacity ? 'lists display-opacity': 'lists'}>
+                        <div className='hotel-title'>Hotels: {`Locating ${this.state.hotelData.length} hotels.`} </div>
+                        {hotelList}
+                        <div className='travel-title'>Travel: {`Locating ${this.state.airportData.length} airports.`} </div>
+                        <div className='restaurant-title'>Restaurant: {`Locating ${this.state.restaurantsData.length} restaurants.`}</div>
+                    </div>
                 </div>
-                <div className={this.state.slide ? 'slide-details slide': 'slide-details'}>
+                <div className={this.state.slide ? 'slide-details slide' : 'slide-details'}>
+                    <div onClick={this.slide} className='exit'>
+                        <div className='exit-line1'></div>
+                        <div className='exit-line2'></div>
+                    </div>
                     <h1 className='name'>{this.state.pinDetails.name}</h1>
                     <div>Add to trip</div>
                     <h2 className='address'>{this.state.pinDetails.address}</h2>
@@ -335,7 +348,6 @@ class Contents extends Component {
                     <h2 className='saturday'>{this.state.pinDetails.hours.saturday}</h2>
                     <h2 className='sunday'>{this.state.pinDetails.hours.sunday}</h2>
                     <h2 className='phone'>Phone: {this.state.pinDetails.internationalPhone}</h2>
-                    <h2 className='openNow'>Open now:{this.state.pinDetails.openNow}</h2>
                     <h2 className='reviews-tag'>Reviews:</h2>
                     <h2 className='authorname-one'>{this.state.pinDetails.reviews.one.authorName}</h2>
                     <h2 className='rating-one'>{this.state.pinDetails.reviews.one.rating}</h2>
