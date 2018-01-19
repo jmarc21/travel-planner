@@ -50,6 +50,21 @@
     height: 90vh;
     width: 50%;
 }
-.hotel-icon{
-    
+.slide-details{
+    background-color: rgb(143, 143, 143);
+    opacity: 1;
+    height: 1000px;
+    width: 575px;
+    position: absolute;
+    top: 0px;
+    left: -590px;
+    border-radius: 5px;
+    padding-left: 10px;
+    transition: .7s;
+}
+h2 h1{
+    color: white;
+}
+.slide{
+    left:-5px;
 }

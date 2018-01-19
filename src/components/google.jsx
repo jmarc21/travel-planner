@@ -22,7 +22,55 @@ class Contents extends Component {
                 lat: null,
                 lng: null
             }],
-            pinDetails: null
+            pinDetails: {
+                name: null,
+                address: null,
+                hours: {
+                    monday: null,
+                    tuesday: null,
+                    wednesday: null,
+                    thursday: null,
+                    friday: null,
+                    saturday: null,
+                    sunday: null
+                },
+                internationalPhone: null,
+                openNow: null,
+                reviews: {
+                    one: {
+                        authorName: null,
+                        rating: null,
+                        posted: null,
+                        text: null
+                    },
+                    two: {
+                        authorName: null,
+                        rating: null,
+                        posted: null,
+                        text: null
+                    },
+                    three: {
+                        authorName: null,
+                        rating: null,
+                        posted: null,
+                        text: null
+                    },
+                    four: {
+                        authorName: null,
+                        rating: null,
+                        posted: null,
+                        text: null
+                    },
+                    five: {
+                        authorName: null,
+                        rating: null,
+                        posted: null,
+                        text: null
+                    },
+                    website: null
+                }
+            },
+            slide: false
         }
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClicked = this.onMapClicked.bind(this);
@@ -122,10 +170,62 @@ class Contents extends Component {
         axios.post('http://localhost:4000/hotel-detail', place_id).then(res => {
             console.log(res.data)
             this.setState({
-                pinDetails: res.data
-            })
+                slide: true,
+                pinDetails: {
+                    name: res.data.result.name,
+                    address: res.data.result.formatted_address,
+                    hours: {
+                        monday: res.data.result.opening_hours.weekday_text[0],
+                        tuesday: res.data.result.opening_hours.weekday_text[1],
+                        wednesday: res.data.result.opening_hours.weekday_text[2],
+                        thursday: res.data.result.opening_hours.weekday_text[3],
+                        friday: res.data.result.opening_hours.weekday_text[4],
+                        saturday: res.data.result.opening_hours.weekday_text[5],
+                        sunday: res.data.result.opening_hours.weekday_text[6]
+                    },
+                    internationalPhone: res.data.result.international_phone_number,
+                    openNow: res.data.result.opening_hours.open_now,
+                    reviews: {
+                        one: {
+                            authorName: res.data.result.reviews[0].author_name,
+                            rating: res.data.result.reviews[0].rating,
+                            posted: res.data.result.reviews[0].relative_time_description,
+                            text: res.data.result.reviews[0].text
+                        },
+                        two: {
+                            authorName: res.data.result.reviews[1].author_name,
+                            rating: res.data.result.reviews[1].rating,
+                            posted: res.data.result.reviews[1].relative_time_description,
+                            text: res.data.result.reviews[1].text
+                        },
+                        three: {
+                            authorName: res.data.result.reviews[2].author_name,
+                            rating: res.data.result.reviews[2].rating,
+                            posted: res.data.result.reviews[2].relative_time_description,
+                            text: res.data.result.reviews[2].text
+                        },
+                        four: {
+                            authorName: res.data.result.reviews[3].author_name,
+                            rating: res.data.result.reviews[3].rating,
+                            posted: res.data.result.reviews[3].relative_time_description,
+                            text: res.data.result.reviews[3].text
+                        },
+                        five: {
+                            authorName: res.data.result.reviews[4].author_name,
+                            rating: res.data.result.reviews[4].rating,
+                            posted: res.data.result.reviews[4].relative_time_description,
+                            text: res.data.result.reviews[4].text
+                        },
+                        website: res.data.result.website
+                    }
+                }})
         })
     }
+    // slide(){
+    //     this.setState({
+    //         slide: true
+    //     })
+    // }
     render() {
         const props = this.props;
         const { position } = this.state;
@@ -159,9 +259,9 @@ class Contents extends Component {
                 className='restaurant-icon'
             />
         )
-        let hotelList = this.state.hotelData.map((e,i)=>{
-            return(
-                <div key={i} onClick={ () => this.showDetails(i)}>
+        let hotelList = this.state.hotelData.map((e, i) => {
+            return (
+                <div key={i} onClick={() => this.showDetails(i)}>
                     <h1>{e.name}</h1>
                     <h2>Rating: {e.rating}/5</h2>
                     <h2>-------------------------</h2>
@@ -205,14 +305,14 @@ class Contents extends Component {
                             {position_marker_airport}
                             {position_marker_restaurants}
                             <InfoWindow marker={this.state.activeMarker}
-                            visible={this.state.showingInfoWindow}
-                        >
-                            <div>
-                                <h1>{this.state.selectedPlace.name}</h1>
-                                <h1>Rating: {this.state.selectedPlace.rating}</h1>
-                            </div>
+                                visible={this.state.showingInfoWindow}
+                            >
+                                <div>
+                                    <h1>{this.state.selectedPlace.name}</h1>
+                                    <h1>Rating: {this.state.selectedPlace.rating}</h1>
+                                </div>
 
-                        </InfoWindow>
+                            </InfoWindow>
                         </Map>
                     </div>
                 </div>
@@ -222,9 +322,43 @@ class Contents extends Component {
                     <div>Airtports: {`Locating ${this.state.airportData.length} airports.`} </div>
                     <div>Restaurant: {`Locating ${this.state.restaurantsData.length} restaurants.`}</div>
                 </div>
-                <div>
-                     <h1></h1>
-                </div>  
+                <div className={this.state.slide ? 'slide-details slide': 'slide-details'}>
+                    <h1 className='name'>{this.state.pinDetails.name}</h1>
+                    <div>Add to trip</div>
+                    <h2 className='address'>{this.state.pinDetails.address}</h2>
+                    <h2 className='hours-tag'>Hours:</h2>
+                    <h2 className='monday'>{this.state.pinDetails.hours.monday}</h2>
+                    <h2 className='tuesday'>{this.state.pinDetails.hours.tuesday}</h2>
+                    <h2 className='wednesday'>{this.state.pinDetails.hours.wednesday}</h2>
+                    <h2 className='thursday'>{this.state.pinDetails.hours.thursday}</h2>
+                    <h2 className='friday'>{this.state.pinDetails.hours.friday}</h2>
+                    <h2 className='saturday'>{this.state.pinDetails.hours.saturday}</h2>
+                    <h2 className='sunday'>{this.state.pinDetails.hours.sunday}</h2>
+                    <h2 className='phone'>Phone: {this.state.pinDetails.internationalPhone}</h2>
+                    <h2 className='openNow'>Open now:{this.state.pinDetails.openNow}</h2>
+                    <h2 className='reviews-tag'>Reviews:</h2>
+                    <h2 className='authorname-one'>{this.state.pinDetails.reviews.one.authorName}</h2>
+                    <h2 className='rating-one'>{this.state.pinDetails.reviews.one.rating}</h2>
+                    <h2 className='posted-one'>{this.state.pinDetails.reviews.one.posted}</h2>
+                    <h2 className='text-one'>{this.state.pinDetails.reviews.one.text}</h2>
+                    <h2 className='authorname-two'>{this.state.pinDetails.reviews.two.authorName}</h2>
+                    <h2 className='rating-two'>{this.state.pinDetails.reviews.two.rating}</h2>
+                    <h2 className='posted-two'>{this.state.pinDetails.reviews.two.posted}</h2>
+                    <h2 className='text-two'>{this.state.pinDetails.reviews.two.text}</h2>
+                    <h2 className='authorname-three'>{this.state.pinDetails.reviews.three.authorName}</h2>
+                    <h2 className='rating-three'>{this.state.pinDetails.reviews.three.rating}</h2>
+                    <h2 className='posted-three'>{this.state.pinDetails.reviews.three.posted}</h2>
+                    <h2 className='text-three'>{this.state.pinDetails.reviews.three.text}</h2>
+                    <h2 className='authorname-four'>{this.state.pinDetails.reviews.four.authorName}</h2>
+                    <h2 className='rating-four'>{this.state.pinDetails.reviews.four.rating}</h2>
+                    <h2 className='posted-four'>{this.state.pinDetails.reviews.four.posted}</h2>
+                    <h2 className='text-four'>{this.state.pinDetails.reviews.four.text}</h2>
+                    <h2 className='authorname-five'>{this.state.pinDetails.reviews.five.authorName}</h2>
+                    <h2 className='rating-five'>{this.state.pinDetails.reviews.five.rating}</h2>
+                    <h2 className='posted-five'>{this.state.pinDetails.reviews.five.posted}</h2>
+                    <h2 className='text-five'>{this.state.pinDetails.reviews.five.text}</h2>
+                    <h2 className='website'>{this.state.pinDetails.website}</h2>
+                </div>
             </div>
         )
     }
