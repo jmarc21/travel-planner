@@ -2,7 +2,7 @@
     height: 50px;
     display: flex;
     flex-direction: row-reverse;
-    background: rgb(19, 72, 106);
+    background: rgb(55, 86, 78);
     margin: 5px;
     border-radius: 5px;
 }
@@ -18,21 +18,35 @@
 .feed{
     color: white;
     font-size: 22px;
+    text-shadow: 1px 2px 3px #666;
 }
 .profile{
     color: white;
     font-size: 22px;
+    text-shadow: 1px 2px 3px #666;
 }
 .search{
     color: white;
     font-size: 22px;
+    text-shadow: 1px 2px 3px #666;
 }
 .plan{
     color: white;
     font-size: 22px;
+    text-shadow: 1px 2px 3px #666;
 }
 .logout{
     color: white;
     font-size: 22px;
+    text-shadow: 1px 2px 3px #666;
 }
-
+.title-container{
+    position: absolute;
+}
+.title{
+    position: relative;
+    color: black;
+    top: 10px;
+    z-index: 1;
+    left: -800px;
+}

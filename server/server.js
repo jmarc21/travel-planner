@@ -194,7 +194,7 @@ app.post('/supermarket', (req,res) => {
         res.status(200).send(resp.data.results)
     })
 })
-app.post('/hotel-detail', (req,res) => {
+app.post('/detail', (req,res) => {
     // console.log(req.body.place_id)
     axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${req.body.place_id}&key=${process.env.GOOGLE_API}`)
     .then(resp => {

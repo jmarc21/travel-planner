@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Map, { Marker, GoogleApiWrapper, InfoWindow } from 'google-maps-react';
+import Map, { Marker, GoogleApiWrapper, InfoWindow, withScriptjs } from 'google-maps-react';
 import styles from './googlemaps.css';
 import axios from 'axios';
 import lodgingSVG from './svg/lodging.svg'
@@ -22,6 +22,7 @@ import restaurantSVG from './svg/restaurant.svg'
 import searchSVG from './svg/search.svg'
 import shoppingMallSVG from './svg/shopping-mall.svg'
 import spaSVG from './svg/spa.svg'
+import mapStyles from './mapStyles.json'
 
 class Contents extends Component {
     constructor(props) {
@@ -287,12 +288,15 @@ class Contents extends Component {
             })
         }
     }
-    showDetails(i) {
+    showDetails(i, data) {
+        console.log(data)
         var place_id = {
-            place_id: this.state.hotelData[i].place_id
+            place_id: data[i].place_id
         }
-        axios.post('http://localhost:4000/hotel-detail', place_id).then(res => {
+        console.log(place_id)
+        axios.post('http://localhost:4000/detail', place_id).then(res => {
             // console.log(res.data.result.opening_hours.weekday_text[0])
+            console.log(res)
             this.setState({
                 slide: true,
                 pinDetails: {
@@ -371,7 +375,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={airportSVG}
                 className='airport-icon'
@@ -381,7 +385,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={restaurantSVG}
                 className='restaurant-icon'
@@ -391,7 +395,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={carRentalSVG}
                 className='restaurant-icon'
@@ -401,7 +405,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={amusementParkSVG}
                 className='restaurant-icon'
@@ -411,7 +415,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={museumSVG}
                 className='restaurant-icon'
@@ -421,7 +425,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={aquariumSVG}
                 className='restaurant-icon'
@@ -431,7 +435,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={nightClubSVG}
                 className='restaurant-icon'
@@ -441,7 +445,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={spaSVG}
                 className='restaurant-icon'
@@ -451,7 +455,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={bowlingAlleySVG}
                 className='restaurant-icon'
@@ -461,7 +465,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={cafeSVG}
                 className='restaurant-icon'
@@ -471,7 +475,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={casinoSVG}
                 className='restaurant-icon'
@@ -481,7 +485,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={clothingStoreSVG}
                 className='restaurant-icon'
@@ -491,7 +495,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={departmentStoreSVG}
                 className='restaurant-icon'
@@ -501,7 +505,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={clothingStoreSVG}
                 className='restaurant-icon'
@@ -511,7 +515,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={shoppingMallSVG}
                 className='restaurant-icon'
@@ -521,13 +525,14 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={this.onMarkerClick}
+                onClick={() => this.showDetails(i)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={supermarketSVG}
                 className='restaurant-icon'
             />
         )
         let hotelList = this.state.hotelData.map((e, i) => {
+            var data = this.state.hotelData
             return (
                 <div key={i} className='hotel-list'>
                     <div>
@@ -537,7 +542,263 @@ class Contents extends Component {
                         <h1 className='hotel-name'>{e.name}</h1>
                         <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
                     </div>
-                    <div onClick={() => this.showDetails(i)} className='details-hotel'>Details</div>
+                    <div onClick={() => this.showDetails(i, this.state.hotelData)} className='details-hotel'>Details</div>
+
+                </div>
+            )
+        })
+        let airportList = this.state.airportData.map((e, i) => {
+            var data = this.state.airportData
+            return (
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={airportSVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i, data)} className='details-hotel'>Details</div>
+
+                </div>
+            )
+        })
+        let restaurantList = this.state.restaurantsData.map((e, i) => {
+            var data = this.state.restaurantsData
+            return (
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={restaurantSVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i, data)} className='details-hotel'>Details</div>
+
+                </div>
+            )
+        })
+        let carRentalList = this.state.carRentalData.map((e, i) => {
+            var data = this.state.carRentalData
+            return (
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={carRentalSVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i, data)} className='details-hotel'>Details</div>
+
+                </div>
+            )
+        })
+        let amusementParkList = this.state.amusementParkData.map((e, i) => {
+            var data = this.state.amusementParkData
+            return (
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={amusementParkSVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i, data)} className='details-hotel'>Details</div>
+
+                </div>
+            )
+        })
+        let museumList = this.state.museumData.map((e, i) => {
+            var data = this.state.museumData
+            return (
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={museumSVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i, data)} className='details-hotel'>Details</div>
+
+                </div>
+            )
+        })
+        let aquariumList = this.state.aquariumData.map((e, i) => {
+            var data = this.state.aquariumData
+            return (
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={aquariumSVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i, data)} className='details-hotel'>Details</div>
+
+                </div>
+            )
+        })
+        let nightClubList = this.state.nightClubData.map((e, i) => {
+            var data = this.state.nightClubData
+            return (
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={nightClubSVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i, data)} className='details-hotel'>Details</div>
+
+                </div>
+            )
+        })
+        let spaList = this.state.spaData.map((e, i) => {
+            var data = this.state.spaData
+            return (
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={spaSVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i, data)} className='details-hotel'>Details</div>
+
+                </div>
+            )
+        })
+        let bowlingList = this.state.bowlingAlleyData.map((e, i) => {
+            var data = this.state.bowlingAlleyData
+            return (
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={bowlingAlleySVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i, data)} className='details-hotel'>Details</div>
+
+                </div>
+            )
+        })
+        let cafeList = this.state.cafeData.map((e, i) => {
+            var data = this.state.cafeData
+            return (
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={cafeSVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i, data)} className='details-hotel'>Details</div>
+
+                </div>
+            )
+        })
+        let casinoList = this.state.casinoData.map((e, i) => {
+            var data = this.state.casinoData
+            return (
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={casinoSVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i, data)} className='details-hotel'>Details</div>
+
+                </div>
+            )
+        })
+        let clothingStoreList = this.state.clothingStoreData.map((e, i) => {
+            var data = this.state.clothingStoreData
+            return (
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={clothingStoreSVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i, data)} className='details-hotel'>Details</div>
+
+                </div>
+            )
+        })
+        let departmentStoreList = this.state.departmentStoreData.map((e, i) => {
+            var data = this.state.departmentStoreData
+            return (
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={departmentStoreSVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i, data)} className='details-hotel'>Details</div>
+
+                </div>
+            )
+        })
+        let shoeStoreList = this.state.shoeStoreData.map((e, i) => {
+            var data = this.state.shoeStoreData
+            return (
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={departmentStoreSVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i, data)} className='details-hotel'>Details</div>
+
+                </div>
+            )
+        })
+        let shoppingMallList = this.state.shoppingMallData.map((e, i) => {
+            var data = this.state.shoppingMallData
+            return (
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={shoppingMallSVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i, data)} className='details-hotel'>Details</div>
+
+                </div>
+            )
+        })
+        let supermarketList = this.state.supermarketData.map((e, i) => {
+            var data = this.state.supermarketData
+            return (
+                <div key={i} className='hotel-list'>
+                    <div>
+                        <img src={supermarketSVG} alt="" className='hotel-list-icon' />
+                    </div>
+                    <div className='hotel-text'>
+                        <h1 className='hotel-name'>{e.name}</h1>
+                        <h2 className='hotel-rating'>Rating: {e.rating}/5</h2>
+                    </div>
+                    <div onClick={() => this.showDetails(i, data)} className='details-hotel'>Details</div>
 
                 </div>
             )
@@ -567,13 +828,15 @@ class Contents extends Component {
                                 height: '90vh',
                                 width: '100%',
                                 position: "absolute",
-                                top: '0px'
+                                top: '0px',
+                                
                             }}
+                            styles={ mapStyles }
                             className='map-container'
-                            defaultZoom={5}
+                            zoom={16}
                             center={this.state.position}
                             centerAroundCurrentLocation={false}>
-                            <Marker position={this.state.position} />
+                            <Marker position={this.state.position}/>
                             {position_marker_hotel}
                             {position_marker_airport}
                             {position_marker_restaurants}
@@ -594,7 +857,7 @@ class Contents extends Component {
                             <InfoWindow marker={this.state.activeMarker}
                                 visible={this.state.showingInfoWindow}
                             >
-                                <div>
+                                <div className='window-text'>
                                     <h1>{this.state.selectedPlace.name}</h1>
                                     <h1>Rating: {this.state.selectedPlace.rating}</h1>
                                 </div>
@@ -605,7 +868,28 @@ class Contents extends Component {
                 </div>
                 <div>
                     <div className={this.state.displayOpacity ? 'lists display-opacity' : 'lists'}>
+                    <h1 className='title-list'>Hotels:</h1>
                         {hotelList}
+                    <h1 className='title-list'>Transport:</h1>
+                        {airportList}
+                        {carRentalList}
+                    <h1 className='title-list'>Food:</h1>
+                        {restaurantList}
+                        {cafeList}
+                        {supermarketList}
+                    <h1 className='title-list'>Amusement:</h1>
+                        {amusementParkList}
+                        {museumList}
+                        {aquariumList}
+                        {nightClubList}
+                        {spaList}
+                        {bowlingList}
+                        {casinoList}
+                    <h1 className='title-list'>Shopping:</h1>
+                        {clothingStoreList}
+                        {departmentStoreList}
+                        {shoeStoreList}
+                        {shoppingMallList}
                     </div>
                 </div>
                 <div className={this.state.slide ? 'slide-details slide' : 'slide-details'}>

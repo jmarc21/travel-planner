@@ -88,7 +88,7 @@ h2 h1{
     width: 300px;
     position: absolute;
     top: 55px;
-    left: 30px;
+    left: 15px;
     z-index: 1;
     background-color: rgb(236, 236, 236);
     border-radius: 5px;
@@ -105,6 +105,7 @@ h2 h1{
 }
 .hotel-list{
     height: 40px;
+    width: 290px;
     margin-top: 3px;
     border-radius: 3px;
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
@@ -125,4 +126,13 @@ h2 h1{
 .hotel-name{
     font-weight: 700;
     margin-bottom: 2px;
+}
+.window-text{
+    text-align: center;
+}
+.title{
+    margin-top: 2px;
+}
+.title-list{
+    margin-top: 2px;
 }
