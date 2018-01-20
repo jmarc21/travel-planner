@@ -314,34 +314,34 @@ class Contents extends Component {
                     internationalPhone: res.data.result.international_phone_number,
                     reviews: {
                         one: {
-                            authorName: res.data.result.reviews[0].author_name,
-                            rating: res.data.result.reviews[0].rating,
-                            posted: res.data.result.reviews[0].relative_time_description,
-                            text: res.data.result.reviews[0].text
+                            authorName: res.data.result.reviews[0] ? res.data.result.reviews[0].author_name : null,
+                            rating: res.data.result.reviews[0] ? res.data.result.reviews[0].rating : null,
+                            posted: res.data.result.reviews[0] ? res.data.result.reviews[0].relative_time_description : null,
+                            text: res.data.result.reviews[0] ? res.data.result.reviews[0].text : null
                         },
                         two: {
-                            authorName: res.data.result.reviews[1].author_name,
-                            rating: res.data.result.reviews[1].rating,
-                            posted: res.data.result.reviews[1].relative_time_description,
-                            text: res.data.result.reviews[1].text
+                            authorName: res.data.result.reviews[1] ? res.data.result.reviews[1].author_name : null,
+                            rating: res.data.result.reviews[1] ? res.data.result.reviews[1].rating : null,
+                            posted: res.data.result.reviews[1] ? res.data.result.reviews[1].relative_time_description : null,
+                            text: res.data.result.reviews[1] ? res.data.result.reviews[1].text : null
                         },
                         three: {
-                            authorName: res.data.result.reviews[2].author_name,
-                            rating: res.data.result.reviews[2].rating,
-                            posted: res.data.result.reviews[2].relative_time_description,
-                            text: res.data.result.reviews[2].text
+                            authorName: res.data.result.reviews[2] ? res.data.result.reviews[2].author_name : null,
+                            rating: res.data.result.reviews[2] ? res.data.result.reviews[2].rating : null,
+                            posted: res.data.result.reviews[2] ? res.data.result.reviews[2].relative_time_description : null,
+                            text: res.data.result.reviews[2] ? res.data.result.reviews[2].text : null
                         },
                         four: {
-                            authorName: res.data.result.reviews[3].author_name,
-                            rating: res.data.result.reviews[3].rating,
-                            posted: res.data.result.reviews[3].relative_time_description,
-                            text: res.data.result.reviews[3].text
+                            authorName: res.data.result.reviews[3] ? res.data.result.reviews[3].author_name : null,
+                            rating: res.data.result.reviews[3] ? res.data.result.reviews[3].rating : null,
+                            posted: res.data.result.reviews[3] ? res.data.result.reviews[3].relative_time_description : null,
+                            text: res.data.result.reviews[3] ? res.data.result.reviews[3].text : null
                         },
                         five: {
-                            authorName: res.data.result.reviews[4].author_name,
-                            rating: res.data.result.reviews[4].rating,
-                            posted: res.data.result.reviews[4].relative_time_description,
-                            text: res.data.result.reviews[4].text
+                            authorName: res.data.result.reviews[4] ? res.data.result.reviews[4].author_name : null,
+                            rating: res.data.result.reviews[4] ? res.data.result.reviews[4].rating : null,
+                            posted: res.data.result.reviews[4] ? res.data.result.reviews[4].relative_time_description : null,
+                            text: res.data.result.reviews[4] ? res.data.result.reviews[4].text : null
                         },
                         website: res.data.result.website
                     }
@@ -365,7 +365,7 @@ class Contents extends Component {
                 name={e.name}
                 rating={e.rating}
                 /* onClick={this.onMarkerClick}  */
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.hotelData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={lodgingSVG}
                 className='hotel-icon'
@@ -375,7 +375,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.airportData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={airportSVG}
                 className='airport-icon'
@@ -385,7 +385,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.restaurantsData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={restaurantSVG}
                 className='restaurant-icon'
@@ -395,7 +395,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.carRentalData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={carRentalSVG}
                 className='restaurant-icon'
@@ -405,7 +405,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.amusementParkData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={amusementParkSVG}
                 className='restaurant-icon'
@@ -415,7 +415,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.museumData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={museumSVG}
                 className='restaurant-icon'
@@ -425,7 +425,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.aquariumData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={aquariumSVG}
                 className='restaurant-icon'
@@ -435,7 +435,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.nightClubData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={nightClubSVG}
                 className='restaurant-icon'
@@ -445,7 +445,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.spaData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={spaSVG}
                 className='restaurant-icon'
@@ -455,7 +455,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.bowlingAlleyData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={bowlingAlleySVG}
                 className='restaurant-icon'
@@ -465,7 +465,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.cafeData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={cafeSVG}
                 className='restaurant-icon'
@@ -475,7 +475,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.casinoData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={casinoSVG}
                 className='restaurant-icon'
@@ -485,7 +485,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.clothingStoreData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={clothingStoreSVG}
                 className='restaurant-icon'
@@ -495,7 +495,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.departmentStoreData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={departmentStoreSVG}
                 className='restaurant-icon'
@@ -505,7 +505,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.shoeStoreData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={clothingStoreSVG}
                 className='restaurant-icon'
@@ -515,7 +515,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.shoppingMallData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={shoppingMallSVG}
                 className='restaurant-icon'
@@ -525,7 +525,7 @@ class Contents extends Component {
             <Marker key={i}
                 name={e.name}
                 rating={e.rating}
-                onClick={() => this.showDetails(i)}
+                onClick={() => this.showDetails(i, this.state.supermarketData)}
                 position={{ lat: e.geometry.location.lat, lng: e.geometry.location.lng }}
                 icon={supermarketSVG}
                 className='restaurant-icon'
