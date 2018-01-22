@@ -972,14 +972,19 @@ class Contents extends Component {
                         <div className='exit-line1'></div>
                         <div className='exit-line2'></div>
                     </div>
+                    <div className='addtotrip-button'>Add to trip</div>
                     <div className='photo-container'>
                         <div className='pic-container'>
                             <img src={this.state.pic} alt="" className='pic' />
                             <div className='nameaddtotrip'>
                                 <div className='title-bar'>
-                                    <h1 className='name'>{this.state.pinDetails.name}</h1>
-                                    <div>Add to trip</div>
-                                    <h2 className='address'>{this.state.pinDetails.address}</h2>
+                                    <div className='addtotrip'>
+                                        <h1 className='name'>{this.state.pinDetails.name}</h1>
+                                    </div>
+                                    <div className='address-container'>
+                                        <h2 className='address'>{this.state.pinDetails.address}</h2>
+                                        <div>Hours 🔽</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
