@@ -421,7 +421,7 @@ class Contents extends Component {
             visibleShopping: true
         })
     }
-    showHours(){
+    showHours() {
         this.setState({
             showHours: this.state.showHours ? false : true
         })
@@ -1007,28 +1007,38 @@ class Contents extends Component {
                             <h2 className='saturday'>{this.state.pinDetails.hours.saturday}</h2>
                             <h2 className='sunday'>{this.state.pinDetails.hours.sunday}</h2>
                         </div>
-                        
+
                         <h2 className='reviews-tag'>Reviews:</h2>
-                        <h2 className='authorname-one'>{this.state.pinDetails.reviews.one.authorName}</h2>
-                        <h2 className='rating-one'>{this.state.pinDetails.reviews.one.rating}</h2>
-                        <h2 className='posted-one'>{this.state.pinDetails.reviews.one.posted}</h2>
-                        <h2 className='text-one'>{this.state.pinDetails.reviews.one.text}</h2>
-                        <h2 className='authorname-two'>{this.state.pinDetails.reviews.two.authorName}</h2>
-                        <h2 className='rating-two'>{this.state.pinDetails.reviews.two.rating}</h2>
-                        <h2 className='posted-two'>{this.state.pinDetails.reviews.two.posted}</h2>
-                        <h2 className='text-two'>{this.state.pinDetails.reviews.two.text}</h2>
-                        <h2 className='authorname-three'>{this.state.pinDetails.reviews.three.authorName}</h2>
-                        <h2 className='rating-three'>{this.state.pinDetails.reviews.three.rating}</h2>
-                        <h2 className='posted-three'>{this.state.pinDetails.reviews.three.posted}</h2>
-                        <h2 className='text-three'>{this.state.pinDetails.reviews.three.text}</h2>
-                        <h2 className='authorname-four'>{this.state.pinDetails.reviews.four.authorName}</h2>
-                        <h2 className='rating-four'>{this.state.pinDetails.reviews.four.rating}</h2>
-                        <h2 className='posted-four'>{this.state.pinDetails.reviews.four.posted}</h2>
-                        <h2 className='text-four'>{this.state.pinDetails.reviews.four.text}</h2>
-                        <h2 className='authorname-five'>{this.state.pinDetails.reviews.five.authorName}</h2>
-                        <h2 className='rating-five'>{this.state.pinDetails.reviews.five.rating}</h2>
-                        <h2 className='posted-five'>{this.state.pinDetails.reviews.five.posted}</h2>
-                        <h2 className='text-five'>{this.state.pinDetails.reviews.five.text}</h2>
+                        <div className='review'>
+                            <h2 className='authorname'>{this.state.pinDetails.reviews.one.authorName}</h2>
+                            <h2 className='rating'>Rating: {this.state.pinDetails.reviews.one.rating}/5</h2>
+                            <h2 className='text'>{this.state.pinDetails.reviews.one.text}</h2>
+                            <h2 className='posted'>{this.state.pinDetails.reviews.one.posted}</h2>
+                        </div>
+                        <div className='review'>
+                            <h2 className='authorname'>{this.state.pinDetails.reviews.two.authorName}</h2>
+                            <h2 className='rating'>Rating: {this.state.pinDetails.reviews.two.rating}/5</h2>
+                            <h2 className='text'>{this.state.pinDetails.reviews.two.text}</h2>
+                            <h2 className='posted'>{this.state.pinDetails.reviews.two.posted}</h2>
+                        </div>
+                        <div className='review'>
+                            <h2 className='authorname'>{this.state.pinDetails.reviews.three.authorName}</h2>
+                            <h2 className='rating'>Rating: {this.state.pinDetails.reviews.three.rating}/5</h2>
+                            <h2 className='text'>{this.state.pinDetails.reviews.three.text}</h2>
+                            <h2 className='posted'>{this.state.pinDetails.reviews.three.posted}</h2>
+                        </div>
+                        <div className='review'>
+                            <h2 className='authorname'>{this.state.pinDetails.reviews.four.authorName}</h2>
+                            <h2 className='rating'>Rating: {this.state.pinDetails.reviews.four.rating}/5</h2>
+                            <h2 className='text'>{this.state.pinDetails.reviews.four.text}</h2>
+                            <h2 className='posted'>{this.state.pinDetails.reviews.four.posted}</h2>
+                        </div>
+                        <div className='review'>
+                            <h2 className='authorname'>{this.state.pinDetails.reviews.five.authorName}</h2>
+                            <h2 className='rating'>Rating: {this.state.pinDetails.reviews.five.rating}/5</h2>
+                            <h2 className='text'>{this.state.pinDetails.reviews.five.text}</h2>
+                            <h2 className='posted'>{this.state.pinDetails.reviews.five.posted}</h2>
+                        </div>
                         <h2 className='website'>{this.state.pinDetails.website}</h2>
                     </div>
                 </div>

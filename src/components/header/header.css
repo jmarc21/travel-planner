@@ -2,7 +2,7 @@
     height: 50px;
     display: flex;
     flex-direction: row-reverse;
-    background: #963019;
+    background-image: linear-gradient(-180deg, #FFFFFF 0%, rgb(194, 194, 194) 100%);
 }
 .nav{
     width: 40%;
@@ -16,7 +16,7 @@
 .feed{
     height: 50px;
     width: 100px;
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 22px;
     text-shadow: 1px 2px 3px #666;
     display: flex;
@@ -27,7 +27,7 @@
 .profile{
     height: 50px;
     width: 100px;
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 22px;
     text-shadow: 1px 2px 3px #666;
     display: flex;
@@ -36,14 +36,14 @@
     text-align: center;
 }
 .search{
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 22px;
     text-shadow: 1px 2px 3px #666;
 }
 .plan{
     height: 50px;
     width: 100px;
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 22px;
     text-shadow: 1px 2px 3px #666;
     display: flex;
@@ -54,7 +54,7 @@
 .logout{
     height: 50px;
     width: 100px;
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 22px;
     text-shadow: 1px 2px 3px #666;
     display: flex;
@@ -73,18 +73,18 @@
     left: -800px;
 }
 .feed:hover{
-    background-color: #16174f;
+    background-color: #4e4e4e;
     transition: .5s;
 }
 .profile:hover{
-    background-color: #16174f;
+    background-color: #4e4e4e;
     transition: .5s;
 }
 .plan:hover{
-    background-color: #16174f;
+    background-color: #4e4e4e;
     transition: .5s;
 }
 .logout:hover{
-    background-color: #f6f1ed;
+    background-color: #000000;
     transition: .5s;
 }
