@@ -2,26 +2,38 @@
     height: 50px;
     display: flex;
     flex-direction: row-reverse;
-    background: #0f1626;
+    background: #963019;
 }
 .nav{
     width: 40%;
     height: 50px;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     border-radius: 5px;
 }
 .feed{
+    height: 50px;
+    width: 100px;
     color: white;
     font-size: 22px;
     text-shadow: 1px 2px 3px #666;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 .profile{
+    height: 50px;
+    width: 100px;
     color: white;
     font-size: 22px;
     text-shadow: 1px 2px 3px #666;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 .search{
     color: white;
@@ -29,14 +41,26 @@
     text-shadow: 1px 2px 3px #666;
 }
 .plan{
+    height: 50px;
+    width: 100px;
     color: white;
     font-size: 22px;
     text-shadow: 1px 2px 3px #666;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 .logout{
+    height: 50px;
+    width: 100px;
     color: white;
     font-size: 22px;
     text-shadow: 1px 2px 3px #666;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 .title-container{
     position: absolute;
@@ -47,4 +71,20 @@
     top: 10px;
     z-index: 1;
     left: -800px;
+}
+.feed:hover{
+    background-color: #16174f;
+    transition: .5s;
+}
+.profile:hover{
+    background-color: #16174f;
+    transition: .5s;
+}
+.plan:hover{
+    background-color: #16174f;
+    transition: .5s;
+}
+.logout:hover{
+    background-color: #f6f1ed;
+    transition: .5s;
 }

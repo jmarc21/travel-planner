@@ -35,15 +35,13 @@
     width: 50%;
 }
 .slide-details{
-    background-color: #f5f5f5;
+    background-color: #5a5c51;
     opacity: 1;
     height: 500px;
     width: 400px;
     position: absolute;
-    top: 5px;
+    top: 0px;
     left: -590px;
-    border-radius: 5px;
-    /* padding-left: 10px; */
     transition: .4s;
     z-index: 2;
     overflow-y: scroll;
@@ -93,7 +91,7 @@ h2 h1{
     top: 55px;
     left: 15px;
     z-index: 0;
-    background-color: #ff533d;
+    background-color: #ba9077;
     border-radius: 5px;
     padding: 10px;
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
@@ -217,6 +215,7 @@ h2 h1{
 }
 .pic{
     width: 100%;
+    background: cover;
     /* position: absolute; */
     z-index: -1;
 
@@ -233,7 +232,7 @@ h2 h1{
     flex-direction: column;
     /* height: 250px; */
     width: 380px;
-    background-color: #ff533d;
+    background-color: #ba9077;
     /* position: relative; */
     z-index: 1;
     padding: 10px;
@@ -246,15 +245,18 @@ h2 h1{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
+    
 }
 .title-bar{
-    height: 50px;
+    height: 80px;
     width: 350px;
-    background-color: #ff533d;
-    padding: 0px 0px 0 20px;
+    background-color: #ba9077;
+    padding: 0px 0px 0 0px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-left: 10px;
 }
 .addtotrip{
     display: flex;
@@ -265,7 +267,8 @@ h2 h1{
 .address-container{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
+    margin-left: 10px;
 }
 .addtotrip-button{
     position: absolute;
@@ -282,7 +285,36 @@ h2 h1{
     text-align: center;
 }
 .name{
-    font-size: 22px;
+    font-size: 18px;
     font-family: 'Roboto', sans-serif;
     font-weight: 600;
+}
+.hours-button{
+    height: 15px;
+    width: 50px;
+    border-radius: 3px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.phone{
+    margin-left: 10px;
+    margin-top: 2px;
+}
+.hour-list{
+    position: absolute;
+    right: 3px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    border-radius: 3px;
+    transition: .7s;
+    z-index: 2;
+}
+.display{
+    display: none;
 }

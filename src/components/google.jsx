@@ -114,7 +114,8 @@ class Contents extends Component {
             visibleTransport: false,
             visibleAmusement: false,
             visibleFood: false,
-            visibleShopping: false
+            visibleShopping: false,
+            showHours: false
         }
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClicked = this.onMapClicked.bind(this);
@@ -124,6 +125,7 @@ class Contents extends Component {
         this.visibleAmusement = this.visibleAmusement.bind(this)
         this.visibleFood = this.visibleFood.bind(this)
         this.visibleShopping = this.visibleShopping.bind(this)
+        this.showHours = this.showHours.bind(this)
     }
 
     onSubmit(e) {
@@ -417,6 +419,11 @@ class Contents extends Component {
             visibleAmusement: false,
             visibleFood: false,
             visibleShopping: true
+        })
+    }
+    showHours(){
+        this.setState({
+            showHours: this.state.showHours ? false : true
         })
     }
     render() {
@@ -887,7 +894,7 @@ class Contents extends Component {
                         <Map {...props}
                             containerStyle={{
                                 position: 'relative',
-                                height: '90vh',
+                                height: '525px',
                                 width: '100%',
                                 position: "absolute",
                                 top: '0px',
@@ -895,7 +902,7 @@ class Contents extends Component {
                             }}
                             styles={mapStyles}
                             className='map-container'
-                            zoom={16}
+                            zoom={13}
                             center={this.state.position}
                             centerAroundCurrentLocation={false}>
                             <Marker position={this.state.position}
@@ -980,24 +987,27 @@ class Contents extends Component {
                                 <div className='title-bar'>
                                     <div className='addtotrip'>
                                         <h1 className='name'>{this.state.pinDetails.name}</h1>
+                                        <div className='hours-button' onClick={() => this.showHours()}>Hours</div>
                                     </div>
                                     <div className='address-container'>
                                         <h2 className='address'>{this.state.pinDetails.address}</h2>
-                                        <div>Hours 🔽</div>
                                     </div>
+                                    <h2 className='phone'>Phone: {this.state.pinDetails.internationalPhone}</h2>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='body'>
-                        <h2 className='monday'>{this.state.pinDetails.hours.monday}</h2>
-                        <h2 className='tuesday'>{this.state.pinDetails.hours.tuesday}</h2>
-                        <h2 className='wednesday'>{this.state.pinDetails.hours.wednesday}</h2>
-                        <h2 className='thursday'>{this.state.pinDetails.hours.thursday}</h2>
-                        <h2 className='friday'>{this.state.pinDetails.hours.friday}</h2>
-                        <h2 className='saturday'>{this.state.pinDetails.hours.saturday}</h2>
-                        <h2 className='sunday'>{this.state.pinDetails.hours.sunday}</h2>
-                        <h2 className='phone'>Phone: {this.state.pinDetails.internationalPhone}</h2>
+                        <div className={this.state.showHours ? 'hour-list' : 'hour-list display'}>
+                            <h2 className='monday'>{this.state.pinDetails.hours.monday}</h2>
+                            <h2 className='tuesday'>{this.state.pinDetails.hours.tuesday}</h2>
+                            <h2 className='wednesday'>{this.state.pinDetails.hours.wednesday}</h2>
+                            <h2 className='thursday'>{this.state.pinDetails.hours.thursday}</h2>
+                            <h2 className='friday'>{this.state.pinDetails.hours.friday}</h2>
+                            <h2 className='saturday'>{this.state.pinDetails.hours.saturday}</h2>
+                            <h2 className='sunday'>{this.state.pinDetails.hours.sunday}</h2>
+                        </div>
+                        
                         <h2 className='reviews-tag'>Reviews:</h2>
                         <h2 className='authorname-one'>{this.state.pinDetails.reviews.one.authorName}</h2>
                         <h2 className='rating-one'>{this.state.pinDetails.reviews.one.rating}</h2>
