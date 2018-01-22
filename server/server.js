@@ -202,14 +202,13 @@ app.post('/detail', (req,res) => {
         res.status(200).send(resp.data)
     })
 })
-// app.post('/get-pic', (req,res) => {
-//     console.log(req.body)
-//     axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${req.body.pic}&key=${process.env.GOOGLE_API}`)
-//     .then(resp => {
-//         console.log(resp.request.res.responseUrl)
-//         res.status(200).send(resp.request.res.responseUrl)
-//     })
-// })
+app.post('/detail-pic', (req,res) => {
+    console.log(req.body.photo_reference)
+    axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${req.body.photo_reference}&key=${process.env.GOOGLE_API}`)
+    .then(resp => {
+        res.status(200).send(resp.request.res.responseUrl)
+    })
+})
 
 
 const { SERVER_PORT } = process.env

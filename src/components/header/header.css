@@ -2,9 +2,7 @@
     height: 50px;
     display: flex;
     flex-direction: row-reverse;
-    background: rgb(33, 190, 148);
-    margin: 5px;
-    border-radius: 5px;
+    background: #0f1626;
 }
 .nav{
     width: 40%;

@@ -35,10 +35,10 @@
     width: 50%;
 }
 .slide-details{
-    background-color: rgb(143, 143, 143);
+    background-color: #f5f5f5;
     opacity: 1;
     height: 500px;
-    width: 575px;
+    width: 400px;
     position: absolute;
     top: 5px;
     left: -590px;
@@ -58,20 +58,23 @@ h2 h1{
     left: -590px;
 }
 .exit{
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     position: absolute;
     display: flex;
     flex-direction: row-reverse;
-    right: 20px;
+    justify-content: center;
+    right: 10px;
     top: 10px;
-    z-index: 1;
+    z-index: 3;
     align-items: center;
+    background-color: white;
+    border-radius: 8px;
 }
 .exit-line1{
     height: 5px;
     width: 30px;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
     transform: rotate(45deg);
     position: absolute;
     border-radius: 2px;
@@ -79,18 +82,18 @@ h2 h1{
 .exit-line2{
     height: 5px;
     width: 30px;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
     transform: rotate(135deg);
     border-radius: 2px;
 }
 .lists{
     height: 420px;
-    width: 300px;
+    width: 310px;
     position: absolute;
     top: 55px;
     left: 15px;
     z-index: 1;
-    background-color: rgb(236, 236, 236);
+    background-color: #ff533d;
     border-radius: 5px;
     padding: 10px;
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
@@ -98,7 +101,6 @@ h2 h1{
     box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
     opacity: 0;
     transition: .7s;
-    overflow-y: scroll;
 }
 .display-opacity{
     opacity: 1;
@@ -133,6 +135,121 @@ h2 h1{
 .title{
     margin-top: 2px;
 }
-.title-list{
-    margin-top: 2px;
+.title-choices{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.title-choices > div{
+    height: 22px;
+    font-size: 14px;
+    /* -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 3px;
+    padding: auto 2px auto 2px; */
+    padding: 0 4px 0 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -5px;
+    margin-bottom: 3px;
+}
+.title-choices > div:active{
+    background-color: white;
+    border-radius: 3px;
+    transition: .6s;
+}
+.hotels{
+    height: 400px;
+    width: 310px;
+    overflow-y: scroll;
+    opacity: 0;
+    transition: .3s;
+    margin-left: 5px;
+    position: absolute;
+    z-index: 1;
+}
+.transportation{
+    height: 400px;
+    width: 310px;
+    overflow-y: scroll;
+    opacity: 0;
+    margin-left: 5px;
+    transition: .3s;
+    position: absolute;
+    z-index: 1;
+}
+.food{
+    height: 400px;
+    width: 310px;
+    overflow-y: scroll;
+    opacity: 0;
+    margin-left: 5px;
+    transition: .3s;
+    position: absolute;
+    z-index: 1;
+}
+.amusement{
+    height: 400px;
+    width: 310px;
+    overflow-y: scroll;
+    opacity: 0;
+    margin-left: 5px;
+    transition: .3s;
+    position: absolute;
+    z-index: 1;
+}
+.shopping{
+    height: 400px;
+    width: 310px;
+    overflow-y: scroll;
+    opacity: 0;
+    margin-left: 5px;
+    transition: .3s;
+    position: absolute;
+    z-index: 1;
+}
+.visibility{
+    opacity: 1;
+    z-index: 2;
+}
+.pic{
+    width: 100%;
+    /* position: absolute; */
+    z-index: -1;
+
+}
+.photo-container{
+
+
+}
+.name{
+    z-index: 2;
+    color: rgb(0, 0, 0);
+}
+.nameaddtotrip{
+    display: flex;
+    flex-direction: column;
+    /* height: 250px; */
+    width: 380px;
+    background-color: #ff533d;
+    /* position: relative; */
+    z-index: 1;
+    padding: 10px;
+    /* border-radius: 5px; */
+}
+.body{
+    /* position: relative; */
+    top: 300px;
+}
+.pic-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.title-bar{
+    height: 50px;
+    width: 380px;
+    background-color: #ff533d;
 }

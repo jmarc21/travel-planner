@@ -23,6 +23,7 @@ import searchSVG from './svg/search.svg'
 import shoppingMallSVG from './svg/shopping-mall.svg'
 import spaSVG from './svg/spa.svg'
 import mapStyles from './mapStyles.json'
+import mapPin from './svg/map-pin.svg'
 
 class Contents extends Component {
     constructor(props) {
@@ -58,6 +59,7 @@ class Contents extends Component {
                 lat: null,
                 lng: null
             }],
+            pic: null,
             pinDetails: {
                 name: null,
                 address: null,
@@ -107,11 +109,21 @@ class Contents extends Component {
                 }
             },
             slide: false,
-            displayOpacity: false
+            displayOpacity: false,
+            visibleHotel: true,
+            visibleTransport: false,
+            visibleAmusement: false,
+            visibleFood: false,
+            visibleShopping: false
         }
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClicked = this.onMapClicked.bind(this);
         this.slide = this.slide.bind(this)
+        this.visibleHotel = this.visibleHotel.bind(this)
+        this.visibleTransport = this.visibleTransport.bind(this)
+        this.visibleAmusement = this.visibleAmusement.bind(this)
+        this.visibleFood = this.visibleFood.bind(this)
+        this.visibleShopping = this.visibleShopping.bind(this)
     }
 
     onSubmit(e) {
@@ -166,110 +178,110 @@ class Contents extends Component {
             Lat: this.state.position.lat(),
             Lng: this.state.position.lng()
         }
-        console.log(typeof coordin.lat)
-        console.log(coordin)
+        // console.log(typeof coordin.lat)
+        // console.log(coordin)
 
         axios.post('http://localhost:4000/hotels', coordin).then(res => {
             this.setState({
                 hotelData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
         axios.post('http://localhost:4000/airports', coordin).then(res => {
             this.setState({
                 airportData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
         axios.post('http://localhost:4000/restaurants', coordin).then(res => {
             this.setState({
                 restaurantsData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
         axios.post('http://localhost:4000/car-rental', coordin).then(res => {
             this.setState({
                 carRentalData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
         axios.post('http://localhost:4000/amusement-park', coordin).then(res => {
             this.setState({
                 amusementParkData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
         axios.post('http://localhost:4000/museum', coordin).then(res => {
             this.setState({
                 museumData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
         axios.post('http://localhost:4000/aquarium', coordin).then(res => {
             this.setState({
                 aquariumData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
         axios.post('http://localhost:4000/night-club', coordin).then(res => {
             this.setState({
                 nightClubData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
         axios.post('http://localhost:4000/spa', coordin).then(res => {
             this.setState({
                 spaData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
         axios.post('http://localhost:4000/bowling-alley', coordin).then(res => {
             this.setState({
                 bowlingAlleyData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
         axios.post('http://localhost:4000/cafe', coordin).then(res => {
             this.setState({
                 cafeData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
         axios.post('http://localhost:4000/casino', coordin).then(res => {
             this.setState({
                 casinoData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
         axios.post('http://localhost:4000/clothing-store', coordin).then(res => {
             this.setState({
                 clothingStoreData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
         axios.post('http://localhost:4000/department-store', coordin).then(res => {
             this.setState({
                 departmentStoreData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
         axios.post('http://localhost:4000/shoe-store', coordin).then(res => {
             this.setState({
                 shoeStoreData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
         axios.post('http://localhost:4000/shopping-mall', coordin).then(res => {
             this.setState({
                 shoppingMallData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
         axios.post('http://localhost:4000/supermarket', coordin).then(res => {
             this.setState({
                 supermarketData: res.data
             })
-            console.log(res.data)
+            // console.log(res.data)
         })
 
     }
@@ -289,13 +301,21 @@ class Contents extends Component {
         }
     }
     showDetails(i, data) {
-        console.log(data)
+        // console.log(data)
         var place_id = {
             place_id: data[i].place_id
         }
+        var photo_reference = {
+            photo_reference: data[i].photos[0].photo_reference
+        }
+        axios.post('http://localhost:4000/detail-pic', photo_reference).then(res => {
+            console.log(res.data)
+            this.setState({
+                pic: res.data
+            })
+        })
         console.log(place_id)
         axios.post('http://localhost:4000/detail', place_id).then(res => {
-            // console.log(res.data.result.opening_hours.weekday_text[0])
             console.log(res)
             this.setState({
                 slide: true,
@@ -348,16 +368,58 @@ class Contents extends Component {
                 }
             })
         })
-
-
     }
     slide() {
         this.setState({
             slide: false
         })
     }
+    visibleHotel() {
+        this.setState({
+            visibleHotel: true,
+            visibleTransport: false,
+            visibleAmusement: false,
+            visibleFood: false,
+            visibleShopping: false,
+        })
+    }
+    visibleTransport() {
+        this.setState({
+            visibleHotel: false,
+            visibleTransport: true,
+            visibleAmusement: false,
+            visibleFood: false,
+            visibleShopping: false
+        })
+    }
+    visibleAmusement() {
+        this.setState({
+            visibleHotel: false,
+            visibleTransport: false,
+            visibleAmusement: true,
+            visibleFood: false,
+            visibleShopping: false
+        })
+    }
+    visibleFood() {
+        this.setState({
+            visibleHotel: false,
+            visibleTransport: false,
+            visibleAmusement: false,
+            visibleFood: true,
+            visibleShopping: false
+        })
+    }
+    visibleShopping() {
+        this.setState({
+            visibleHotel: false,
+            visibleTransport: false,
+            visibleAmusement: false,
+            visibleFood: false,
+            visibleShopping: true
+        })
+    }
     render() {
-        console.log(this.state.pinDetails)
         const props = this.props;
         const { position } = this.state;
         let position_marker_hotel = this.state.hotelData.map((e, i) =>
@@ -829,14 +891,15 @@ class Contents extends Component {
                                 width: '100%',
                                 position: "absolute",
                                 top: '0px',
-                                
+
                             }}
-                            styles={ mapStyles }
+                            styles={mapStyles}
                             className='map-container'
                             zoom={16}
                             center={this.state.position}
                             centerAroundCurrentLocation={false}>
-                            <Marker position={this.state.position}/>
+                            <Marker position={this.state.position}
+                                icon={mapPin} />
                             {position_marker_hotel}
                             {position_marker_airport}
                             {position_marker_restaurants}
@@ -868,28 +931,40 @@ class Contents extends Component {
                 </div>
                 <div>
                     <div className={this.state.displayOpacity ? 'lists display-opacity' : 'lists'}>
-                    <h1 className='title-list'>Hotels:</h1>
-                        {hotelList}
-                    <h1 className='title-list'>Transport:</h1>
-                        {airportList}
-                        {carRentalList}
-                    <h1 className='title-list'>Food:</h1>
-                        {restaurantList}
-                        {cafeList}
-                        {supermarketList}
-                    <h1 className='title-list'>Amusement:</h1>
-                        {amusementParkList}
-                        {museumList}
-                        {aquariumList}
-                        {nightClubList}
-                        {spaList}
-                        {bowlingList}
-                        {casinoList}
-                    <h1 className='title-list'>Shopping:</h1>
-                        {clothingStoreList}
-                        {departmentStoreList}
-                        {shoeStoreList}
-                        {shoppingMallList}
+                        <div className='title-choices'>
+                            <div className='hotels-choice' onClick={() => this.visibleHotel()}>Hotels</div>
+                            <div className='transportation-choice' onClick={() => this.visibleTransport()}>Transportation</div>
+                            <div className='amusement-choice' onClick={() => this.visibleAmusement()}>Amusement</div>
+                            <div className='food-choice' onClick={() => this.visibleFood()}>Food</div>
+                            <div className='shopping-choice' onClick={() => this.visibleShopping()}>Shopping</div>
+                        </div>
+                        <div className={this.state.visibleHotel ? 'hotels visibility' : 'hotels'}>
+                            {hotelList}
+                        </div>
+                        <div className={this.state.visibleTransport ? 'transportation visibility' : 'transportation'}>
+                            {airportList}
+                            {carRentalList}
+                        </div>
+                        <div className={this.state.visibleFood ? 'food visibility' : 'food'}>
+                            {restaurantList}
+                            {cafeList}
+                            {supermarketList}
+                        </div>
+                        <div className={this.state.visibleAmusement ? 'amusement visibility' : 'amusement'}>
+                            {amusementParkList}
+                            {museumList}
+                            {aquariumList}
+                            {nightClubList}
+                            {spaList}
+                            {bowlingList}
+                            {casinoList}
+                        </div>
+                        <div className={this.state.visibleShopping ? 'shopping visibility' : 'shopping'}>
+                            {clothingStoreList}
+                            {departmentStoreList}
+                            {shoeStoreList}
+                            {shoppingMallList}
+                        </div>
                     </div>
                 </div>
                 <div className={this.state.slide ? 'slide-details slide' : 'slide-details'}>
@@ -897,39 +972,50 @@ class Contents extends Component {
                         <div className='exit-line1'></div>
                         <div className='exit-line2'></div>
                     </div>
-                    <h1 className='name'>{this.state.pinDetails.name}</h1>
-                    <div>Add to trip</div>
-                    <h2 className='address'>{this.state.pinDetails.address}</h2>
-                    <h2 className='monday'>{this.state.pinDetails.hours.monday}</h2>
-                    <h2 className='tuesday'>{this.state.pinDetails.hours.tuesday}</h2>
-                    <h2 className='wednesday'>{this.state.pinDetails.hours.wednesday}</h2>
-                    <h2 className='thursday'>{this.state.pinDetails.hours.thursday}</h2>
-                    <h2 className='friday'>{this.state.pinDetails.hours.friday}</h2>
-                    <h2 className='saturday'>{this.state.pinDetails.hours.saturday}</h2>
-                    <h2 className='sunday'>{this.state.pinDetails.hours.sunday}</h2>
-                    <h2 className='phone'>Phone: {this.state.pinDetails.internationalPhone}</h2>
-                    <h2 className='reviews-tag'>Reviews:</h2>
-                    <h2 className='authorname-one'>{this.state.pinDetails.reviews.one.authorName}</h2>
-                    <h2 className='rating-one'>{this.state.pinDetails.reviews.one.rating}</h2>
-                    <h2 className='posted-one'>{this.state.pinDetails.reviews.one.posted}</h2>
-                    <h2 className='text-one'>{this.state.pinDetails.reviews.one.text}</h2>
-                    <h2 className='authorname-two'>{this.state.pinDetails.reviews.two.authorName}</h2>
-                    <h2 className='rating-two'>{this.state.pinDetails.reviews.two.rating}</h2>
-                    <h2 className='posted-two'>{this.state.pinDetails.reviews.two.posted}</h2>
-                    <h2 className='text-two'>{this.state.pinDetails.reviews.two.text}</h2>
-                    <h2 className='authorname-three'>{this.state.pinDetails.reviews.three.authorName}</h2>
-                    <h2 className='rating-three'>{this.state.pinDetails.reviews.three.rating}</h2>
-                    <h2 className='posted-three'>{this.state.pinDetails.reviews.three.posted}</h2>
-                    <h2 className='text-three'>{this.state.pinDetails.reviews.three.text}</h2>
-                    <h2 className='authorname-four'>{this.state.pinDetails.reviews.four.authorName}</h2>
-                    <h2 className='rating-four'>{this.state.pinDetails.reviews.four.rating}</h2>
-                    <h2 className='posted-four'>{this.state.pinDetails.reviews.four.posted}</h2>
-                    <h2 className='text-four'>{this.state.pinDetails.reviews.four.text}</h2>
-                    <h2 className='authorname-five'>{this.state.pinDetails.reviews.five.authorName}</h2>
-                    <h2 className='rating-five'>{this.state.pinDetails.reviews.five.rating}</h2>
-                    <h2 className='posted-five'>{this.state.pinDetails.reviews.five.posted}</h2>
-                    <h2 className='text-five'>{this.state.pinDetails.reviews.five.text}</h2>
-                    <h2 className='website'>{this.state.pinDetails.website}</h2>
+                    <div className='photo-container'>
+                        <div className='pic-container'>
+                            <img src={this.state.pic} alt="" className='pic' />
+                            <div className='nameaddtotrip'>
+                                <div className='title-bar'>
+                                    <h1 className='name'>{this.state.pinDetails.name}</h1>
+                                    <div>Add to trip</div>
+                                    <h2 className='address'>{this.state.pinDetails.address}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='body'>
+                        <h2 className='monday'>{this.state.pinDetails.hours.monday}</h2>
+                        <h2 className='tuesday'>{this.state.pinDetails.hours.tuesday}</h2>
+                        <h2 className='wednesday'>{this.state.pinDetails.hours.wednesday}</h2>
+                        <h2 className='thursday'>{this.state.pinDetails.hours.thursday}</h2>
+                        <h2 className='friday'>{this.state.pinDetails.hours.friday}</h2>
+                        <h2 className='saturday'>{this.state.pinDetails.hours.saturday}</h2>
+                        <h2 className='sunday'>{this.state.pinDetails.hours.sunday}</h2>
+                        <h2 className='phone'>Phone: {this.state.pinDetails.internationalPhone}</h2>
+                        <h2 className='reviews-tag'>Reviews:</h2>
+                        <h2 className='authorname-one'>{this.state.pinDetails.reviews.one.authorName}</h2>
+                        <h2 className='rating-one'>{this.state.pinDetails.reviews.one.rating}</h2>
+                        <h2 className='posted-one'>{this.state.pinDetails.reviews.one.posted}</h2>
+                        <h2 className='text-one'>{this.state.pinDetails.reviews.one.text}</h2>
+                        <h2 className='authorname-two'>{this.state.pinDetails.reviews.two.authorName}</h2>
+                        <h2 className='rating-two'>{this.state.pinDetails.reviews.two.rating}</h2>
+                        <h2 className='posted-two'>{this.state.pinDetails.reviews.two.posted}</h2>
+                        <h2 className='text-two'>{this.state.pinDetails.reviews.two.text}</h2>
+                        <h2 className='authorname-three'>{this.state.pinDetails.reviews.three.authorName}</h2>
+                        <h2 className='rating-three'>{this.state.pinDetails.reviews.three.rating}</h2>
+                        <h2 className='posted-three'>{this.state.pinDetails.reviews.three.posted}</h2>
+                        <h2 className='text-three'>{this.state.pinDetails.reviews.three.text}</h2>
+                        <h2 className='authorname-four'>{this.state.pinDetails.reviews.four.authorName}</h2>
+                        <h2 className='rating-four'>{this.state.pinDetails.reviews.four.rating}</h2>
+                        <h2 className='posted-four'>{this.state.pinDetails.reviews.four.posted}</h2>
+                        <h2 className='text-four'>{this.state.pinDetails.reviews.four.text}</h2>
+                        <h2 className='authorname-five'>{this.state.pinDetails.reviews.five.authorName}</h2>
+                        <h2 className='rating-five'>{this.state.pinDetails.reviews.five.rating}</h2>
+                        <h2 className='posted-five'>{this.state.pinDetails.reviews.five.posted}</h2>
+                        <h2 className='text-five'>{this.state.pinDetails.reviews.five.text}</h2>
+                        <h2 className='website'>{this.state.pinDetails.website}</h2>
+                    </div>
                 </div>
             </div>
         )
