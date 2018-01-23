@@ -2,7 +2,7 @@
     height: 50px;
     display: flex;
     flex-direction: row-reverse;
-    background-image: linear-gradient(-180deg, #FFFFFF 0%, rgb(194, 194, 194) 100%);
+    background-color: #1d2120;    
 }
 .nav{
     width: 40%;
@@ -16,7 +16,7 @@
 .feed{
     height: 50px;
     width: 100px;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     font-size: 22px;
     text-shadow: 1px 2px 3px #666;
     display: flex;
@@ -27,7 +27,7 @@
 .profile{
     height: 50px;
     width: 100px;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     font-size: 22px;
     text-shadow: 1px 2px 3px #666;
     display: flex;
@@ -43,7 +43,7 @@
 .plan{
     height: 50px;
     width: 100px;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     font-size: 22px;
     text-shadow: 1px 2px 3px #666;
     display: flex;
@@ -54,7 +54,7 @@
 .logout{
     height: 50px;
     width: 100px;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     font-size: 22px;
     text-shadow: 1px 2px 3px #666;
     display: flex;
@@ -73,18 +73,18 @@
     left: -800px;
 }
 .feed:hover{
-    background-color: #4e4e4e;
+    background-color: #818181;
     transition: .5s;
 }
 .profile:hover{
-    background-color: #4e4e4e;
+    background-color: #818181;
     transition: .5s;
 }
 .plan:hover{
-    background-color: #4e4e4e;
+    background-color: #818181;
     transition: .5s;
 }
 .logout:hover{
-    background-color: #000000;
+    background-color: #ff0000;
     transition: .5s;
 }

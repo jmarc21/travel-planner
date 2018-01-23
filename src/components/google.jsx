@@ -894,8 +894,8 @@ class Contents extends Component {
                         <Map {...props}
                             containerStyle={{
                                 position: 'relative',
-                                height: '525px',
-                                width: '100%',
+                                height: '100vh',
+                                width: '100vw',
                                 position: "absolute",
                                 top: '0px',
 
@@ -937,6 +937,13 @@ class Contents extends Component {
                     </div>
                 </div>
                 <div>
+                    <div className='addtripbutton'>
+                        <div className='circle'>
+                            <div className='line1'></div>
+                            <div className='line2'></div>
+                        </div>
+                        <div className='addnewtrip'>Add new trip</div>
+                    </div>
                     <div className={this.state.displayOpacity ? 'lists display-opacity' : 'lists'}>
                         <div className='title-choices'>
                             <div className='hotels-choice' onClick={() => this.visibleHotel()}>Hotels</div>
