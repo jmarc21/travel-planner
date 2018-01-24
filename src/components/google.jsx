@@ -14,13 +14,10 @@ import carRentalSVG from './svg/car-rental.svg'
 import casinoSVG from './svg/casino.svg'
 import clothingStoreSVG from './svg/clothing-store.svg'
 import departmentStoreSVG from './svg/department-store.svg'
-import foodSVG from './svg/food.svg'
 import supermarketSVG from './svg/grocery-or-supermarket.svg'
 import museumSVG from './svg/museum.svg'
 import nightClubSVG from './svg/night-club.svg'
-import pointOfIntSVG from './svg/point-of-interest.svg'
 import restaurantSVG from './svg/restaurant.svg'
-import searchSVG from './svg/search.svg'
 import shoppingMallSVG from './svg/shopping-mall.svg'
 import spaSVG from './svg/spa.svg'
 import mapStyles from './mapStyles.json'
@@ -62,6 +59,7 @@ class Contents extends Component {
             }],
             pic: null,
             pinDetails: {
+                placeId: null,
                 name: null,
                 address: null,
                 hours: {
@@ -117,7 +115,8 @@ class Contents extends Component {
             visibleFood: false,
             visibleShopping: false,
             showHours: false,
-            newTripModal: false
+            newTripModal: false,
+            tripName: ''
         }
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClicked = this.onMapClicked.bind(this);
@@ -137,10 +136,11 @@ class Contents extends Component {
         e.preventDefault();
     }
 
-    componentDidMount() {
-        this.renderAutoComplete();
-    }
-
+    // componentDidMount() {
+    //     axios.get('http://localhost:4000/auth/me').then(res => {
+    //         console.log(res)
+    //     })
+    // }
     componentDidUpdate(prevProps) {
         const { map } = this.props;
         if (map !== prevProps.map) {
@@ -327,6 +327,7 @@ class Contents extends Component {
             this.setState({
                 slide: true,
                 pinDetails: {
+                    placeId: res.data.result.place_id,
                     name: res.data.result.name,
                     address: res.data.result.formatted_address,
                     hours: {
@@ -444,9 +445,14 @@ class Contents extends Component {
             newTripModal: false
         })
     }
+    updateTripName(val){
+        this.setState({
+            tripName: val
+        })
+    }
     render() {
         const props = this.props;
-        const { position } = this.state;
+        // const { position } = this.state;
         let position_marker_hotel = this.state.hotelData.map((e, i) =>
             <Marker key={i}
                 name={e.name}
@@ -619,7 +625,7 @@ class Contents extends Component {
             />
         )
         let hotelList = this.state.hotelData.map((e, i) => {
-            var data = this.state.hotelData
+            // var data = this.state.hotelData
             return (
                 <div key={i} className='hotel-list'>
                     <div>
@@ -911,6 +917,7 @@ class Contents extends Component {
                     <div className='map'>
                         <div className='map-container'>
                             <Map {...props}
+                                className='map'
                                 containerStyle={{
                                     position: 'relative',
                                     height: '100vh',
@@ -920,7 +927,7 @@ class Contents extends Component {
                                 }}
                                 styles={mapStyles}
                                 className='map-container'
-                                zoom={13}
+                                zoom={14}
                                 center={this.state.position}
                                 centerAroundCurrentLocation={false}>
                                 <Marker position={this.state.position}
@@ -1073,22 +1080,15 @@ class Contents extends Component {
                     isOpen={this.state.newTripModal}
                     onAfterOpen={this.afterOpenNewtrip}
                     onRequestClose={this.closeNewTrip}
-                    /* style={{
-                        height: '300px',
-                        width: '300px',
-                        // top: '50%',
-                        // left: '50%',
-                        // right: 'auto',
-                        // bottom: 'auto',
-                        // marginRight: '-50%',
-                        // transform: 'translate(-50%, -50%)',
-                    }} */
                 >
-                    <button onClick={this.closeNewTrip}>close</button>
-                    <form>
-                        <h1>Trip Name</h1>
-                        <input type="text"/>
-                        <button>Submit</button>
+                    <div onClick={this.closeNewTrip} className='modal-exit'>
+                        <div className='mexit-line1'></div>
+                        <div className='mexit-line2'></div>
+                    </div>
+                    <form >
+                        <h1 className='tripname'>Trip Name</h1>
+                        <input type="text" className='form-input' onChange={ e => this.updateTripName(e.target.value)}/>
+                        <button className='submit-button' onClick={() => this.addTrip()}>Submit</button>
                     </form>
                 </Modal>
             </div>

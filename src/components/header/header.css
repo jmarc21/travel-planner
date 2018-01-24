@@ -9,6 +9,8 @@
     flex-direction: row-reverse;
     background-color: #707070;    
     border-radius: 5px;
+    position: absolute;
+    z-index: 1;
 }
 .nav{
     width: 40%;
