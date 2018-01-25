@@ -100,7 +100,7 @@ class Googlemaps extends Component {
                     </div>
                 </div>
                 <div className={styles.right}>
-                    <Map {... props}
+                    {/* <Map {... props}
                         containerStyle={{
                             position:'relative',
                             height: '50%',
@@ -108,7 +108,7 @@ class Googlemaps extends Component {
                         }}
                         center={this.state.position}
                         centerAroundCurrentLocation={false}>
-                            <Marker position={this.state.position} />
+                            <Marker position={this.state.position} /> */}
                     <Map google={this.props.google} zoom={12}
                         style={{
                             width: '100%',
@@ -140,7 +140,7 @@ class Googlemaps extends Component {
 
 
                     </Map>
-                    </Map>
+                    {/* </Map> */}
                 </div>
             </div>
         )

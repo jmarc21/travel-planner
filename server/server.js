@@ -16,8 +16,10 @@ app.use(bodyParser.json())
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {maxAge: 10000}
 }))
+// app.use(createInitialSession)
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -74,7 +76,18 @@ app.get('/auth/me', (req,res) => {
         res.status(200).send(req.user);
     }
 })
-
+app.post('/create-trip', (req, res) => {
+    console.log(req.body)
+    const {tripName, userId, username} = req.body;
+    const db = app.get('db');
+    db.create_trip([
+        tripName,
+        userId,
+        username
+    ]).then(resp => {
+        res.status(200).send('Trip added')
+    })
+})
 app.get('/auth/logout', function(req,res){
     req.logOut();
     res.redirect('http://localhost:3000/#/')

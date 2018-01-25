@@ -2,8 +2,7 @@
     color: black;
 }
 .profile-pic{
-    height: 120px;
-    width: 120px;
+    margin-top: 300px;
     border-radius: 50%;
     border: 2px solid black;
 }
