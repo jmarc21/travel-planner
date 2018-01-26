@@ -7,7 +7,7 @@
     margin-bottom: 5px;
     display: flex;
     flex-direction: row-reverse;
-    background-color: #707070;    
+    background-color: #006494;    
     border-radius: 5px;
     position: absolute;
     z-index: 1;
@@ -23,8 +23,8 @@
     margin-right: 30px;
 }
 .feed{
-    height: 50px;
-    width: 120px;
+    height: 40px;
+    width: 110px;
     color: rgb(255, 255, 255);
     font-size: 22px;
     text-shadow: 1px 2px 3px #666;
@@ -82,8 +82,11 @@
     left: -800px;
 }
 .feed:hover{
-    letter-spacing: 1px;
     transition: .5s;
+    background-color: #4392F1;
+    /* height: 40px; */
+    /* width: 110px; */
+    border-radius: 5px;
 }
 .profile:hover{
     letter-spacing: 1px;

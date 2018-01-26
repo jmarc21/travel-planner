@@ -121,7 +121,12 @@ class Contents extends Component {
             newTripModal: false,
             tripName: '',
             auth_id: null,
-            userName: null
+            userName: null,
+            addTripModal: false,
+            trips: [],
+            selectedTrip: {},
+            selectedCateg: '',
+            colorSlide: false
         }
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClicked = this.onMapClicked.bind(this);
@@ -142,12 +147,12 @@ class Contents extends Component {
     }
 
     componentDidMount() {
-        getUserInfo()
-        const user = this.props.user;
-        this.setState({
-            auth_id: user.auth_id,
-            userName: user.username
-        })
+        this.props.getUserInfo()
+        // const user = this.props.user;
+        // this.setState({
+        //     auth_id: user.auth_id,
+        //     userName: user.username
+        // })
     }
     componentDidUpdate(prevProps) {
         const { map } = this.props;
@@ -453,19 +458,127 @@ class Contents extends Component {
             newTripModal: false
         })
     }
-    updateTripName(val){
+    updateTripName(val) {
         this.setState({
             tripName: val
         })
     }
-    addTrip(){
+    addTrip(user) {
+        ;
+        // console.log(user)
+        this.setState({
+            newTripModal: false
+        })
         var trip = {
             tripName: this.state.tripName,
-            userId: this.state.auth_id,
-            username: this.state.userName
+            userId: user.auth_id,
+            username: user.username
         }
         axios.post('/create-trip', trip).then(res => {
             console.log(res.data)
+        })
+    }
+    addtoTrip(user) {
+        this.setState({
+            AddToTripModal: true
+        })
+        console.log(user)
+        var id = {
+            auth_id: user.auth_id
+        }
+        axios.post('http://localhost:4000/getUserTrips', id).then(res => {
+            this.setState({
+                trips: res.data
+            })
+            console.log(res.data)
+        })
+        // console.log(this.state.pinDetails)
+        // console.log(this.state.pinDetails.placeId)
+        // console.log(this.state.pic)
+    }
+    closeAddToTrip() {
+        this.setState({
+            AddToTripModal: false
+        })
+    }
+    selectTrip(i){
+        console.log(i)
+        console.log(this.state.trips[i])
+        // this.setState({
+        //     colorSlide: true
+        // })
+        this.setState({
+            selectedTrip: this.state.trips[i]
+        })
+    }
+    tripChoiceAttrib(att){
+        if(att === 'h'){
+            this.setState({
+                selectedCateg: 'h'
+            })
+        }
+        if(att === 't'){
+            this.setState({
+                selectedCateg: 't'
+            })
+        }
+        if(att === 'a'){
+            this.setState({
+                selectedCateg: 'a'
+            })
+        }
+        if(att === 'f'){
+            this.setState({
+                selectedCateg: 'f'
+            })
+        }
+        if(att === 's'){
+            this.setState({
+                selectedCateg: 's'
+            })
+        }
+    }
+    submitToTrip(){
+        const {selectedTrip, selectedCateg, pic} = this.state;
+        const {placeId, name} = this.state.pinDetails;
+        console.log(this.state.selectedTrip)
+        console.log(this.state.selectedCateg)
+        console.log(this.state.pinDetails.placeId)
+        console.log(this.state.pinDetails.name)
+        console.log(this.state.pic)
+        const tripComp = {
+            placeId: placeId,
+            photoReference: pic,
+            tripId: selectedTrip.id,
+            userId: selectedTrip.userid
+        }
+        if(selectedCateg === 'h'){
+            axios.post('http://localhost:4000/hotel-trip-comp', tripComp).then( res => {
+                console.log(res)
+            })
+        }
+        if(selectedCateg === 't'){
+            axios.post('http://localhost:4000/transport-trip-comp', tripComp).then( res => {
+                console.log(res)
+            })
+        }
+        if(selectedCateg === 'a'){
+            axios.post('http://localhost:4000/amuse-trip-comp', tripComp).then( res => {
+                console.log(res)
+            })
+        }
+        if(selectedCateg === 'f'){
+            axios.post('http://localhost:4000/food-trip-comp', tripComp).then( res => {
+                console.log(res)
+            })
+        }
+        if(selectedCateg === 's'){
+            axios.post('http://localhost:4000/shop-trip-comp', tripComp).then( res => {
+                console.log(res)
+            })
+        }
+        this.setState({
+            addTripModal: false
         })
     }
     render() {
@@ -914,6 +1027,14 @@ class Contents extends Component {
                 </div>
             )
         })
+        const user = this.props.user;
+        let trips = this.state.trips.map((e, i) => {
+            return (
+                <div key={i} className={this.state.colorSlide ? 'trip-choice choice-slide' : 'trip-choice'} onClick={() => this.selectTrip(i)}>
+                    {e.tripname}
+                </div>
+            )
+        })
         return (
             <div>
                 <div className={this.state.opacity ? 'planner-div opacity' : 'planner-div'}>
@@ -1029,7 +1150,7 @@ class Contents extends Component {
                             <div className='exit-line1'></div>
                             <div className='exit-line2'></div>
                         </div>
-                        <div className='addtotrip-button'>Add to trip</div>
+                        <div className='addtotrip-button' onClick={() => this.addtoTrip(user)}>Add to trip</div>
                         <div className='photo-container'>
                             <div className='pic-container'>
                                 <img src={this.state.pic} alt="" className='pic' />
@@ -1105,8 +1226,25 @@ class Contents extends Component {
                     </div>
                     <form >
                         <h1 className='tripname'>Trip Name</h1>
-                        <input type="text" className='form-input' onChange={ e => this.updateTripName(e.target.value)}/>
-                        <button className='submit-button' onClick={() => this.addTrip()}>Submit</button>
+                        <input type="text" className='form-input' onChange={e => this.updateTripName(e.target.value)} />
+                        <button className='submit-button' onClick={() => this.addTrip(user)}>Submit</button>
+                    </form>
+                </Modal>
+                <Modal
+                    className='addToTripModal'
+                    isOpen={this.state.AddToTripModal}
+                    onRequestClose={this.closeAddToTrip}
+                >
+                    <form className='form'>
+                        <h1>Click on trip</h1>
+                        {trips}
+                        <h1>Choose Category</h1>
+                        <div className='choice' onClick={() => this.tripChoiceAttrib('h')}>Hotel</div>
+                        <div className='choice' onClick={() => this.tripChoiceAttrib('t')}>Transportation</div>
+                        <div className='choice' onClick={() => this.tripChoiceAttrib('a')}>Amusement</div>
+                        <div className='choice' onClick={() => this.tripChoiceAttrib('f')}>Food</div>
+                        <div className='choice' onClick={() => this.tripChoiceAttrib('s')}>Shopping</div>
+                        <button onClick={() => this.submitToTrip()}>Done</button>
                     </form>
                 </Modal>
             </div>
@@ -1114,10 +1252,10 @@ class Contents extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return{
+function mapStateToProps(state) {
+    return {
         user: state.user
     }
 }
 
-export default connect(mapStateToProps, {getUserInfo})(Contents)
+export default connect(mapStateToProps, { getUserInfo })(Contents)

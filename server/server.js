@@ -6,7 +6,8 @@ const express = require('express')
     , Auth0Strategy = require('passport-auth0')
     , massive = require('massive')
     , cors = require('cors')
-    , axios = require('axios');
+    , axios = require('axios')
+    , createInitialSession = require('./session');
 
 const { AUTH_DOMAIN, AUTH_CLIENT_ID, AUTH_CLIENT_SECRET, AUTH_CALLBACK_URL, CONNECTION_STRING } = process.env
 
@@ -17,7 +18,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: {maxAge: 10000}
+    // cookie: {maxAge: 43200000}
 }))
 // app.use(createInitialSession)
 app.use(passport.initialize());
@@ -77,7 +78,7 @@ app.get('/auth/me', (req,res) => {
     }
 })
 app.post('/create-trip', (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     const {tripName, userId, username} = req.body;
     const db = app.get('db');
     db.create_trip([
@@ -87,6 +88,86 @@ app.post('/create-trip', (req, res) => {
     ]).then(resp => {
         res.status(200).send('Trip added')
     })
+})
+app.post('/getUserTrips', (req,res) => {
+    // const {user_id} = req.user
+    // console.log(req.body)
+    const db = app.get('db');
+    const {auth_id} = req.body;
+    db.get_user_trips([
+        auth_id
+    ]).then(resp => {
+        res.status(200).send(resp)
+        console.log(resp)
+    })
+})
+app.post('/hotel-trip-comp', (req,res) => {
+    // console.log('hotel', req.body)
+    const db = app.get('db');
+    const {placeId, photoReference, tripId, userId} = req.body;
+    db.add_to_hotel([
+        placeId,
+        photoReference,
+        tripId,
+        userId
+    ]).then( resp => {
+        res.status(200).send('Hotel added to trip')
+    })
+})
+app.post('/transport-trip-comp', (req,res) => {
+    // console.log('trans',req.body)
+    const db = app.get('db');
+    const {placeId, photoReference, tripId, userId} = req.body;
+    db.add_to_transport([
+        placeId,
+        photoReference,
+        tripId,
+        userId
+    ]).then( resp => {
+        res.status(200).send('transport added to trip')
+    })
+})
+app.post('/amuse-trip-comp', (req,res) => {
+    // console.log('amuse',req.body)
+    const db = app.get('db');
+    const {placeId, photoReference, tripId, userId} = req.body;
+    db.add_to_amusement([
+        placeId,
+        photoReference,
+        tripId,
+        userId
+    ]).then( resp => {
+        res.status(200).send('amuesment added to trip')
+    })
+})
+app.post('/food-trip-comp', (req,res) => {
+    // console.log('food',req.body)
+    const db = app.get('db');
+    const {placeId, photoReference, tripId, userId} = req.body;
+    db.add_to_food([
+        placeId,
+        photoReference,
+        tripId,
+        userId
+    ]).then( resp => {
+        res.status(200).send('food added to trip')
+    })
+})
+app.post('/shop-trip-comp', (req,res) => {
+    // console.log('shop',req.body)
+    const db = app.get('db');
+    const {placeId, photoReference, tripId, userId} = req.body;
+    db.add_to_shopping([
+        placeId,
+        photoReference,
+        tripId,
+        userId
+    ]).then( resp => {
+        res.status(200).send('shop added to trip')
+    })
+})
+app.post('/get-hotel-info', (req,res) => {
+    console.log('hotelinfo',req.body)
 })
 app.get('/auth/logout', function(req,res){
     req.logOut();

@@ -1,8 +1,21 @@
-.name{
-    color: black;
+.name-profile{
+    font-size: 32px;
+    margin-top: 30px;
+}
+.profile-container{
+    height: 300px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 100px;
+    left: 50px;
 }
 .profile-pic{
-    margin-top: 300px;
+    height: 200px;
+    width: 200px;
     border-radius: 50%;
     border: 2px solid black;
 }
@@ -17,4 +30,16 @@
 }
 .trip-list{
     color: black;
+}
+.trips{
+    position: absolute;
+    top: 100px;
+    left: 500px;
+    height: 10px;
+    width: 200px;
+    font-size: 20px;
+}
+.trip-names{
+    display: flex;
+    flex-direction: column;
 }
