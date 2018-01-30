@@ -4,6 +4,7 @@ import Header from '../header/Header'
 import { getUserInfo, getTrips } from './../ducks/users'
 import { connect } from 'react-redux';
 import axios from 'axios';
+import Modal from 'react-modal';
 
 
 class Profile extends Component {
@@ -15,8 +16,13 @@ class Profile extends Component {
             transportdetails: [],
             amusementdetails: [],
             fooddetails: [],
-            shoppingdetails: []
+            shoppingdetails: [],
+            addFriendsModal: false,
+            followers: 0,
+            following: 0,
+            users: [],
         }
+        this.closeAddFriends = this.closeAddFriends.bind(this)
     }
     componentDidMount() {
         this.props.getUserInfo()
@@ -61,7 +67,36 @@ class Profile extends Component {
             })
         })
     }
-
+    openAddFriends(){
+        console.log(this.props.user)
+        const {user} = this.props;
+        axios.get('http://localhost:4000/get-users').then(res => {
+            console.log(res)
+            this.setState({
+                users: res.data
+            })
+        })
+        this.setState({
+            addFriendsModal: true
+        })
+    }
+    closeAddFriends(){
+        this.setState({
+            addFriendsModal: false
+        })
+    }
+    addFriend(i){
+        let friend = this.state.users[i];
+        const {user} = this.props
+        const friendInput = {
+            friend: friend,
+            user: user
+        }
+        console.log(friend)
+        axios.post('http://localhost:4000/add-friend', friendInput).then(res => {
+            console.log(res)
+        })
+    }
     render() {
         const user = this.props.user;
         // console.log(this.state.tripData)
@@ -109,6 +144,15 @@ class Profile extends Component {
                 </div>
             )
         })
+        let users = this.state.users.map((e,i)=> {
+            return (
+            <div key={i} className='addFriendslist'>
+                <img src={e.img} alt="" className='friend-profile-img'/>
+                <h1>{e.username}</h1>
+                <div className='add-friend-button' onClick={() => this.addFriend(i)}>Add Friend</div>
+            </div>
+            )
+        })
         return (
             <div>
                 <Header />
@@ -116,6 +160,26 @@ class Profile extends Component {
                     <img className='profile-pic' src={user ? user.img : null} alt='profilePic' />
                     <h2 className='name-profile'>{user ? user.username : null}</h2>
                 </div>
+                <div className="followers-list">
+                    <div className="followers">
+                        <div>Followers</div>
+                        <div className="numOfFollowers">{this.state.followers}</div>
+                    </div>
+                </div>
+                <div className="following-list">
+                    <div className="following">
+                        <div>Following</div>
+                        <div className="numOfFollowing">{this.state.following}</div>
+                    </div>
+                </div>
+                    <div className="follower-search-button" onClick={() => this.openAddFriends()}>Search Friends</div>
+                    <Modal
+                        className='addFriendModal'
+                        isOpen={this.state.addFriendsModal}
+                        onRequestClose={this.closeAddFriends}
+                    >
+                        {users}
+                    </Modal>
                 <div className='trips'>
                     <div className='trip-names'>
                         {trips}

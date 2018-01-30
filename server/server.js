@@ -101,7 +101,7 @@ app.post('/getUserTrips', (req,res) => {
         console.log(resp)
     })
 })
-//adding to users trips
+//user trip components
 app.post('/hotel-trip-comp', (req,res) => {
     // console.log('hotel', req.body)
     const db = app.get('db');
@@ -177,7 +177,7 @@ app.post('/shop-trip-comp', (req,res) => {
         res.status(200).send('shop added to trip')
     })
 })
-//getting the trips info
+//user trip components info
 app.post('/get-hotel-info', (req,res) => {
     const db = app.get('db');
     const { tripid } = req.body
@@ -228,6 +228,30 @@ app.get('/auth/logout', function(req,res){
     res.redirect('http://localhost:3000/#/')
     // res.redirect('https://justindemarco.auth0.com/v2/logout')
 })
+//user friends
+app.post('/add-friend', (req,res) => {
+    const db = app.get('db');
+    console.log('userinfo', req.body)
+    const userauthId = req.body.user.auth_id;
+    const friendUsername = req.body.friend.username;
+    const friendAuthId = req.body.friend.auth_id;
+    const friendImg = req.body.friend.img;
+    db.add_to_friends([
+        userauthId,
+        friendUsername,
+        friendAuthId,
+        friendImg
+    ]).then(resp => {
+        res.status(200).send('friend added')
+    })
+})
+app.get('/get-users', (req,res) => {
+    const db = app.get('db');
+    db.get_users().then(resp => {
+        res.status(200).send(resp)
+    })
+})
+//map pin location requests
 app.post('/hotels', (req,res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=lodging&key=${process.env.GOOGLE_API}`)
     .then(resp => {

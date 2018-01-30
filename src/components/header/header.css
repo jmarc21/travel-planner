@@ -101,14 +101,14 @@
 }
 .profile:hover{
     transition: .5s;
-    background-color: #D1D1D1;
+    background-color: #262626;
     /* height: 40px; */
     /* width: 110px; */
     border-radius: 5px;
 }
 .plan:hover{
     transition: .5s;
-    background-color: #4392F1;
+    background-color: #262626;
     /* height: 40px; */
     /* width: 110px; */
     border-radius: 5px;

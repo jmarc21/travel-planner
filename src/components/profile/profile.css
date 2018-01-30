@@ -33,7 +33,7 @@
 }
 .trips{
     position: absolute;
-    top: 120px;
+    top: 170px;
     left: 500px;
     width: 600px;
     font-size: 20px;
@@ -59,4 +59,64 @@
     width: 90vw;
     height: 450px;
     margin-left: 40px;
+}
+.followers-list{
+    width: 80px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: gray;
+    position: absolute;
+    top: 120px;
+    left: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.following-list{
+    width: 80px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: gray;
+    position: absolute;
+    top: 120px;
+    left: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.followers{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+.following{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+.follower-search-button{
+    position: absolute;
+    top: 120px;
+    left: 700px;
+    height: 22px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.addFriendModal{
+    height: 400px;
+    width: 300px;
+    background-color: gray;
+    position: relative;
+    top: 140px;
+    left: 600px;
+}
+.addFriendModal:focus{
+    outline: none;
+}
+.friend-profile-img{
+    height: 20px;
 }
