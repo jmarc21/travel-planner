@@ -1,0 +1,15 @@
+
+<svg width="60px" height="60px" viewBox="0 0 393 302" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-8" transform="translate(0.000000, 5.000000)">
+            <path d="M346,150 C346,67.1572875 278.842712,0 196,0 C113.157288,0 46,67.1572875 46,150 C46,159.060588 346,157.439195 346,150 Z" id="Oval-6" stroke="#262626" stroke-width="10"></path>
+            <rect id="Rectangle-36" fill="#DC493A" x="0" y="172" width="393" height="20" rx="8"></rect>
+            <rect id="Rectangle-36-Copy" fill="#006494" x="15" y="207" width="363" height="20" rx="8"></rect>
+            <path d="M38,242 L355,242 C359.418278,242 363,245.581722 363,250 L363,254 C363,258.418278 359.418278,262 355,262 L295.215923,262 L38,262 C33.581722,262 30,258.418278 30,254 L30,250 C30,245.581722 33.581722,242 38,242 Z" id="Rectangle-36-Copy-2" fill="#7BDFF2"></path>
+            <path d="M54,277 L341,277 C345.418278,277 349,280.581722 349,285 L349,289 C349,293.418278 345.418278,297 341,297 L287.322597,297 L54,297 C49.581722,297 46,293.418278 46,289 L46,285 C46,280.581722 49.581722,277 54,277 Z" id="Rectangle-36-Copy-3" fill="#D1D1D1"></path>
+        </g>
+    </g>
+</svg>

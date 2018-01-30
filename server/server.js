@@ -101,15 +101,18 @@ app.post('/getUserTrips', (req,res) => {
         console.log(resp)
     })
 })
+//adding to users trips
 app.post('/hotel-trip-comp', (req,res) => {
     // console.log('hotel', req.body)
     const db = app.get('db');
-    const {placeId, photoReference, tripId, userId} = req.body;
+    const {placeId, photoReference, tripId, userId, name, rating} = req.body;
     db.add_to_hotel([
         placeId,
         photoReference,
         tripId,
-        userId
+        userId,
+        name,
+        rating
     ]).then( resp => {
         res.status(200).send('Hotel added to trip')
     })
@@ -117,12 +120,14 @@ app.post('/hotel-trip-comp', (req,res) => {
 app.post('/transport-trip-comp', (req,res) => {
     // console.log('trans',req.body)
     const db = app.get('db');
-    const {placeId, photoReference, tripId, userId} = req.body;
+    const {placeId, photoReference, tripId, userId, name, rating} = req.body;
     db.add_to_transport([
         placeId,
         photoReference,
         tripId,
-        userId
+        userId,
+        name,
+        rating
     ]).then( resp => {
         res.status(200).send('transport added to trip')
     })
@@ -130,12 +135,14 @@ app.post('/transport-trip-comp', (req,res) => {
 app.post('/amuse-trip-comp', (req,res) => {
     // console.log('amuse',req.body)
     const db = app.get('db');
-    const {placeId, photoReference, tripId, userId} = req.body;
+    const {placeId, photoReference, tripId, userId, name, rating} = req.body;
     db.add_to_amusement([
         placeId,
         photoReference,
         tripId,
-        userId
+        userId,
+        name,
+        rating
     ]).then( resp => {
         res.status(200).send('amuesment added to trip')
     })
@@ -143,12 +150,14 @@ app.post('/amuse-trip-comp', (req,res) => {
 app.post('/food-trip-comp', (req,res) => {
     // console.log('food',req.body)
     const db = app.get('db');
-    const {placeId, photoReference, tripId, userId} = req.body;
+    const {placeId, photoReference, tripId, userId, name, rating} = req.body;
     db.add_to_food([
         placeId,
         photoReference,
         tripId,
-        userId
+        userId,
+        name,
+        rating
     ]).then( resp => {
         res.status(200).send('food added to trip')
     })
@@ -156,22 +165,68 @@ app.post('/food-trip-comp', (req,res) => {
 app.post('/shop-trip-comp', (req,res) => {
     // console.log('shop',req.body)
     const db = app.get('db');
-    const {placeId, photoReference, tripId, userId} = req.body;
+    const {placeId, photoReference, tripId, userId, name,rating} = req.body;
     db.add_to_shopping([
         placeId,
         photoReference,
         tripId,
-        userId
+        userId,
+        name,
+        rating
     ]).then( resp => {
         res.status(200).send('shop added to trip')
     })
 })
+//getting the trips info
 app.post('/get-hotel-info', (req,res) => {
-    console.log('hotelinfo',req.body)
+    const db = app.get('db');
+    const { tripid } = req.body
+    db.get_hotel_info([
+        tripid
+    ]).then( resp => {
+        res.status(200).send(resp)
+    })
+})
+app.post('/get-transport-info', (req,res) => {
+    const db = app.get('db');
+    const { tripid } = req.body
+    db.get_transportation_info([
+        tripid
+    ]).then( resp => {
+        res.status(200).send(resp)
+    })
+})
+app.post('/get-amusement-info', (req,res) => {
+    const db = app.get('db');
+    const { tripid } = req.body
+    db.get_amusement_info([
+        tripid
+    ]).then( resp => {
+        res.status(200).send(resp)
+    })
+})
+app.post('/get-shopping-info', (req,res) => {
+    const db = app.get('db');
+    const { tripid } = req.body
+    db.get_shopping_info([
+        tripid
+    ]).then( resp => {
+        res.status(200).send(resp)
+    })
+})
+app.post('/get-food-info', (req,res) => {
+    const db = app.get('db');
+    const { tripid } = req.body
+    db.get_food_info([
+        tripid
+    ]).then( resp => {
+        res.status(200).send(resp)
+    })
 })
 app.get('/auth/logout', function(req,res){
     req.logOut();
     res.redirect('http://localhost:3000/#/')
+    // res.redirect('https://justindemarco.auth0.com/v2/logout')
 })
 app.post('/hotels', (req,res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=lodging&key=${process.env.GOOGLE_API}`)

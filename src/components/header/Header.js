@@ -7,6 +7,7 @@ export default class Header extends Component {
     render() {
         return (
             <div className='nav-container'>
+                <h1 className='appname'>Tripper</h1>
                 <nav className='nav'>
                     <Link style={{ textDecoration: 'none' }} to='/feed'><div className='feed'>Feed</div></Link>
                     <Link style={{ textDecoration: 'none' }} to='/profile'><div className='profile'>Profile</div></Link>

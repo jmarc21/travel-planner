@@ -140,6 +140,8 @@ class Contents extends Component {
         this.openNewTrip = this.openNewTrip.bind(this)
         // this.afterOpenNewtrip = this.afterOpenNewtrip.bind(this)
         this.closeNewTrip = this.closeNewTrip.bind(this)
+        this.closeaddTripModal = this.closeaddTripModal.bind(this)
+        this.closeAddToTrip = this.closeAddToTrip.bind(this)
     }
 
     onSubmit(e) {
@@ -340,6 +342,7 @@ class Contents extends Component {
             this.setState({
                 slide: true,
                 pinDetails: {
+                    rating: res.data.result.rating,
                     placeId: res.data.result.place_id,
                     name: res.data.result.name,
                     address: res.data.result.formatted_address,
@@ -501,7 +504,7 @@ class Contents extends Component {
             AddToTripModal: false
         })
     }
-    selectTrip(i){
+    selectTrip(i) {
         console.log(i)
         console.log(this.state.trips[i])
         // this.setState({
@@ -511,72 +514,77 @@ class Contents extends Component {
             selectedTrip: this.state.trips[i]
         })
     }
-    tripChoiceAttrib(att){
-        if(att === 'h'){
+    tripChoiceAttrib(att) {
+        if (att === 'h') {
             this.setState({
                 selectedCateg: 'h'
             })
         }
-        if(att === 't'){
+        if (att === 't') {
             this.setState({
                 selectedCateg: 't'
             })
         }
-        if(att === 'a'){
+        if (att === 'a') {
             this.setState({
                 selectedCateg: 'a'
             })
         }
-        if(att === 'f'){
+        if (att === 'f') {
             this.setState({
                 selectedCateg: 'f'
             })
         }
-        if(att === 's'){
+        if (att === 's') {
             this.setState({
                 selectedCateg: 's'
             })
         }
     }
-    submitToTrip(){
-        const {selectedTrip, selectedCateg, pic} = this.state;
-        const {placeId, name} = this.state.pinDetails;
+    submitToTrip() {
+        const { selectedTrip, selectedCateg, pic } = this.state;
+        const { placeId, name, rating } = this.state.pinDetails;
         console.log(this.state.selectedTrip)
         console.log(this.state.selectedCateg)
         console.log(this.state.pinDetails.placeId)
         console.log(this.state.pinDetails.name)
+        console.log(this.state.pinDetails.rating)
         console.log(this.state.pic)
         const tripComp = {
             placeId: placeId,
             photoReference: pic,
             tripId: selectedTrip.id,
-            userId: selectedTrip.userid
+            userId: selectedTrip.userid,
+            name: name,
+            rating: rating
         }
-        if(selectedCateg === 'h'){
-            axios.post('http://localhost:4000/hotel-trip-comp', tripComp).then( res => {
+        if (selectedCateg === 'h') {
+            axios.post('http://localhost:4000/hotel-trip-comp', tripComp).then(res => {
                 console.log(res)
             })
         }
-        if(selectedCateg === 't'){
-            axios.post('http://localhost:4000/transport-trip-comp', tripComp).then( res => {
+        if (selectedCateg === 't') {
+            axios.post('http://localhost:4000/transport-trip-comp', tripComp).then(res => {
                 console.log(res)
             })
         }
-        if(selectedCateg === 'a'){
-            axios.post('http://localhost:4000/amuse-trip-comp', tripComp).then( res => {
+        if (selectedCateg === 'a') {
+            axios.post('http://localhost:4000/amuse-trip-comp', tripComp).then(res => {
                 console.log(res)
             })
         }
-        if(selectedCateg === 'f'){
-            axios.post('http://localhost:4000/food-trip-comp', tripComp).then( res => {
+        if (selectedCateg === 'f') {
+            axios.post('http://localhost:4000/food-trip-comp', tripComp).then(res => {
                 console.log(res)
             })
         }
-        if(selectedCateg === 's'){
-            axios.post('http://localhost:4000/shop-trip-comp', tripComp).then( res => {
+        if (selectedCateg === 's') {
+            axios.post('http://localhost:4000/shop-trip-comp', tripComp).then(res => {
                 console.log(res)
             })
         }
+    }
+    closeaddTripModal() {
         this.setState({
             addTripModal: false
         })
@@ -1235,6 +1243,10 @@ class Contents extends Component {
                     isOpen={this.state.AddToTripModal}
                     onRequestClose={this.closeAddToTrip}
                 >
+                    <div onClick={this.closeAddToTrip} className='modal-trip-exit'>
+                        <div className='mexit-line1'></div>
+                        <div className='mexit-line2'></div>
+                    </div>
                     <form className='form'>
                         <h1>Click on trip</h1>
                         {trips}

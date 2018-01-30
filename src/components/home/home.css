@@ -1,29 +1,42 @@
-@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Permanent+Marker');
+@import url('https://fonts.googleapis.com/css?family=Shrikhand');
 .home{
     width: 100vw;
     height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    background-image: url('https://images.pexels.com/photos/66997/pexels-photo-66997.jpeg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb');
+    justify-content: center;
+    background-image: url('./arial.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
+.login-container{
+    height: 250px;
+    width: 430px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #00659449;
+    border-radius: 10px;
+    margin-left: 50px;
+    /* padding-left: 40px; */
+}
 .titleHome{
-    font-size: 62px;
-    font-family: 'Permanent Marker';
-    margin: -100px 0 20px;
-    color: rgb(255, 255, 255);
-    text-shadow: 4px 5px #212121;
+    font-size: 52px;
+    color: #006494;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-family: 'Shrikhand', cursive;
+    font-weight: 600;
+     text-shadow: 1px 1px #212121;
 }
 h3{
     font-size: 24px;
     font-family: 'Abril Fatface';
-    margin-bottom: 20px;
-    color: white;
-    text-shadow: 2px 2px #212121;
+    margin-bottom: 80px;
+    color: rgb(0, 0, 0);
+    /* text-shadow: 2px 2px #212121; */
 }
 .login{
     display: flex;
@@ -32,7 +45,7 @@ h3{
     justify-content: space-around;
     height: 40px;
     width: 100px;
-    background-color: rgb(255, 255, 255);
+    background-color: #006494;
     border-radius: 30px;
-    font-family: 'Abril Fatface';
+    font-family: 'Shrikhand';
 }
