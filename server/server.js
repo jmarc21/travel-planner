@@ -24,8 +24,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-massive(CONNECTION_STRING).then( (db) => {
-    app.set('db',db);
+massive(CONNECTION_STRING).then((db) => {
+    app.set('db', db);
 })
 
 passport.use(new Auth0Strategy({
@@ -34,14 +34,14 @@ passport.use(new Auth0Strategy({
     clientSecret: AUTH_CLIENT_SECRET,
     callbackURL: AUTH_CALLBACK_URL,
     scope: 'openid profile'
-}, function(accessToken, refreshToken, extraParams, profile, done){
+}, function (accessToken, refreshToken, extraParams, profile, done) {
     console.log(accessToken)
-    let { displayName, user_id, picture} = profile;
+    let { displayName, user_id, picture } = profile;
     const db = app.get('db')
 
-    db.find_user([user_id]).then(function(users){
+    db.find_user([user_id]).then(function (users) {
         console.log(users)
-        if(!users[0]){
+        if (!users[0]) {
             db.create_user([
                 displayName,
                 picture,
@@ -59,9 +59,9 @@ passport.serializeUser((id, done) => {
 })
 passport.deserializeUser((id, done) => {
     app.get('db').find_session_user([id])
-    .then(function(user){
-        return done(null, user[0]);
-    })
+        .then(function (user) {
+            return done(null, user[0]);
+        })
 })
 
 app.get('/auth', passport.authenticate('auth0'))
@@ -70,16 +70,16 @@ app.get('/auth/callback', passport.authenticate('auth0', {
     failureRedirect: 'http://localhost:3000/#/'
 }))
 
-app.get('/auth/me', (req,res) => {
-    if(!req.user) {
+app.get('/auth/me', (req, res) => {
+    if (!req.user) {
         res.status(404).send('User not found.');
-    }else{
+    } else {
         res.status(200).send(req.user);
     }
 })
 app.post('/create-trip', (req, res) => {
     // console.log(req.body)
-    const {tripName, userId, username} = req.body;
+    const { tripName, userId, username } = req.body;
     const db = app.get('db');
     db.create_trip([
         tripName,
@@ -89,11 +89,11 @@ app.post('/create-trip', (req, res) => {
         res.status(200).send('Trip added')
     })
 })
-app.post('/getUserTrips', (req,res) => {
+app.post('/getUserTrips', (req, res) => {
     // const {user_id} = req.user
     // console.log(req.body)
     const db = app.get('db');
-    const {auth_id} = req.body;
+    const { auth_id } = req.body;
     db.get_user_trips([
         auth_id
     ]).then(resp => {
@@ -101,11 +101,55 @@ app.post('/getUserTrips', (req,res) => {
         console.log(resp)
     })
 })
+app.post('/gettripinfo', (req, res) => {
+    console.log(req.body)
+    let hotel = []
+    let transport = []
+    let amuse = []
+    let shopping = []
+    let food = []
+    var count = 0;
+         req.body.tripid.map((e, i) => {
+            const db = app.get('db');
+            var p1 = db.get_hotel_info([
+                e
+            ]).then(resp => {
+                console.log(resp)
+                hotel.push(resp)
+                db.get_transportation_info([
+                e
+            ]).then(resp => {
+                transport.push(resp)
+                db.get_amusement_info([
+                e
+            ]).then(resp => {
+                amuse.push(resp)
+                db.get_shopping_info([
+                e
+            ]).then(resp => {
+                shopping.push(resp)
+                db.get_food_info([
+                e
+            ]).then(resp => {
+                food.push(resp)
+                count++
+                if(req.body.tripid.length == count) {
+                    res.status(200).send({ hotel, transport, amuse, shopping, food })
+                }
+            })
+            })
+            })
+            })
+            })
+        })
+        
+
+})
 //user trip components
-app.post('/hotel-trip-comp', (req,res) => {
+app.post('/hotel-trip-comp', (req, res) => {
     // console.log('hotel', req.body)
     const db = app.get('db');
-    const {placeId, photoReference, tripId, userId, name, rating} = req.body;
+    const { placeId, photoReference, tripId, userId, name, rating } = req.body;
     db.add_to_hotel([
         placeId,
         photoReference,
@@ -113,14 +157,14 @@ app.post('/hotel-trip-comp', (req,res) => {
         userId,
         name,
         rating
-    ]).then( resp => {
+    ]).then(resp => {
         res.status(200).send('Hotel added to trip')
     })
 })
-app.post('/transport-trip-comp', (req,res) => {
+app.post('/transport-trip-comp', (req, res) => {
     // console.log('trans',req.body)
     const db = app.get('db');
-    const {placeId, photoReference, tripId, userId, name, rating} = req.body;
+    const { placeId, photoReference, tripId, userId, name, rating } = req.body;
     db.add_to_transport([
         placeId,
         photoReference,
@@ -128,14 +172,14 @@ app.post('/transport-trip-comp', (req,res) => {
         userId,
         name,
         rating
-    ]).then( resp => {
+    ]).then(resp => {
         res.status(200).send('transport added to trip')
     })
 })
-app.post('/amuse-trip-comp', (req,res) => {
+app.post('/amuse-trip-comp', (req, res) => {
     // console.log('amuse',req.body)
     const db = app.get('db');
-    const {placeId, photoReference, tripId, userId, name, rating} = req.body;
+    const { placeId, photoReference, tripId, userId, name, rating } = req.body;
     db.add_to_amusement([
         placeId,
         photoReference,
@@ -143,14 +187,14 @@ app.post('/amuse-trip-comp', (req,res) => {
         userId,
         name,
         rating
-    ]).then( resp => {
+    ]).then(resp => {
         res.status(200).send('amuesment added to trip')
     })
 })
-app.post('/food-trip-comp', (req,res) => {
+app.post('/food-trip-comp', (req, res) => {
     // console.log('food',req.body)
     const db = app.get('db');
-    const {placeId, photoReference, tripId, userId, name, rating} = req.body;
+    const { placeId, photoReference, tripId, userId, name, rating } = req.body;
     db.add_to_food([
         placeId,
         photoReference,
@@ -158,14 +202,14 @@ app.post('/food-trip-comp', (req,res) => {
         userId,
         name,
         rating
-    ]).then( resp => {
+    ]).then(resp => {
         res.status(200).send('food added to trip')
     })
 })
-app.post('/shop-trip-comp', (req,res) => {
+app.post('/shop-trip-comp', (req, res) => {
     // console.log('shop',req.body)
     const db = app.get('db');
-    const {placeId, photoReference, tripId, userId, name,rating} = req.body;
+    const { placeId, photoReference, tripId, userId, name, rating } = req.body;
     db.add_to_shopping([
         placeId,
         photoReference,
@@ -173,63 +217,63 @@ app.post('/shop-trip-comp', (req,res) => {
         userId,
         name,
         rating
-    ]).then( resp => {
+    ]).then(resp => {
         res.status(200).send('shop added to trip')
     })
 })
 //user trip components info
-app.post('/get-hotel-info', (req,res) => {
+app.post('/get-hotel-info', (req, res) => {
     const db = app.get('db');
     const { tripid } = req.body
     db.get_hotel_info([
         tripid
-    ]).then( resp => {
+    ]).then(resp => {
         res.status(200).send(resp)
     })
 })
-app.post('/get-transport-info', (req,res) => {
+app.post('/get-transport-info', (req, res) => {
     const db = app.get('db');
     const { tripid } = req.body
     db.get_transportation_info([
         tripid
-    ]).then( resp => {
+    ]).then(resp => {
         res.status(200).send(resp)
     })
 })
-app.post('/get-amusement-info', (req,res) => {
+app.post('/get-amusement-info', (req, res) => {
     const db = app.get('db');
     const { tripid } = req.body
     db.get_amusement_info([
         tripid
-    ]).then( resp => {
+    ]).then(resp => {
         res.status(200).send(resp)
     })
 })
-app.post('/get-shopping-info', (req,res) => {
+app.post('/get-shopping-info', (req, res) => {
     const db = app.get('db');
     const { tripid } = req.body
     db.get_shopping_info([
         tripid
-    ]).then( resp => {
+    ]).then(resp => {
         res.status(200).send(resp)
     })
 })
-app.post('/get-food-info', (req,res) => {
+app.post('/get-food-info', (req, res) => {
     const db = app.get('db');
     const { tripid } = req.body
     db.get_food_info([
         tripid
-    ]).then( resp => {
+    ]).then(resp => {
         res.status(200).send(resp)
     })
 })
-app.get('/auth/logout', function(req,res){
+app.get('/auth/logout', function (req, res) {
     req.logOut();
     res.redirect('http://localhost:3000/#/')
     // res.redirect('https://justindemarco.auth0.com/v2/logout')
 })
 //user friends
-app.post('/add-friend', (req,res) => {
+app.post('/add-friend', (req, res) => {
     const db = app.get('db');
     const userauthId = req.body.user.auth_id;
     const friendUsername = req.body.friend.username;
@@ -244,9 +288,9 @@ app.post('/add-friend', (req,res) => {
         res.status(200).send('friend added')
     })
 })
-app.post('/numOfFollowing', (req,res) => {
-    console.log('asdfads',req.body)
-    const {auth_id} = req.body;
+app.post('/numOfFollowing', (req, res) => {
+    console.log('asdfads', req.body)
+    const { auth_id } = req.body;
     const db = app.get('db');
     db.get_num_of_friends([
         auth_id
@@ -254,9 +298,9 @@ app.post('/numOfFollowing', (req,res) => {
         res.status(200).send(resp)
     })
 })
-app.post('/numOfFollowers', (req,res) => {
-    console.log('asdfads',req.body)
-    const {auth_id} = req.body;
+app.post('/numOfFollowers', (req, res) => {
+    console.log('asdfads', req.body)
+    const { auth_id } = req.body;
     const db = app.get('db');
     db.get_num_of_followers([
         auth_id
@@ -264,142 +308,142 @@ app.post('/numOfFollowers', (req,res) => {
         res.status(200).send(resp)
     })
 })
-app.get('/get-users', (req,res) => {
+app.get('/get-users', (req, res) => {
     const db = app.get('db');
     db.get_users().then(resp => {
         res.status(200).send(resp)
     })
 })
 //map pin location requests
-app.post('/hotels', (req,res) => {
+app.post('/hotels', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=lodging&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        // console.log(resp)
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            // console.log(resp)
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/airports', (req,res) => {
+app.post('/airports', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=airport&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/restaurants', (req,res) => {
+app.post('/restaurants', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=restaurant&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/car-rental', (req,res) => {
+app.post('/car-rental', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=car_rental&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/amusement-park', (req,res) => {
+app.post('/amusement-park', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=amusement_park&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/museum', (req,res) => {
+app.post('/museum', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=museum&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/aquarium', (req,res) => {
+app.post('/aquarium', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=aquarium&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/bakery', (req,res) => {
+app.post('/bakery', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=bakery&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/night-club', (req,res) => {
+app.post('/night-club', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=night_club&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/spa', (req,res) => {
+app.post('/spa', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=spa&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/liquor-store', (req,res) => {
+app.post('/liquor-store', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=liquir_store&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/bowling-alley', (req,res) => {
+app.post('/bowling-alley', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=bowling_alley&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/cafe', (req,res) => {
+app.post('/cafe', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=cafe&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/casino', (req,res) => {
+app.post('/casino', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=casino&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/clothing-store', (req,res) => {
+app.post('/clothing-store', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=clothing_store&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/department-store', (req,res) => {
+app.post('/department-store', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=department_store&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/shoe-store', (req,res) => {
+app.post('/shoe-store', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=shoe_store&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/shopping-mall', (req,res) => {
+app.post('/shopping-mall', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=shopping_mall&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/supermarket', (req,res) => {
+app.post('/supermarket', (req, res) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Number(req.body.Lat)},${Number(req.body.Lng)}&radius=50000&type=supermarket&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.data.results)
-    })
+        .then(resp => {
+            res.status(200).send(resp.data.results)
+        })
 })
-app.post('/detail', (req,res) => {
+app.post('/detail', (req, res) => {
     // console.log(req.body.place_id)
     axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${req.body.place_id}&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        // console.log(resp)
-        res.status(200).send(resp.data)
-    })
+        .then(resp => {
+            // console.log(resp)
+            res.status(200).send(resp.data)
+        })
 })
-app.post('/detail-pic', (req,res) => {
+app.post('/detail-pic', (req, res) => {
     console.log(req.body.photo_reference)
     axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${req.body.photo_reference}&key=${process.env.GOOGLE_API}`)
-    .then(resp => {
-        res.status(200).send(resp.request.res.responseUrl)
-    })
+        .then(resp => {
+            res.status(200).send(resp.request.res.responseUrl)
+        })
 })
 
 

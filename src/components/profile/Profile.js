@@ -32,54 +32,61 @@ class Profile extends Component {
         }
         console.log(id)
         axios.post('http://localhost:4000/getUserTrips', id).then(res => {
+            console.log(res)
+            var tripid = res.data.map((e,i) => {
+                return e.id
+            })
+            var ids = {
+                tripid: tripid
+            }
+            axios.post('http://localhost:4000/gettripinfo', ids).then(res => {
+                console.log(res)
+            })
+        })
+        axios.post('http://localhost:4000/numOfFollowing', id).then(res => {
             this.setState({
-                tripData: res.data
+                following: res.data[0].count
             })
-            axios.post('http://localhost:4000/numOfFollowing', id).then(res => {
-                this.setState({
-                    following: res.data[0].count
-                })
-            })
-            axios.post('http://localhost:4000/numOfFollowers', id).then(res => {
-                this.setState({
-                    followers: res.data[0].count
-                })
+        })
+        axios.post('http://localhost:4000/numOfFollowers', id).then(res => {
+            this.setState({
+                followers: res.data[0].count
             })
         })
     }
-    tripInfo(i) {
-        var id = {
-            tripid: this.state.tripData[i].id
-        }
-        axios.post('http://localhost:4000/get-hotel-info', id).then(res => {
-            this.setState({
-                hoteldetail: res.data
-            })
-        })
-        axios.post('http://localhost:4000/get-transport-info', id).then(res => {
-            this.setState({
-                transportdetails: res.data
-            })
-        })
-        axios.post('http://localhost:4000/get-amusement-info', id).then(res => {
-            this.setState({
-                amusementdetails: res.data
-            })
-        })
-        axios.post('http://localhost:4000/get-shopping-info', id).then(res => {
-            this.setState({
-                shoppingdetails: res.data
-            })
-        })
-        axios.post('http://localhost:4000/get-food-info', id).then(res => {
-            this.setState({
-                fooddetails: res.data
-            })
-        })
-    }
-    openAddFriends(){
+    // tripInfo(i) {
+    //     var id = {
+    //         tripid: this.state.tripData[i].id
+    //     }
+    //     axios.post('http://localhost:4000/get-hotel-info', id).then(res => {
+    //         this.setState({
+    //             hoteldetail: res.data
+    //         })
+    //     })
+    //     axios.post('http://localhost:4000/get-transport-info', id).then(res => {
+    //         this.setState({
+    //             transportdetails: res.data
+    //         })
+    //     })
+    //     axios.post('http://localhost:4000/get-amusement-info', id).then(res => {
+    //         this.setState({
+    //             amusementdetails: res.data
+    //         })
+    //     })
+    //     axios.post('http://localhost:4000/get-shopping-info', id).then(res => {
+    //         this.setState({
+    //             shoppingdetails: res.data
+    //         })
+    //     })
+    //     axios.post('http://localhost:4000/get-food-info', id).then(res => {
+    //         this.setState({
+    //             fooddetails: res.data
+    //         })
+    //     })
+    // }
+    openAddFriends() {
         console.log(this.props.user)
-        const {user} = this.props;
+        const { user } = this.props;
         axios.get('http://localhost:4000/get-users').then(res => {
             console.log(res)
             this.setState({
@@ -90,14 +97,14 @@ class Profile extends Component {
             addFriendsModal: true
         })
     }
-    closeAddFriends(){
+    closeAddFriends() {
         this.setState({
             addFriendsModal: false
         })
     }
-    addFriend(i){
+    addFriend(i) {
         let friend = this.state.users[i];
-        const {user} = this.props
+        const { user } = this.props
         var id = {
             auth_id: user.auth_id
         }
@@ -162,13 +169,52 @@ class Profile extends Component {
                 </div>
             )
         })
-        let users = this.state.users.map((e,i)=> {
+        let users = this.state.users.map((e, i) => {
             return (
-            <div key={i} className='addFriendslist'>
-                <img src={e.img} alt="" className='friend-profile-img'/>
-                <h1>{e.username}</h1>
-                <div className='add-friend-button' onClick={() => this.addFriend(i)}>Add Friend</div>
-            </div>
+                <div key={i} className='addFriendslist'>
+                    <img src={e.img} alt="" className='friend-profile-img' />
+                    <h1>{e.username}</h1>
+                    <div className='add-friend-button' onClick={() => this.addFriend(i)}>Add Friend</div>
+                </div>
+            )
+        })
+        let trip = this.state.tripData.map((e, i) => {
+            var id = {
+                tripid: this.state.tripData[i].id
+            }
+
+            axios.post('http://localhost:4000/get-hotel-info', id).then(res => {
+                // this.setState({
+                //     hoteldetail: res.data
+                // })
+                console.log('hotel',res)
+            })
+            axios.post('http://localhost:4000/get-transport-info', id).then(res => {
+                // this.setState({
+                //     transportdetails: res.data
+                // })
+                console.log('transport', res)
+            })
+            axios.post('http://localhost:4000/get-amusement-info', id).then(res => {
+                // this.setState({
+                //     amusementdetails: res.data
+                // })
+                console.log('amusement', res)
+            })
+            axios.post('http://localhost:4000/get-shopping-info', id).then(res => {
+                // this.setState({
+                //     shoppingdetails: res.data
+                // })
+                console.log('shopping', res)
+            })
+            axios.post('http://localhost:4000/get-food-info', id).then(res => {
+                // this.setState({
+                //     fooddetails: res.data
+                // })
+                console.log('food',res)
+            })
+            return( 
+                id
             )
         })
         return (
@@ -190,20 +236,21 @@ class Profile extends Component {
                         <div className="numOfFollowing">{this.state.following}</div>
                     </div>
                 </div>
-                    <div className="follower-search-button" onClick={() => this.openAddFriends()}>Search Friends</div>
-                    <Modal
-                        className='addFriendModal'
-                        isOpen={this.state.addFriendsModal}
-                        onRequestClose={this.closeAddFriends}
-                    >
-                        {users}
-                    </Modal>
+                <div className="follower-search-button" onClick={() => this.openAddFriends()}>Search Friends</div>
+                <Modal
+                    className='addFriendModal'
+                    isOpen={this.state.addFriendsModal}
+                    onRequestClose={this.closeAddFriends}
+                >
+                    {users}
+                </Modal>
                 <div className='trips'>
                     <div className='trip-names'>
                         {trips}
                     </div>
                 </div>
                 <div className="trip-details">
+                    {JSON.stringify(trip)}
                     <div className="hotelpackage">
                         <div className="hotel-img">
 
