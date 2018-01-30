@@ -231,7 +231,6 @@ app.get('/auth/logout', function(req,res){
 //user friends
 app.post('/add-friend', (req,res) => {
     const db = app.get('db');
-    console.log('userinfo', req.body)
     const userauthId = req.body.user.auth_id;
     const friendUsername = req.body.friend.username;
     const friendAuthId = req.body.friend.auth_id;
@@ -243,6 +242,26 @@ app.post('/add-friend', (req,res) => {
         friendImg
     ]).then(resp => {
         res.status(200).send('friend added')
+    })
+})
+app.post('/numOfFollowing', (req,res) => {
+    console.log('asdfads',req.body)
+    const {auth_id} = req.body;
+    const db = app.get('db');
+    db.get_num_of_friends([
+        auth_id
+    ]).then(resp => {
+        res.status(200).send(resp)
+    })
+})
+app.post('/numOfFollowers', (req,res) => {
+    console.log('asdfads',req.body)
+    const {auth_id} = req.body;
+    const db = app.get('db');
+    db.get_num_of_followers([
+        auth_id
+    ]).then(resp => {
+        res.status(200).send(resp)
     })
 })
 app.get('/get-users', (req,res) => {

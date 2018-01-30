@@ -35,6 +35,16 @@ class Profile extends Component {
             this.setState({
                 tripData: res.data
             })
+            axios.post('http://localhost:4000/numOfFollowing', id).then(res => {
+                this.setState({
+                    following: res.data[0].count
+                })
+            })
+            axios.post('http://localhost:4000/numOfFollowers', id).then(res => {
+                this.setState({
+                    followers: res.data[0].count
+                })
+            })
         })
     }
     tripInfo(i) {
@@ -88,6 +98,9 @@ class Profile extends Component {
     addFriend(i){
         let friend = this.state.users[i];
         const {user} = this.props
+        var id = {
+            auth_id: user.auth_id
+        }
         const friendInput = {
             friend: friend,
             user: user
@@ -95,6 +108,11 @@ class Profile extends Component {
         console.log(friend)
         axios.post('http://localhost:4000/add-friend', friendInput).then(res => {
             console.log(res)
+            axios.post('http://localhost:4000/numOffollowing', id).then(res => {
+                this.setState({
+                    following: res.data[0].count
+                })
+            })
         })
     }
     render() {
