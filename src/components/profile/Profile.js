@@ -21,6 +21,7 @@ class Profile extends Component {
             followers: 0,
             following: 0,
             users: [],
+            userTrips: []
         }
         this.closeAddFriends = this.closeAddFriends.bind(this)
     }
@@ -32,7 +33,6 @@ class Profile extends Component {
         }
         console.log(id)
         axios.post('http://localhost:4000/getUserTrips', id).then(res => {
-            console.log(res)
             var tripid = res.data.map((e,i) => {
                 return e.id
             })
@@ -40,7 +40,9 @@ class Profile extends Component {
                 tripid: tripid
             }
             axios.post('http://localhost:4000/gettripinfo', ids).then(res => {
-                console.log(res)
+                this.setState({
+                    userTrips: res.data
+                })
             })
         })
         axios.post('http://localhost:4000/numOfFollowing', id).then(res => {
@@ -54,36 +56,7 @@ class Profile extends Component {
             })
         })
     }
-    // tripInfo(i) {
-    //     var id = {
-    //         tripid: this.state.tripData[i].id
-    //     }
-    //     axios.post('http://localhost:4000/get-hotel-info', id).then(res => {
-    //         this.setState({
-    //             hoteldetail: res.data
-    //         })
-    //     })
-    //     axios.post('http://localhost:4000/get-transport-info', id).then(res => {
-    //         this.setState({
-    //             transportdetails: res.data
-    //         })
-    //     })
-    //     axios.post('http://localhost:4000/get-amusement-info', id).then(res => {
-    //         this.setState({
-    //             amusementdetails: res.data
-    //         })
-    //     })
-    //     axios.post('http://localhost:4000/get-shopping-info', id).then(res => {
-    //         this.setState({
-    //             shoppingdetails: res.data
-    //         })
-    //     })
-    //     axios.post('http://localhost:4000/get-food-info', id).then(res => {
-    //         this.setState({
-    //             fooddetails: res.data
-    //         })
-    //     })
-    // }
+ 
     openAddFriends() {
         console.log(this.props.user)
         const { user } = this.props;
@@ -129,46 +102,6 @@ class Profile extends Component {
         let trips = this.state.tripData.map((e, i) => {
             return <div key={i} onClick={() => this.tripInfo(i)} className='trip-name'>{e.tripname}</div>
         })
-        let hotels = this.state.hoteldetail.map((e, i) => {
-            return (
-                <div key={i}>
-                    <div>{e.name}</div>
-                    <div>{e.rating}</div>
-                </div>
-            )
-        })
-        let transports = this.state.transportdetails.map((e, i) => {
-            return (
-                <div key={i}>
-                    <div>{e.name}</div>
-                    <div>{e.rating}</div>
-                </div>
-            )
-        })
-        let amusements = this.state.amusementdetails.map((e, i) => {
-            return (
-                <div key={i}>
-                    <div>{e.name}</div>
-                    <div>{e.rating}</div>
-                </div>
-            )
-        })
-        let shoppings = this.state.shoppingdetails.map((e, i) => {
-            return (
-                <div key={i}>
-                    <div>{e.name}</div>
-                    <div>{e.rating}</div>
-                </div>
-            )
-        })
-        let foods = this.state.fooddetails.map((e, i) => {
-            return (
-                <div key={i}>
-                    <div>{e.name}</div>
-                    <div>{e.rating}</div>
-                </div>
-            )
-        })
         let users = this.state.users.map((e, i) => {
             return (
                 <div key={i} className='addFriendslist'>
@@ -178,45 +111,7 @@ class Profile extends Component {
                 </div>
             )
         })
-        let trip = this.state.tripData.map((e, i) => {
-            var id = {
-                tripid: this.state.tripData[i].id
-            }
-
-            axios.post('http://localhost:4000/get-hotel-info', id).then(res => {
-                // this.setState({
-                //     hoteldetail: res.data
-                // })
-                console.log('hotel',res)
-            })
-            axios.post('http://localhost:4000/get-transport-info', id).then(res => {
-                // this.setState({
-                //     transportdetails: res.data
-                // })
-                console.log('transport', res)
-            })
-            axios.post('http://localhost:4000/get-amusement-info', id).then(res => {
-                // this.setState({
-                //     amusementdetails: res.data
-                // })
-                console.log('amusement', res)
-            })
-            axios.post('http://localhost:4000/get-shopping-info', id).then(res => {
-                // this.setState({
-                //     shoppingdetails: res.data
-                // })
-                console.log('shopping', res)
-            })
-            axios.post('http://localhost:4000/get-food-info', id).then(res => {
-                // this.setState({
-                //     fooddetails: res.data
-                // })
-                console.log('food',res)
-            })
-            return( 
-                id
-            )
-        })
+        console.log(this.state.userTrips)
         return (
             <div>
                 <Header />
@@ -246,36 +141,10 @@ class Profile extends Component {
                 </Modal>
                 <div className='trips'>
                     <div className='trip-names'>
-                        {trips}
                     </div>
                 </div>
                 <div className="trip-details">
-                    {JSON.stringify(trip)}
-                    <div className="hotelpackage">
-                        <div className="hotel-img">
 
-                        </div>
-                        <div className="hoteldetails">
-                            {hotels}
-                        </div>
-                    </div>
-                    <div className="transportsandtitle">
-                        <div className="triptitle">
-
-                        </div>
-                        <div className="transportdetaisl">
-                            {transports}
-                        </div>
-                    </div>
-                    <div className="amusementdetails">
-                        {amusements}
-                    </div>
-                    <div className="shoppingdetails">
-                        {shoppings}
-                    </div>
-                    <div className="dining">
-                        {foods}
-                    </div>
                 </div>
             </div>
         )
