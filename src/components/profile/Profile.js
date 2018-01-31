@@ -33,7 +33,7 @@ class Profile extends Component {
         }
         console.log(id)
         axios.post('http://localhost:4000/getUserTrips', id).then(res => {
-            var tripid = res.data.map((e,i) => {
+            var tripid = res.data.map((e, i) => {
                 return e.id
             })
             var ids = {
@@ -56,7 +56,7 @@ class Profile extends Component {
             })
         })
     }
- 
+
     openAddFriends() {
         console.log(this.props.user)
         const { user } = this.props;

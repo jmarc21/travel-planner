@@ -145,6 +145,16 @@ app.post('/gettripinfo', (req, res) => {
         
 
 })
+app.post('/getfollowerstrips', (req,res) => {
+    const db = app.get('db');
+    console.log(req.body)
+    const {id} = req.body;
+    db.get_followers_trips([
+        id
+    ]).then( resp => {
+        res.status(200).send(resp)
+    })
+})
 //user trip components
 app.post('/hotel-trip-comp', (req, res) => {
     // console.log('hotel', req.body)
