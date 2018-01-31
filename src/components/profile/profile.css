@@ -36,6 +36,7 @@
     top: 170px;
     left: 500px;
     width: 600px;
+    height: 160px;
     font-size: 20px;
     background-color: gray;
     border-radius: 5px;
@@ -122,4 +123,20 @@
 .usertrip{
     height: 200px;
     background-color: gray;
+}
+.settings{
+    height: 24px;
+    position: absolute;
+    top: 125px;
+    left: 1080px;
+}
+.editProfileModal{
+    height: 80vh;
+    width: 80vw;
+    background-color: rgb(189, 189, 189);
+    margin: auto;
+    margin-top: 90px;
+}
+.editProfileModal:focus{
+    outline: none;
 }

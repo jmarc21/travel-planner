@@ -5,30 +5,30 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-image: url('./arial.jpeg');
+    background-image: url('./cityandman.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    z-index: -2
 }
 .login-container{
-    height: 250px;
-    width: 430px;
+    height: 100vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #00659449;
-    border-radius: 10px;
-    margin-left: 50px;
+    background-color: #00000075;
+    /* margin-left: 50px; */
     /* padding-left: 40px; */
 }
 .titleHome{
-    font-size: 52px;
-    color: #006494;
+    font-size: 92px;
+    color: #F3E9DC;
     margin-top: 20px;
     margin-bottom: 40px;
     font-family: 'Shrikhand', cursive;
-    font-weight: 600;
+    font-weight: 400;
      text-shadow: 1px 1px #212121;
 }
 h3{
@@ -48,4 +48,11 @@ h3{
     background-color: #006494;
     border-radius: 30px;
     font-family: 'Shrikhand';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.logo{
+    position: absolute;
+    z-index: 0
 }

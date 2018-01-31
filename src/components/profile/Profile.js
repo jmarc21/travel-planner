@@ -5,7 +5,7 @@ import { getUserInfo, getTrips } from './../ducks/users'
 import { connect } from 'react-redux';
 import axios from 'axios';
 import Modal from 'react-modal';
-
+import editsvg from './edit.svg';
 
 class Profile extends Component {
     constructor() {
@@ -21,9 +21,11 @@ class Profile extends Component {
             followers: 0,
             following: 0,
             users: [],
-            userTrips: []
+            userTrips: [],
+            editProfileModal: false
         }
         this.closeAddFriends = this.closeAddFriends.bind(this)
+        this.closeProfileModal = this.closeProfileModal.bind(this)
     }
     componentDidMount() {
         this.props.getUserInfo()
@@ -95,13 +97,18 @@ class Profile extends Component {
             })
         })
     }
+    editProfile(){
+        this.setState({
+            editProfileModal: true
+        })
+    }
+    closeProfileModal(){
+        this.setState({
+            editProfileModal: false
+        })
+    }
     render() {
         const user = this.props.user;
-        // console.log(this.state.tripData)
-        // console.log(user)
-        // let trips = this.state.tripData.map((e, i) => {
-        //     return <div key={i} onClick={() => this.tripInfo(i)} className='trip-name'>{e.tripname}</div>
-        // })
         let users = this.state.users.map((e, i) => {
             return (
                 <div key={i} className='addFriendslist'>
@@ -149,6 +156,7 @@ class Profile extends Component {
                     </div>
                 </div>
                 <div className="follower-search-button" onClick={() => this.openAddFriends()}>Search Friends</div>
+                <img className='settings' src={editsvg} alt="" onClick={() => this.editProfile()}/>
                 <Modal
                     className='addFriendModal'
                     isOpen={this.state.addFriendsModal}
@@ -156,8 +164,19 @@ class Profile extends Component {
                 >
                     {users}
                 </Modal>
+                <Modal
+                    className='editProfileModal'
+                    isOpen={this.state.editProfileModal}
+                    onRequestClose={this.closeProfileModal}
+                >
+                    <h1>Username:</h1>
+                    <input type="text" className='updateUsername'/>
+                    <h1>Bucketlist Trips and About You:</h1>
+                    <input type="text" className='bucketlisttrips'/>
+                </Modal>
                 <div className='trips'>
                     <div className='trip-names'>
+                        <div>Bucketlist Trips:</div>
                     </div>
                 </div>
                 <div className="trip-details">
