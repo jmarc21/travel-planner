@@ -1,9 +1,9 @@
 select 
-placeid,
-photoreference,
+amuseid,
+amusephotoreference,
 tripid,
-name,
-rating
+amusename,
+amuserating
 from 
 amusement
 inner join trips on trips.id = amusement.tripid

@@ -1,4 +1,4 @@
 INSERT INTO food
-(placeid, photoreference, tripid, userid, name, rating)
+(foodid, foodphotoreference, tripid, userid, foodname, foodrating)
 VALUES
 ($1,$2,$3,$4,$5,$6);

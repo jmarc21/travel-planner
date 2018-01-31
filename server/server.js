@@ -103,55 +103,57 @@ app.post('/getUserTrips', (req, res) => {
 })
 app.post('/gettripinfo', (req, res) => {
     console.log(req.body)
-    let hotel = []
-    let transport = []
-    let amuse = []
-    let shopping = []
-    let food = []
+    let trip = []
     var count = 0;
-         req.body.tripid.map((e, i) => {
-            const db = app.get('db');
-            var p1 = db.get_hotel_info([
+    req.body.tripid.map((e, i) => {
+        const tripid = { id: e }
+        const db = app.get('db');
+        var p1 = db.get_hotel_info([
+            e
+        ]).then(resp => {
+            tripid.hotel = resp[0]
+            db.get_transportation_info([
                 e
             ]).then(resp => {
-                console.log(resp)
-                hotel.push(resp)
-                db.get_transportation_info([
-                e
-            ]).then(resp => {
-                transport.push(resp)
+                tripid.transport = resp[0]
                 db.get_amusement_info([
-                e
-            ]).then(resp => {
-                amuse.push(resp)
-                db.get_shopping_info([
-                e
-            ]).then(resp => {
-                shopping.push(resp)
-                db.get_food_info([
-                e
-            ]).then(resp => {
-                food.push(resp)
-                count++
-                if(req.body.tripid.length == count) {
-                    res.status(200).send({ hotel, transport, amuse, shopping, food })
-                }
-            })
-            })
-            })
-            })
+                    e
+                ]).then(resp => {
+                    tripid.amuse = resp[0]
+                    db.get_shopping_info([
+                        e
+                    ]).then(resp => {
+                        tripid.shopping = resp[0]
+                        db.get_food_info([
+                            e
+                        ]).then(resp => {
+                            tripid.food = resp[0]
+                            db.get_trip_info([
+                                e
+                            ]).then(resp => {
+                                tripid.tripinfo = resp[0]
+                                trip.push(tripid)
+                                count++
+                                if (req.body.tripid.length === count) {
+                                    res.status(200).send({ trip })
+                                }
+                            })
+                        })
+                    })
+                })
             })
         })
-        
+    })
+
 
 })
-app.post('/getfollowerstrips', (req,res) => {
+app.post('/getfollowerstrips', (req, res) => {
     const db = app.get('db');
     console.log(req.body)
-    const {id} = req.body;
+    const { id } = req.body;
     db.get_followers_trips([
         id
-    ]).then( resp => {
+    ]).then(resp => {
         res.status(200).send(resp)
     })
 })

@@ -1,4 +1,4 @@
 INSERT INTO hotels
-(placeid, photoreference, tripid, userid, name, rating)
+(hotelid, hotelphotoreference, tripid, userid, hotelname, hotelating)
 VALUES
 ($1,$2,$3,$4,$5,$6);

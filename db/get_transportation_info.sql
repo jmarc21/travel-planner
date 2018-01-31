@@ -1,9 +1,9 @@
 select 
-placeid,
-photoreference,
+transportid,
+transportphotoreference,
 tripid,
-name,
-rating
+transportname,
+transportrating
 from 
 transportation
 inner join trips on trips.id = transportation.tripid

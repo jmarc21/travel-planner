@@ -18,7 +18,7 @@ class Home extends Component{
             id: user.auth_id
         }
         axios.post('http://localhost:4000/getfollowerstrips', id ).then(res => {
-            console.log(res)
+            console.log(res.data)
         })
     }
     render(){

@@ -1,9 +1,9 @@
 select 
-placeid,
-photoreference,
+hotelid,
+hotelphotoreference,
 tripid,
-name,
-rating
+hotelname,
+hotelrating
 from 
 hotels
 inner join trips on trips.id = hotels.tripid

@@ -1,9 +1,9 @@
 select 
-placeid,
-photoreference,
+shoppingid,
+shoppingphotoreference,
 tripid,
-name,
-rating
+shopname,
+shoprating
 from 
 shopping
 inner join trips on trips.id = shopping.tripid

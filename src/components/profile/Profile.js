@@ -41,7 +41,7 @@ class Profile extends Component {
             }
             axios.post('http://localhost:4000/gettripinfo', ids).then(res => {
                 this.setState({
-                    userTrips: res.data
+                    userTrips: res.data.trip
                 })
             })
         })
@@ -99,9 +99,9 @@ class Profile extends Component {
         const user = this.props.user;
         // console.log(this.state.tripData)
         // console.log(user)
-        let trips = this.state.tripData.map((e, i) => {
-            return <div key={i} onClick={() => this.tripInfo(i)} className='trip-name'>{e.tripname}</div>
-        })
+        // let trips = this.state.tripData.map((e, i) => {
+        //     return <div key={i} onClick={() => this.tripInfo(i)} className='trip-name'>{e.tripname}</div>
+        // })
         let users = this.state.users.map((e, i) => {
             return (
                 <div key={i} className='addFriendslist'>
@@ -112,6 +112,23 @@ class Profile extends Component {
             )
         })
         console.log(this.state.userTrips)
+        let trips = this.state.userTrips.map((e,i) => {
+            return(
+            <div key={i} className='usertrip'>
+                <div className='usertripname'>{e.tripinfo.tripname}</div>
+                <div className='userhotelname'>{e.hotel ? e.hotel.hotelname : null}</div>
+                <div className='userhotelrating'>{e.hotel ? e.hotel.hotelrating : null}</div>
+                <div className='usertransportname'>{e.transport ? e.transport.transportname : null}</div>
+                <div className='usertransportrating'>{e.transport ? e.transport.transportrating : null}</div>
+                <div className='useramusename'>{e.amuse ? e.amuse.amusename : null}</div>
+                <div className='useramuserating'>{e.amuse ? e.amuse.amuserating : null}</div>
+                <div className='usershoppingname'>{e.shopping ? e.shopping.shopname : null}</div>
+                <div className='usershoppingrating'>{e.shopping ? e.shopping.shoprating : null}</div>
+                <div className='userfoodname'>{e.food ? e.food.foodname : null}</div>
+                <div className='userfoodrating'>{e.food ? e.food.foodrating : null}</div>
+            </div>
+            )
+        })
         return (
             <div>
                 <Header />
@@ -144,7 +161,7 @@ class Profile extends Component {
                     </div>
                 </div>
                 <div className="trip-details">
-
+                    {trips}
                 </div>
             </div>
         )

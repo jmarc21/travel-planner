@@ -1,4 +1,4 @@
 INSERT INTO amusement
-(placeid, photoreference, tripid, userid, name, rating)
+(amuseid, amusephotoreference, tripid, userid, amusename, amuserating)
 VALUES
 ($1,$2,$3,$4,$5,$6);
