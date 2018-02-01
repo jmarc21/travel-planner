@@ -120,8 +120,8 @@ class Profile extends Component {
         this.handleImageUpload(files[0])
     }
     handleImageUpload(file) {
-        let upload = request.post('https://api.cloudinary.com/v1_1/travel-project/image/upload')
-            .field('upload_preset', 'justin')
+        let upload = request.post(process.env.REACT_APP_CLOUDINARY_UPLOAD_URL)
+            .field('upload_preset', process.end.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
             .field('file', file);
         upload.end((err, response) => {
             if (err) {
