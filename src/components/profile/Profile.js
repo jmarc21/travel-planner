@@ -27,6 +27,8 @@ class Profile extends Component {
             userTrips: [],
             editProfileModal: false,
             uploadedFileCloudinaryUrl: '',
+            username: '',
+            description: ''
         }
         this.closeAddFriends = this.closeAddFriends.bind(this)
         this.closeProfileModal = this.closeProfileModal.bind(this)
@@ -121,7 +123,7 @@ class Profile extends Component {
     }
     handleImageUpload(file) {
         let upload = request.post(process.env.REACT_APP_CLOUDINARY_UPLOAD_URL)
-            .field('upload_preset', process.end.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
+            .field('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
             .field('file', file);
         upload.end((err, response) => {
             if (err) {
@@ -133,6 +135,26 @@ class Profile extends Component {
                 })
             }
         })
+    }
+    updateUsername(val){
+        this.setState({
+            username: val
+        })
+    }
+    updateBucketlist(val){
+        this.setState({
+            description: val
+        })
+    }
+    updateProfile(){
+        let username = this.state.username;
+        let profilePic = this.state.uploadedFileCloudinaryUrl;
+        let description = this.state.description;
+        let profile = {
+            profilepic: profilePic,
+            username: username,
+            description: description
+        }
     }
     render() {
         const user = this.props.user;
@@ -197,11 +219,12 @@ class Profile extends Component {
                     onRequestClose={this.closeProfileModal}
                 >
                     <Dropzone
+                        className='dropzoneProfile'
                         multiple={false}
                         accept='image/*'
                         onDrop={this.onImageDrop.bind(this)}
                     >
-                        <p>Drop an image or click to select a file to upload</p>
+                        <p>Drop an image or click to select a photo to update Profile</p>
                     </Dropzone>
                     <div>
                         <div className="FileUpload">
@@ -215,10 +238,11 @@ class Profile extends Component {
                                 </div>}
                         </div>
                     </div>
-                    <h1>Username:</h1>
-                    <input type="text" className='updateUsername' />
-                    <h1>Bucketlist Trips and About You:</h1>
-                    <input type="text" className='bucketlisttrips' />
+                    <h1 className='usernameText'>Username:</h1>
+                    <input type="text" className='updateUsernameProfile' onChange={() => this.updateUsername()}/>
+                    <h1 className='Description'>Bucketlist Trips and About You:</h1>
+                    <textarea className='bucketlisttrips' cols="30" rows="10" onChange={() => this.updateBucketlist()}></textarea>
+                    <button onClick={() => this.updateProfile()}>Save Changes</button>
                 </Modal>
                 <div className='trips'>
                     <div className='trip-names'>

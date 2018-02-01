@@ -136,7 +136,27 @@
     background-color: rgb(189, 189, 189);
     margin: auto;
     margin-top: 90px;
+    padding: 20px;
 }
 .editProfileModal:focus{
     outline: none;
+}
+.dropzoneProfile{
+    height: 100px;
+    width: 100px;
+    border: 2px dashed black
+}
+.updateUsernameProfile{
+    width: 200px;
+    font-size: 22px;
+}
+.bucketlisttrips{
+    width: 400px;
+    height: 200px;
+}
+.usernameText{
+    font-size: 22px;
+}
+.Description{
+    font-size: 22px;
 }
