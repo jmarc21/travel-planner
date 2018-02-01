@@ -126,7 +126,8 @@ class Contents extends Component {
             trips: [],
             selectedTrip: {},
             selectedCateg: '',
-            colorSlide: false
+            colorSlide: false,
+            selectanimation: true
         }
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClicked = this.onMapClicked.bind(this);
@@ -517,27 +518,32 @@ class Contents extends Component {
     tripChoiceAttrib(att) {
         if (att === 'h') {
             this.setState({
-                selectedCateg: 'h'
+                selectedCateg: 'h',
+                selectanimation: this.state.selectanimation ? false : true
             })
         }
         if (att === 't') {
             this.setState({
-                selectedCateg: 't'
+                selectedCateg: 't',
+                selectanimation: true
             })
         }
         if (att === 'a') {
             this.setState({
-                selectedCateg: 'a'
+                selectedCateg: 'a',
+                selectanimation: this.state.selectanimation ? false : true
             })
         }
         if (att === 'f') {
             this.setState({
-                selectedCateg: 'f'
+                selectedCateg: 'f',
+                selectanimation: this.state.selectanimation ? false : true
             })
         }
         if (att === 's') {
             this.setState({
-                selectedCateg: 's'
+                selectedCateg: 's',
+                selectanimation: this.state.selectanimation ? false : true
             })
         }
     }
@@ -1251,7 +1257,7 @@ class Contents extends Component {
                         <h1>Click on trip</h1>
                         {trips}
                         <h1>Choose Category</h1>
-                        <div className='choice' onClick={() => this.tripChoiceAttrib('h')}>Hotel</div>
+                        <div className={this.state.selectanimation ? 'choice' : 'choice grow'} onClick={() => this.tripChoiceAttrib('h')}>Hotel</div>
                         <div className='choice' onClick={() => this.tripChoiceAttrib('t')}>Transportation</div>
                         <div className='choice' onClick={() => this.tripChoiceAttrib('a')}>Amusement</div>
                         <div className='choice' onClick={() => this.tripChoiceAttrib('f')}>Food</div>

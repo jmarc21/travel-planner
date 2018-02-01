@@ -523,6 +523,22 @@ h2 h1{
 .addToTripModal:focus{
     outline: none;
 }
+.choice{
+    padding: 5px;
+}
+.grow{
+    animation: grow
+}
+@keyframes grow{
+    from{
+        width: 0;
+        background-color: white;
+    }
+    to{
+        width: 200;
+        background-color: white;
+    }
+}
 .trip-choice{
     height: 15px;
     width: 150px;
