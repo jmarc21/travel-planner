@@ -41,25 +41,25 @@ class Profile extends Component {
             auth_id: user.auth_id
         }
         console.log(id)
-        axios.post('http://localhost:4000/getUserTrips', id).then(res => {
+        axios.post('/getUserTrips', id).then(res => {
             var tripid = res.data.map((e, i) => {
                 return e.id
             })
             var ids = {
                 tripid: tripid
             }
-            axios.post('http://localhost:4000/gettripinfo', ids).then(res => {
+            axios.post('/gettripinfo', ids).then(res => {
                 this.setState({
                     userTrips: res.data.trip
                 })
             })
         })
-        axios.post('http://localhost:4000/numOfFollowing', id).then(res => {
+        axios.post('/numOfFollowing', id).then(res => {
             this.setState({
                 following: res.data[0].count
             })
         })
-        axios.post('http://localhost:4000/numOfFollowers', id).then(res => {
+        axios.post('/numOfFollowers', id).then(res => {
             this.setState({
                 followers: res.data[0].count
             })
@@ -69,7 +69,7 @@ class Profile extends Component {
     openAddFriends() {
         console.log(this.props.user)
         const { user } = this.props;
-        axios.get('http://localhost:4000/get-users').then(res => {
+        axios.get('/get-users').then(res => {
             console.log(res)
             this.setState({
                 users: res.data
@@ -95,9 +95,9 @@ class Profile extends Component {
             user: user
         }
         console.log(friend)
-        axios.post('http://localhost:4000/add-friend', friendInput).then(res => {
+        axios.post('/add-friend', friendInput).then(res => {
             console.log(res)
-            axios.post('http://localhost:4000/numOffollowing', id).then(res => {
+            axios.post('/numOffollowing', id).then(res => {
                 this.setState({
                     following: res.data[0].count
                 })
@@ -158,7 +158,7 @@ class Profile extends Component {
             description: description,
             user: user.auth_id
         }
-        axios.post('http://localhost:4000/update-profile', profile).then(res => {
+        axios.post('/update-profile', profile).then(res => {
             console.log(res)
         })
     }

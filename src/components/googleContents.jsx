@@ -203,103 +203,103 @@ class Contents extends Component {
         // console.log(typeof coordin.lat)
         // console.log(coordin)
 
-        axios.post('http://localhost:4000/hotels', coordin).then(res => {
+        axios.post('/hotels', coordin).then(res => {
             this.setState({
                 hotelData: res.data
             })
             // console.log(res.data)
         })
-        axios.post('http://localhost:4000/airports', coordin).then(res => {
+        axios.post('/airports', coordin).then(res => {
             this.setState({
                 airportData: res.data
             })
             // console.log(res.data)
         })
-        axios.post('http://localhost:4000/restaurants', coordin).then(res => {
+        axios.post('/restaurants', coordin).then(res => {
             this.setState({
                 restaurantsData: res.data
             })
             // console.log(res.data)
         })
-        axios.post('http://localhost:4000/car-rental', coordin).then(res => {
+        axios.post('/car-rental', coordin).then(res => {
             this.setState({
                 carRentalData: res.data
             })
             // console.log(res.data)
         })
-        axios.post('http://localhost:4000/amusement-park', coordin).then(res => {
+        axios.post('/amusement-park', coordin).then(res => {
             this.setState({
                 amusementParkData: res.data
             })
             // console.log(res.data)
         })
-        axios.post('http://localhost:4000/museum', coordin).then(res => {
+        axios.post('/museum', coordin).then(res => {
             this.setState({
                 museumData: res.data
             })
             // console.log(res.data)
         })
-        axios.post('http://localhost:4000/aquarium', coordin).then(res => {
+        axios.post('/aquarium', coordin).then(res => {
             this.setState({
                 aquariumData: res.data
             })
             // console.log(res.data)
         })
-        axios.post('http://localhost:4000/night-club', coordin).then(res => {
+        axios.post('/night-club', coordin).then(res => {
             this.setState({
                 nightClubData: res.data
             })
             // console.log(res.data)
         })
-        axios.post('http://localhost:4000/spa', coordin).then(res => {
+        axios.post('/spa', coordin).then(res => {
             this.setState({
                 spaData: res.data
             })
             // console.log(res.data)
         })
-        axios.post('http://localhost:4000/bowling-alley', coordin).then(res => {
+        axios.post('/bowling-alley', coordin).then(res => {
             this.setState({
                 bowlingAlleyData: res.data
             })
             // console.log(res.data)
         })
-        axios.post('http://localhost:4000/cafe', coordin).then(res => {
+        axios.post('/cafe', coordin).then(res => {
             this.setState({
                 cafeData: res.data
             })
             // console.log(res.data)
         })
-        axios.post('http://localhost:4000/casino', coordin).then(res => {
+        axios.post('/casino', coordin).then(res => {
             this.setState({
                 casinoData: res.data
             })
             // console.log(res.data)
         })
-        axios.post('http://localhost:4000/clothing-store', coordin).then(res => {
+        axios.post('/clothing-store', coordin).then(res => {
             this.setState({
                 clothingStoreData: res.data
             })
             // console.log(res.data)
         })
-        axios.post('http://localhost:4000/department-store', coordin).then(res => {
+        axios.post('/department-store', coordin).then(res => {
             this.setState({
                 departmentStoreData: res.data
             })
             // console.log(res.data)
         })
-        axios.post('http://localhost:4000/shoe-store', coordin).then(res => {
+        axios.post('/shoe-store', coordin).then(res => {
             this.setState({
                 shoeStoreData: res.data
             })
             // console.log(res.data)
         })
-        axios.post('http://localhost:4000/shopping-mall', coordin).then(res => {
+        axios.post('/shopping-mall', coordin).then(res => {
             this.setState({
                 shoppingMallData: res.data
             })
             // console.log(res.data)
         })
-        axios.post('http://localhost:4000/supermarket', coordin).then(res => {
+        axios.post('/supermarket', coordin).then(res => {
             this.setState({
                 supermarketData: res.data
             })
@@ -330,14 +330,14 @@ class Contents extends Component {
         var photo_reference = {
             photo_reference: data[i].photos[0].photo_reference
         }
-        axios.post('http://localhost:4000/detail-pic', photo_reference).then(res => {
+        axios.post('/detail-pic', photo_reference).then(res => {
             console.log(res.data)
             this.setState({
                 pic: res.data
             })
         })
         console.log(place_id)
-        axios.post('http://localhost:4000/detail', place_id).then(res => {
+        axios.post('/detail', place_id).then(res => {
             console.log(res)
             this.setState({
                 slide: true,
@@ -489,7 +489,7 @@ class Contents extends Component {
         var id = {
             auth_id: user.auth_id
         }
-        axios.post('http://localhost:4000/getUserTrips', id).then(res => {
+        axios.post('/getUserTrips', id).then(res => {
             this.setState({
                 trips: res.data
             })
@@ -559,27 +559,27 @@ class Contents extends Component {
             rating: rating
         }
         if (selectedCateg === 'h') {
-            axios.post('http://localhost:4000/hotel-trip-comp', tripComp).then(res => {
+            axios.post('/hotel-trip-comp', tripComp).then(res => {
                 console.log(res)
             })
         }
         if (selectedCateg === 't') {
-            axios.post('http://localhost:4000/transport-trip-comp', tripComp).then(res => {
+            axios.post('/transport-trip-comp', tripComp).then(res => {
                 console.log(res)
             })
         }
         if (selectedCateg === 'a') {
-            axios.post('http://localhost:4000/amuse-trip-comp', tripComp).then(res => {
+            axios.post('/amuse-trip-comp', tripComp).then(res => {
                 console.log(res)
             })
         }
         if (selectedCateg === 'f') {
-            axios.post('http://localhost:4000/food-trip-comp', tripComp).then(res => {
+            axios.post('/food-trip-comp', tripComp).then(res => {
                 console.log(res)
             })
         }
         if (selectedCateg === 's') {
-            axios.post('http://localhost:4000/shop-trip-comp', tripComp).then(res => {
+            axios.post('/shop-trip-comp', tripComp).then(res => {
                 console.log(res)
             })
         }

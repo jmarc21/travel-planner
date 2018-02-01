@@ -17,7 +17,7 @@ class Home extends Component {
         var id = {
             id: user.auth_id
         }
-        axios.post('http://localhost:4000/getfollowerstrips', id).then(res => {
+        axios.post('/getfollowerstrips', id).then(res => {
             this.setState({
                 followingTrips: res.data
             })
