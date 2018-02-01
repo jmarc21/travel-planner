@@ -77,6 +77,19 @@ app.get('/auth/me', (req, res) => {
         res.status(200).send(req.user);
     }
 })
+app.post('/update-profile', (req,res) => {
+    console.log('profile update', req.body)
+    const {profilepic, username, description, user} = req.body;
+    const db = app.get('db');
+    db.update_user([
+        profilepic,
+        username,
+        description,
+        user
+    ]).then(resp => {
+        res.status(200).send(resp)
+    })
+})
 app.post('/create-trip', (req, res) => {
     // console.log(req.body)
     const { tripName, userId, username } = req.body;

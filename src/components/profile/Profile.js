@@ -147,14 +147,20 @@ class Profile extends Component {
         })
     }
     updateProfile(){
-        let username = this.state.username;
-        let profilePic = this.state.uploadedFileCloudinaryUrl;
-        let description = this.state.description;
+        // let username = this.state.username;
+        // let profilePic = this.state.uploadedFileCloudinaryUrl;
+        // let description = this.state.description;
+        const {user} = this.props
+        const {username, description, uploadedFileCloudinaryUrl} = this.state
         let profile = {
-            profilepic: profilePic,
+            profilepic: uploadedFileCloudinaryUrl,
             username: username,
-            description: description
+            description: description,
+            user: user.auth_id
         }
+        axios.post('http://localhost:4000/update-profile', profile).then(res => {
+            console.log(res)
+        })
     }
     render() {
         const user = this.props.user;
@@ -167,7 +173,6 @@ class Profile extends Component {
                 </div>
             )
         })
-        console.log(this.state.userTrips)
         let trips = this.state.userTrips.map((e, i) => {
             return (
                 <div key={i} className='usertrip'>
@@ -226,7 +231,7 @@ class Profile extends Component {
                     >
                         <p>Drop an image or click to select a photo to update Profile</p>
                     </Dropzone>
-                    <div>
+                    {/* <div>
                         <div className="FileUpload">
 
                         </div>
@@ -237,11 +242,11 @@ class Profile extends Component {
                                     <img src={this.state.uploadedFileCloudinaryUrl}/>
                                 </div>}
                         </div>
-                    </div>
+                    </div> */}
                     <h1 className='usernameText'>Username:</h1>
-                    <input type="text" className='updateUsernameProfile' onChange={() => this.updateUsername()}/>
+                    <input type="text" className='updateUsernameProfile' onChange={(e) => this.updateUsername(e.target.value)}/>
                     <h1 className='Description'>Bucketlist Trips and About You:</h1>
-                    <textarea className='bucketlisttrips' cols="30" rows="10" onChange={() => this.updateBucketlist()}></textarea>
+                    <textarea className='bucketlisttrips' cols="30" rows="10" onChange={(e) => this.updateBucketlist(e.target.value)}></textarea>
                     <button onClick={() => this.updateProfile()}>Save Changes</button>
                 </Modal>
                 <div className='trips'>
