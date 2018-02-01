@@ -6,10 +6,13 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import Modal from 'react-modal';
 import editsvg from './edit.svg';
+import Dropzone from 'react-dropzone';
+import request from 'superagent';
+
 
 class Profile extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             tripData: [],
             hoteldetail: [],
@@ -22,10 +25,12 @@ class Profile extends Component {
             following: 0,
             users: [],
             userTrips: [],
-            editProfileModal: false
+            editProfileModal: false,
+            uploadedFileCloudinaryUrl: '',
         }
         this.closeAddFriends = this.closeAddFriends.bind(this)
         this.closeProfileModal = this.closeProfileModal.bind(this)
+        // this.onImageDrop = this.onImageDrop.bind(this)
     }
     componentDidMount() {
         this.props.getUserInfo()
@@ -97,14 +102,36 @@ class Profile extends Component {
             })
         })
     }
-    editProfile(){
+    editProfile() {
         this.setState({
             editProfileModal: true
         })
     }
-    closeProfileModal(){
+    closeProfileModal() {
         this.setState({
             editProfileModal: false
+        })
+    }
+    onImageDrop(files) {
+        console.log(files)
+        this.setState({
+            uploadedFile: files[0]
+        })
+        this.handleImageUpload(files[0])
+    }
+    handleImageUpload(file) {
+        let upload = request.post('https://api.cloudinary.com/v1_1/travel-project/image/upload')
+            .field('upload_preset', 'justin')
+            .field('file', file);
+        upload.end((err, response) => {
+            if (err) {
+                console.error(err)
+            }
+            if (response.body.secure_url !== '') {
+                this.setState({
+                    uploadedFileCloudinaryUrl: response.body.secure_url
+                })
+            }
         })
     }
     render() {
@@ -119,21 +146,21 @@ class Profile extends Component {
             )
         })
         console.log(this.state.userTrips)
-        let trips = this.state.userTrips.map((e,i) => {
-            return(
-            <div key={i} className='usertrip'>
-                <div className='usertripname'>{e.tripinfo.tripname}</div>
-                <div className='userhotelname'>{e.hotel ? e.hotel.hotelname : null}</div>
-                <div className='userhotelrating'>{e.hotel ? e.hotel.hotelrating : null}</div>
-                <div className='usertransportname'>{e.transport ? e.transport.transportname : null}</div>
-                <div className='usertransportrating'>{e.transport ? e.transport.transportrating : null}</div>
-                <div className='useramusename'>{e.amuse ? e.amuse.amusename : null}</div>
-                <div className='useramuserating'>{e.amuse ? e.amuse.amuserating : null}</div>
-                <div className='usershoppingname'>{e.shopping ? e.shopping.shopname : null}</div>
-                <div className='usershoppingrating'>{e.shopping ? e.shopping.shoprating : null}</div>
-                <div className='userfoodname'>{e.food ? e.food.foodname : null}</div>
-                <div className='userfoodrating'>{e.food ? e.food.foodrating : null}</div>
-            </div>
+        let trips = this.state.userTrips.map((e, i) => {
+            return (
+                <div key={i} className='usertrip'>
+                    <div className='usertripname'>{e.tripinfo.tripname}</div>
+                    <div className='userhotelname'>{e.hotel ? e.hotel.hotelname : null}</div>
+                    <div className='userhotelrating'>{e.hotel ? e.hotel.hotelrating : null}</div>
+                    <div className='usertransportname'>{e.transport ? e.transport.transportname : null}</div>
+                    <div className='usertransportrating'>{e.transport ? e.transport.transportrating : null}</div>
+                    <div className='useramusename'>{e.amuse ? e.amuse.amusename : null}</div>
+                    <div className='useramuserating'>{e.amuse ? e.amuse.amuserating : null}</div>
+                    <div className='usershoppingname'>{e.shopping ? e.shopping.shopname : null}</div>
+                    <div className='usershoppingrating'>{e.shopping ? e.shopping.shoprating : null}</div>
+                    <div className='userfoodname'>{e.food ? e.food.foodname : null}</div>
+                    <div className='userfoodrating'>{e.food ? e.food.foodrating : null}</div>
+                </div>
             )
         })
         return (
@@ -156,7 +183,7 @@ class Profile extends Component {
                     </div>
                 </div>
                 <div className="follower-search-button" onClick={() => this.openAddFriends()}>Search Friends</div>
-                <img className='settings' src={editsvg} alt="" onClick={() => this.editProfile()}/>
+                <img className='settings' src={editsvg} alt="" onClick={() => this.editProfile()} />
                 <Modal
                     className='addFriendModal'
                     isOpen={this.state.addFriendsModal}
@@ -169,10 +196,29 @@ class Profile extends Component {
                     isOpen={this.state.editProfileModal}
                     onRequestClose={this.closeProfileModal}
                 >
+                    <Dropzone
+                        multiple={false}
+                        accept='image/*'
+                        onDrop={this.onImageDrop.bind(this)}
+                    >
+                        <p>Drop an image or click to select a file to upload</p>
+                    </Dropzone>
+                    <div>
+                        <div className="FileUpload">
+
+                        </div>
+                        <div>
+                            {this.state.uploadedFileCloudinaryUrl = '' ? null :
+                                <div>
+                                    <p>{this.state.uploadedFile ? this.state.uploadedFile.name : null}</p>
+                                    <img src={this.state.uploadedFileCloudinaryUrl}/>
+                                </div>}
+                        </div>
+                    </div>
                     <h1>Username:</h1>
-                    <input type="text" className='updateUsername'/>
+                    <input type="text" className='updateUsername' />
                     <h1>Bucketlist Trips and About You:</h1>
-                    <input type="text" className='bucketlisttrips'/>
+                    <input type="text" className='bucketlisttrips' />
                 </Modal>
                 <div className='trips'>
                     <div className='trip-names'>
