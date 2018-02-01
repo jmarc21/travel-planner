@@ -78,7 +78,6 @@ app.get('/auth/me', (req, res) => {
     }
 })
 app.post('/update-profile', (req,res) => {
-    console.log('profile update', req.body)
     const {profilepic, username, description, user} = req.body;
     const db = app.get('db');
     db.update_user([
