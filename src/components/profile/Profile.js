@@ -64,6 +64,7 @@ class Profile extends Component {
                 followers: res.data[0].count
             })
         })
+        axios.post('')
     }
 
     openAddFriends() {
@@ -194,7 +195,7 @@ class Profile extends Component {
             <div>
                 <Header />
                 <div className='profile-container'>
-                    <img className='profile-pic' src={user ? user.img : null} alt='profilePic' />
+                    <img className='profile-pic' src={user ? user.img : null}/>
                     <h2 className='name-profile'>{user ? user.username : null}</h2>
                 </div>
                 <div className="followers-list">
@@ -231,7 +232,7 @@ class Profile extends Component {
                     >
                         <p>Drop an image or click to select a photo to update Profile</p>
                     </Dropzone>
-                    {/* <div>
+                    <div>
                         <div className="FileUpload">
 
                         </div>
@@ -239,10 +240,10 @@ class Profile extends Component {
                             {this.state.uploadedFileCloudinaryUrl = '' ? null :
                                 <div>
                                     <p>{this.state.uploadedFile ? this.state.uploadedFile.name : null}</p>
-                                    <img src={this.state.uploadedFileCloudinaryUrl}/>
+                                    {/* <img src={this.state.uploadedFileCloudinaryUrl}/> */}
                                 </div>}
                         </div>
-                    </div> */}
+                    </div>
                     <h1 className='usernameText'>Username:</h1>
                     <input type="text" className='updateUsernameProfile' onChange={(e) => this.updateUsername(e.target.value)}/>
                     <h1 className='Description'>Bucketlist Trips and About You:</h1>

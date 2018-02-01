@@ -36,12 +36,10 @@ passport.use(new Auth0Strategy({
     callbackURL: AUTH_CALLBACK_URL,
     scope: 'openid profile'
 }, function (accessToken, refreshToken, extraParams, profile, done) {
-    console.log(accessToken)
     let { displayName, user_id, picture } = profile;
     const db = app.get('db')
 
     db.find_user([user_id]).then(function (users) {
-        console.log(users)
         if (!users[0]) {
             db.create_user([
                 displayName,
@@ -172,7 +170,7 @@ app.post('/getfollowerstrips', (req, res) => {
 })
 //user trip components
 app.post('/hotel-trip-comp', (req, res) => {
-    // console.log('hotel', req.body)
+    console.log('hotel', req.body)
     const db = app.get('db');
     const { placeId, photoReference, tripId, userId, name, rating } = req.body;
     db.add_to_hotel([
