@@ -30,7 +30,8 @@ class Profile extends Component {
             editProfileModal: false,
             uploadedFileCloudinaryUrl: '',
             username: '',
-            description: ''
+            bio: '',
+            tripnames: []
         }
         this.closeAddFriends = this.closeAddFriends.bind(this)
         this.closeProfileModal = this.closeProfileModal.bind(this)
@@ -42,7 +43,6 @@ class Profile extends Component {
         var id = {
             auth_id: user.auth_id
         }
-        console.log(id)
         axios.post('/getUserTrips', id).then(res => {
             var tripid = res.data.map((e, i) => {
                 return e.id
@@ -66,14 +66,16 @@ class Profile extends Component {
                 followers: res.data[0].count
             })
         })
-        axios.post('')
+        axios.post('/getUserTrips', id).then(res => {
+            this.setState({
+                tripnames: res.data
+            })
+        })
     }
 
     openAddFriends() {
-        console.log(this.props.user)
         const { user } = this.props;
         axios.get('/get-users').then(res => {
-            console.log(res)
             this.setState({
                 users: res.data
             })
@@ -97,9 +99,7 @@ class Profile extends Component {
             friend: friend,
             user: user
         }
-        console.log(friend)
         axios.post('/add-friend', friendInput).then(res => {
-            console.log(res)
             axios.post('/numOffollowing', id).then(res => {
                 this.setState({
                     following: res.data[0].count
@@ -118,7 +118,6 @@ class Profile extends Component {
         })
     }
     onImageDrop(files) {
-        console.log(files)
         this.setState({
             uploadedFile: files[0]
         })
@@ -140,13 +139,20 @@ class Profile extends Component {
         })
     }
     updateUsername(val) {
-        this.setState({
-            username: val
-        })
+        if (val === this.state.username) {
+            this.setState({
+                username: this.props.user.username
+            })
+        }
+        if(val !== this.state.username){
+            this.setState({
+                username: val
+            })
+        }
     }
-    updateBucketlist(val) {
+    updateBio(val) {
         this.setState({
-            description: val
+            bio: val
         })
     }
     updateProfile() {
@@ -154,11 +160,11 @@ class Profile extends Component {
         // let profilePic = this.state.uploadedFileCloudinaryUrl;
         // let description = this.state.description;
         const { user } = this.props
-        const { username, description, uploadedFileCloudinaryUrl } = this.state
+        const { username, bio, uploadedFileCloudinaryUrl } = this.state
         let profile = {
             profilepic: uploadedFileCloudinaryUrl,
             username: username,
-            description: description,
+            bio: bio,
             user: user.auth_id
         }
         axios.post('/update-profile', profile).then(res => {
@@ -191,6 +197,24 @@ class Profile extends Component {
                     <div className='usershoppingrating'>{e.shopping ? e.shopping.shoprating : null}</div>
                     <div className='userfoodname'>{e.food ? e.food.foodname : null}</div>
                     <div className='userfoodrating'>{e.food ? e.food.foodrating : null}</div>
+                </div>
+            )
+        })
+        let preview = () => {
+            if (this.state.uploadedFileCloudinaryUrl) {
+                return (
+                    <div>
+                        <p>{this.state.uploadedFile ? this.state.uploadedFile.name : null}</p>
+                        <img className='profilepicupdate' src={this.state.uploadedFileCloudinaryUrl ? this.state.uploadedFileCloudinaryUrl : null} />
+                    </div>
+                )
+            }
+            return null
+        }
+        let tripNames = this.state.tripnames.map((e, i) => {
+            return (
+                <div key={i}>
+                    <div>{e.tripname}</div>
                 </div>
             )
         })
@@ -227,6 +251,7 @@ class Profile extends Component {
                     className='editProfileModal'
                     isOpen={this.state.editProfileModal}
                     onRequestClose={this.closeProfileModal}
+                    ariaHideApp={false}
                 >
                     <Dropzone
                         className='dropzoneProfile'
@@ -237,26 +262,20 @@ class Profile extends Component {
                         <p>Drop an image or click to select a photo to update Profile</p>
                     </Dropzone>
                     <div>
-                        <div className="FileUpload">
-
-                        </div>
                         <div>
-                            {this.state.uploadedFileCloudinaryUrl = '' ? null :
-                                <div>
-                                    <p>{this.state.uploadedFile ? this.state.uploadedFile.name : null}</p>
-                                    <img className='profilepicupdate' src={this.state.uploadedFileCloudinaryUrl}/>
-                                </div>}
+                            {preview()}
                         </div>
                     </div>
                     <h1 className='usernameText'>Username:</h1>
                     <input type="text" className='updateUsernameProfile' onChange={(e) => this.updateUsername(e.target.value)} />
-                    <h1 className='Description'>Bucketlist Trips and About You:</h1>
-                    <textarea className='bucketlisttrips' cols="30" rows="10" onChange={(e) => this.updateBucketlist(e.target.value)}></textarea>
+                    <h1 className='bio'>Bio</h1>
+                    <textarea className='descriptioninput' cols="30" rows="5" onChange={(e) => this.updateBio(e.target.value)}></textarea>
                     <button onClick={() => this.updateProfile()}>Save Changes</button>
                 </Modal>
                 <div className='trips'>
                     <div className='trip-names'>
                         <div>Bucketlist Trips:</div>
+                        {tripNames}
                     </div>
                 </div>
                 <div className="trip-details">

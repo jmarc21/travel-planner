@@ -77,12 +77,12 @@ app.get('/auth/me', (req, res) => {
     }
 })
 app.post('/update-profile', (req,res) => {
-    const {profilepic, username, description, user} = req.body;
+    const {profilepic, username, bio, user} = req.body;
     const db = app.get('db');
     db.update_user([
         profilepic,
         username,
-        description,
+        bio,
         user
     ]).then(resp => {
         res.status(200).send(resp)
