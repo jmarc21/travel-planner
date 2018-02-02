@@ -297,7 +297,7 @@ class Profile extends Component {
                     className='tripDetailsModal'
                     isOpen={this.state.tripDetailsModal}
                     onRequestClose={this.closeTripDetailModal}
-
+                    ariaHideApp={false}
                 >
                     <h1>hello</h1>
                 </Modal>
