@@ -31,11 +31,13 @@ class Profile extends Component {
             uploadedFileCloudinaryUrl: '',
             username: '',
             bio: '',
-            tripnames: []
+            tripnames: [],
+            tripDetailsModal: false
         }
         this.closeAddFriends = this.closeAddFriends.bind(this)
         this.closeProfileModal = this.closeProfileModal.bind(this)
-        // this.onImageDrop = this.onImageDrop.bind(this)
+        this.openTripDetailsModal = this.openTripDetailsModal.bind(this)
+        this.closeTripDetailModal = this.closeTripDetailModal.bind(this)
     }
     componentDidMount() {
         this.props.getUserInfo()
@@ -139,16 +141,9 @@ class Profile extends Component {
         })
     }
     updateUsername(val) {
-        if (val === this.state.username) {
-            this.setState({
-                username: this.props.user.username
-            })
-        }
-        if(val !== this.state.username){
-            this.setState({
-                username: val
-            })
-        }
+        this.setState({
+            username: val
+        })
     }
     updateBio(val) {
         this.setState({
@@ -156,13 +151,13 @@ class Profile extends Component {
         })
     }
     updateProfile() {
-        // let username = this.state.username;
-        // let profilePic = this.state.uploadedFileCloudinaryUrl;
-        // let description = this.state.description;
+        let username = this.state.username || this.props.user.username;
+        let profilePic = this.state.uploadedFileCloudinaryUrl || this.props.user.img;
+        let bio = this.state.bio || this.props.user.description;
         const { user } = this.props
-        const { username, bio, uploadedFileCloudinaryUrl } = this.state
+        // const { username, bio, uploadedFileCloudinaryUrl } = this.state
         let profile = {
-            profilepic: uploadedFileCloudinaryUrl,
+            profilepic: profilePic,
             username: username,
             bio: bio,
             user: user.auth_id
@@ -171,9 +166,19 @@ class Profile extends Component {
             console.log(res)
         })
     }
+    openTripDetailsModal(){
+        this.setState({
+            tripDetailsModal: true
+        })
+    }
+    closeTripDetailModal(){
+        this.setState({
+            tripDetailsModal: false
+        })
+    }
     render() {
         const user = this.props.user;
-        console.log(user)
+        console.log(this.state.userTrips)
         let users = this.state.users.map((e, i) => {
             return (
                 <div key={i} className='addFriendslist'>
@@ -187,16 +192,32 @@ class Profile extends Component {
             return (
                 <div key={i} className='usertrip'>
                     <div className='usertripname'>{e.tripinfo.tripname}</div>
-                    <div className='userhotelname'>{e.hotel ? e.hotel.hotelname : null}</div>
-                    <div className='userhotelrating'>{e.hotel ? e.hotel.hotelrating : null}</div>
-                    <div className='usertransportname'>{e.transport ? e.transport.transportname : null}</div>
-                    <div className='usertransportrating'>{e.transport ? e.transport.transportrating : null}</div>
-                    <div className='useramusename'>{e.amuse ? e.amuse.amusename : null}</div>
-                    <div className='useramuserating'>{e.amuse ? e.amuse.amuserating : null}</div>
-                    <div className='usershoppingname'>{e.shopping ? e.shopping.shopname : null}</div>
-                    <div className='usershoppingrating'>{e.shopping ? e.shopping.shoprating : null}</div>
-                    <div className='userfoodname'>{e.food ? e.food.foodname : null}</div>
-                    <div className='userfoodrating'>{e.food ? e.food.foodrating : null}</div>
+                    <div className='details' onClick={() => this.openTripDetailsModal()}>
+                        <div className="detailsdot"></div>
+                        <div className="detailsdot"></div>
+                        <div className="detailsdot"></div>
+                    </div>
+                    <div className="hotels-profile">
+                        <div className='userhotelname'>{e.hotel ? e.hotel.hotelname : null}</div>
+                        <div className='userhotelrating'>{e.hotel ? e.hotel.hotelrating : null}</div>
+                    </div>
+                    <div className="transportations">
+                        <div className='usertransportname'>{e.transport ? e.transport.transportname : null}</div>
+                        <div className='usertransportrating'>{e.transport ? e.transport.transportrating : null}</div>
+                    </div>
+                    <div className="amusements">
+                        <div className='useramusename'>{e.amuse ? e.amuse.amusename : null}</div>
+                        <div className='useramuserating'>{e.amuse ? e.amuse.amuserating : null}</div>
+
+                    </div>
+                    <div className="shoppings">
+                        <div className='usershoppingname'>{e.shopping ? e.shopping.shopname : null}</div>
+                        <div className='usershoppingrating'>{e.shopping ? e.shopping.shoprating : null}</div>
+                    </div>
+                    <div className="foods">
+                        <div className='userfoodname'>{e.food ? e.food.foodname : null}</div>
+                        <div className='userfoodrating'>{e.food ? e.food.foodrating : null}</div>
+                    </div>
                 </div>
             )
         })
@@ -271,6 +292,14 @@ class Profile extends Component {
                     <h1 className='bio'>Bio</h1>
                     <textarea className='descriptioninput' cols="30" rows="5" onChange={(e) => this.updateBio(e.target.value)}></textarea>
                     <button onClick={() => this.updateProfile()}>Save Changes</button>
+                </Modal>
+                <Modal
+                    className='tripDetailsModal'
+                    isOpen={this.state.tripDetailsModal}
+                    onRequestClose={this.closeTripDetailModal}
+
+                >
+                    <h1>hello</h1>
                 </Modal>
                 <div className='trips'>
                     <div className='trip-names'>
