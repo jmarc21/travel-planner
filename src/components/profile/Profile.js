@@ -8,6 +8,8 @@ import Modal from 'react-modal';
 import editsvg from './edit.svg';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
+import { Link } from 'react-router-dom';
+import trashcan from './trashcan.svg'
 
 
 class Profile extends Component {
@@ -137,22 +139,22 @@ class Profile extends Component {
             }
         })
     }
-    updateUsername(val){
+    updateUsername(val) {
         this.setState({
             username: val
         })
     }
-    updateBucketlist(val){
+    updateBucketlist(val) {
         this.setState({
             description: val
         })
     }
-    updateProfile(){
+    updateProfile() {
         // let username = this.state.username;
         // let profilePic = this.state.uploadedFileCloudinaryUrl;
         // let description = this.state.description;
-        const {user} = this.props
-        const {username, description, uploadedFileCloudinaryUrl} = this.state
+        const { user } = this.props
+        const { username, description, uploadedFileCloudinaryUrl } = this.state
         let profile = {
             profilepic: uploadedFileCloudinaryUrl,
             username: username,
@@ -165,6 +167,7 @@ class Profile extends Component {
     }
     render() {
         const user = this.props.user;
+        console.log(user)
         let users = this.state.users.map((e, i) => {
             return (
                 <div key={i} className='addFriendslist'>
@@ -195,22 +198,23 @@ class Profile extends Component {
             <div>
                 <Header />
                 <div className='profile-container'>
-                    <img className='profile-pic' src={user ? user.img : null}/>
+                    <img className='profile-pic' src={user ? user.img : null} />
                     <h2 className='name-profile'>{user ? user.username : null}</h2>
+                    <p>{user ? user.description : null}</p>
                 </div>
-                <div className="followers-list">
+                <Link to='/followers' style={{ textDecoration: 'none', color: '#000000' }}><div className="followers-list">
                     <div className="followers">
                         <div>Followers</div>
                         <div className="numOfFollowers">{this.state.followers}</div>
                     </div>
-                </div>
-                <div className="following-list">
+                </div></Link>
+                <Link to='/following' style={{ textDecoration: 'none', color: '#000000' }}><div className="following-list">
                     <div className="following">
                         <div>Following</div>
                         <div className="numOfFollowing">{this.state.following}</div>
                     </div>
-                </div>
-                <div className="follower-search-button" onClick={() => this.openAddFriends()}>Search Friends</div>
+                </div></Link>
+                <Link to='/friends' style={{ textDecoration: 'none', color: '#000000' }}><div className="follower-search-button" onClick={() => this.openAddFriends()}>Search Friends</div></Link>
                 <img className='settings' src={editsvg} alt="" onClick={() => this.editProfile()} />
                 <Modal
                     className='addFriendModal'
@@ -240,12 +244,12 @@ class Profile extends Component {
                             {this.state.uploadedFileCloudinaryUrl = '' ? null :
                                 <div>
                                     <p>{this.state.uploadedFile ? this.state.uploadedFile.name : null}</p>
-                                    {/* <img src={this.state.uploadedFileCloudinaryUrl}/> */}
+                                    <img className='profilepicupdate' src={this.state.uploadedFileCloudinaryUrl}/>
                                 </div>}
                         </div>
                     </div>
                     <h1 className='usernameText'>Username:</h1>
-                    <input type="text" className='updateUsernameProfile' onChange={(e) => this.updateUsername(e.target.value)}/>
+                    <input type="text" className='updateUsernameProfile' onChange={(e) => this.updateUsername(e.target.value)} />
                     <h1 className='Description'>Bucketlist Trips and About You:</h1>
                     <textarea className='bucketlisttrips' cols="30" rows="10" onChange={(e) => this.updateBucketlist(e.target.value)}></textarea>
                     <button onClick={() => this.updateProfile()}>Save Changes</button>

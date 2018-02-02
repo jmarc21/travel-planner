@@ -5,6 +5,9 @@ import Profile from './components/profile/Profile';
 import Search from './components/search/Search';
 import Planner from './components/trip_plan/Planner';
 import Feed from './components/feed/Feed';
+import Friends from './components/friends/Friends';
+import Followers from './components/followers/Followers'
+import Following from './components/following/Following'
 
 export default (
     <Switch>
@@ -13,5 +16,8 @@ export default (
         <Route path='/profile' component={Profile} />
         <Route path='/search' component={Search} />
         <Route path='/planner' component={Planner} />
+        <Route path='/friends' component={Friends} />
+        <Route path='/followers' component={Followers} />
+        <Route path='/following' component={Following} />
     </Switch>
 )

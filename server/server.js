@@ -65,7 +65,7 @@ passport.deserializeUser((id, done) => {
 
 app.get('/auth', passport.authenticate('auth0'))
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: `/#/planner`,
+    successRedirect: `http://localhost:3000/#/planner`,
     failureRedirect: '/#/'
 }))
 
@@ -328,6 +328,26 @@ app.post('/numOfFollowers', (req, res) => {
     db.get_num_of_followers([
         auth_id
     ]).then(resp => {
+        res.status(200).send(resp)
+    })
+})
+app.post('/get-following', (req,res) => {
+    console.log('following',req.body)
+    const {authid} = req.body;
+    const db = app.get('db');
+    db.get_following([
+        authid
+    ]).then(resp => {
+        res.status(200).send(resp)
+    })
+})
+app.post('/get-followers', (req,res) => {
+    console.log('followers',req.body)
+    const {authid} = req.body;
+    const db = app.get('db')
+    db.get_followers([
+        authid
+    ]).then( resp => {
         res.status(200).send(resp)
     })
 })
