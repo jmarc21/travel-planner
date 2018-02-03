@@ -244,6 +244,26 @@ app.post('/shop-trip-comp', (req, res) => {
         res.status(200).send('shop added to trip')
     })
 })
+//delete Trips
+app.post('/delete-trip' , (req, res) => {
+    console.log('delete',req.body)
+    const {tripid} = req.body
+    const db = app.get('db')
+    db.delete_trip([
+        tripid
+    ]).then(resp => {
+        res.status(200).send('deleted')
+    })
+})
+app.post('/delete-hotel', (req,res) => {
+    const {hotelid} = req.body;
+    const db = app.get('db');
+    db.delete_hotel([
+        hotelid
+    ]).then(resp => {
+        res.status(200).send(resp)
+    })
+})
 //user trip components info
 app.post('/get-hotel-info', (req, res) => {
     const db = app.get('db');

@@ -33,20 +33,21 @@ class Profile extends Component {
             bio: '',
             tripnames: [],
             tripDetailsModal: false,
-            specTripId: ''
+            specTripId: '',
+            deleted: 'deleted'
         }
         this.closeAddFriends = this.closeAddFriends.bind(this)
         this.closeProfileModal = this.closeProfileModal.bind(this)
         this.openTripDetailsModal = this.openTripDetailsModal.bind(this)
         this.closeTripDetailModal = this.closeTripDetailModal.bind(this)
     }
-    componentDidMount() {
-        this.props.getUserInfo()
+    async componentDidMount() {
+        await this.props.getUserInfo()
         const user = this.props.user
         var id = {
             auth_id: user.auth_id
         }
-        axios.post('/getUserTrips', id).then(res => {
+        await axios.post('/getUserTrips', id).then(res => {
             var tripid = res.data.map((e, i) => {
                 return e.id
             })
@@ -59,17 +60,17 @@ class Profile extends Component {
                 })
             })
         })
-        axios.post('/numOfFollowing', id).then(res => {
+        await axios.post('/numOfFollowing', id).then(res => {
             this.setState({
                 following: res.data[0].count
             })
         })
-        axios.post('/numOfFollowers', id).then(res => {
+        await axios.post('/numOfFollowers', id).then(res => {
             this.setState({
                 followers: res.data[0].count
             })
         })
-        axios.post('/getUserTrips', id).then(res => {
+        await axios.post('/getUserTrips', id).then(res => {
             this.setState({
                 tripnames: res.data
             })
@@ -179,6 +180,41 @@ class Profile extends Component {
         this.setState({
             tripDetailsModal: false
         })
+    }
+    deleteTrip(){
+        const i = this.state.specTripId;
+        const usertrip = this.state.userTrips
+        var tripid = {
+            tripid: usertrip[i].tripinfo.id
+        }
+        axios.post('/delete-trip', tripid ).then(res => {
+            console.log(res)
+            if(res.data === 'deleted'){
+                window.location.reload()
+            }
+        })
+    }
+    deleteHotel(){
+        const i = this.state.specTripId;
+        const usertrip = this.state.userTrips;
+        var hotelid = {
+            hotelid: usertrip[i].hotel.tripid
+        }
+        axios.post('/delete-hotel', hotelid).then(res => {
+            console.log(res)
+        })
+    }
+    deleteTransport(){
+
+    }
+    deleteAmuse(){
+
+    }
+    deleteShop(){
+
+    }
+    deleteFood(){
+
     }
     render() {
         const user = this.props.user;
@@ -307,32 +343,32 @@ class Profile extends Component {
                 >
                     <div className="tripNameSpec">
                         {usertrips[ti] ? usertrips[ti].tripinfo.tripname : null}
-                        <button>Delete Trip</button>
+                        <button onClick={() => this.deleteTrip()}>Delete Trip</button>
                     </div>
                     <div className="hotelSpec">
                         {usertrips[ti] ? (usertrips[ti].hotel ? usertrips[ti].hotel.hotelname : null) : null}
                         {usertrips[ti] ? (usertrips[ti].hotel ? usertrips[ti].hotel.hotelrating : null) : null}
-                        {usertrips[ti] ? (usertrips[ti].hotel ? <button>Delete</button> : null) : null}
+                        {usertrips[ti] ? (usertrips[ti].hotel ? <button onClick={() => this.deleteHotel()}>Delete</button> : null) : null}
                     </div>
                     <div className="transportationSpec">
                         {usertrips[ti] ? (usertrips[ti].transport ? usertrips[ti].transport.transportname : null) : null}
                         {usertrips[ti] ? (usertrips[ti].transport ? usertrips[ti].transport.transportrating : null) : null}
-                        {usertrips[ti] ? (usertrips[ti].transport ? <button>Delete</button> : null) : null}
+                        {usertrips[ti] ? (usertrips[ti].transport ? <button onClick={() => this.deleteTransport()}>Delete</button> : null) : null}
                     </div>
                     <div className="amuseSpec">
                         {usertrips[ti] ? (usertrips[ti].amuse ? usertrips[ti].amuse.amusename : null) : null}
                         {usertrips[ti] ? (usertrips[ti].amuse ? usertrips[ti].amuse.amuserating : null) : null}
-                        {usertrips[ti] ? (usertrips[ti].amuse ? <button>Delete</button> : null) : null}
+                        {usertrips[ti] ? (usertrips[ti].amuse ? <button onClick={() => this.deleteAmuse()}>Delete</button> : null) : null}
                     </div>
                     <div className="shoppingSpec">
                         {usertrips[ti] ? (usertrips[ti].shopping ? usertrips[ti].shopping.shopname : null) : null}
                         {usertrips[ti] ? (usertrips[ti].shopping ? usertrips[ti].shopping.shoprating : null) : null}
-                        {usertrips[ti] ? (usertrips[ti].shopping ? <button>Delete</button> : null) : null}
+                        {usertrips[ti] ? (usertrips[ti].shopping ? <button onClick={() => this.deleteShop()}>Delete</button> : null) : null}
                     </div>
                     <div className="foodSpec">
                         {usertrips[ti] ? (usertrips[ti].food ? usertrips[ti].food.foodname : null) : null}
                         {usertrips[ti] ? (usertrips[ti].food ? usertrips[ti].food.foodrating : null) : null}
-                        {usertrips[ti] ? (usertrips[ti].food ? <button>Delete</button> : null) : null}
+                        {usertrips[ti] ? (usertrips[ti].food ? <button onClick={() => this.deleteFood()}>Delete</button> : null) : null}
                     </div>
                 </Modal>
                 <div className='trips'>
