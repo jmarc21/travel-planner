@@ -169,6 +169,7 @@ class Profile extends Component {
     }
     openTripDetailsModal(i){
         console.log(i)
+        console.log(this.state.userTrips[i])
         this.setState({
             tripDetailsModal: true,
             specTripId: i
@@ -242,6 +243,8 @@ class Profile extends Component {
                 </div>
             )
         })
+        const usertrips = this.state.userTrips
+        const ti = this.state.specTripId
         return (
             <div>
                 <Header />
@@ -303,10 +306,11 @@ class Profile extends Component {
                     ariaHideApp={false}
                 >
                     <div className="tripNameSpec">
-                        {this.state.userTrips[this.state.specTripId] ? this.state.userTrips[this.state.specTripId].tripinfo.tripname : null}
+                        {usertrips[ti] ? usertrips[ti].tripinfo.tripname : null}
                     </div>
                     <div className="hotelSpec">
-                        {this.state.userTrips[this.state.specTripId] ? this.state.userTrips[this.state.specTripId].hotel.hotelname : null}
+                        {usertrips[ti] ? usertrips[ti].hotel.hotelname : null}
+                        {usertrips[ti] ? usertrips[ti].hotel.hotelrating : null}
                     </div>
                 </Modal>
                 <div className='trips'>
