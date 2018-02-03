@@ -32,7 +32,8 @@ class Profile extends Component {
             username: '',
             bio: '',
             tripnames: [],
-            tripDetailsModal: false
+            tripDetailsModal: false,
+            specTripId: ''
         }
         this.closeAddFriends = this.closeAddFriends.bind(this)
         this.closeProfileModal = this.closeProfileModal.bind(this)
@@ -166,9 +167,11 @@ class Profile extends Component {
             console.log(res)
         })
     }
-    openTripDetailsModal(){
+    openTripDetailsModal(i){
+        console.log(i)
         this.setState({
-            tripDetailsModal: true
+            tripDetailsModal: true,
+            specTripId: i
         })
     }
     closeTripDetailModal(){
@@ -192,7 +195,7 @@ class Profile extends Component {
             return (
                 <div key={i} className='usertrip'>
                     <div className='usertripname'>{e.tripinfo.tripname}</div>
-                    <div className='details' onClick={() => this.openTripDetailsModal()}>
+                    <div className='details' onClick={() => this.openTripDetailsModal(i)}>
                         <div className="detailsdot"></div>
                         <div className="detailsdot"></div>
                         <div className="detailsdot"></div>
@@ -299,7 +302,12 @@ class Profile extends Component {
                     onRequestClose={this.closeTripDetailModal}
                     ariaHideApp={false}
                 >
-                    <h1>hello</h1>
+                    <div className="tripNameSpec">
+                        {this.state.userTrips[this.state.specTripId] ? this.state.userTrips[this.state.specTripId].tripinfo.tripname : null}
+                    </div>
+                    <div className="hotelSpec">
+                        {this.state.userTrips[this.state.specTripId] ? this.state.userTrips[this.state.specTripId].hotel.hotelname : null}
+                    </div>
                 </Modal>
                 <div className='trips'>
                     <div className='trip-names'>

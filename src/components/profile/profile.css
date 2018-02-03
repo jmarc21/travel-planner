@@ -184,6 +184,7 @@
     width: 80vw;
     background-color: gray;
     margin: auto;
+    margin-top: 20vh;
 }
 .tripDetailsModal:focus{
     outline: none;
