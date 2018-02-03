@@ -167,7 +167,7 @@ class Profile extends Component {
             console.log(res)
         })
     }
-    openTripDetailsModal(i){
+    openTripDetailsModal(i) {
         console.log(i)
         console.log(this.state.userTrips[i])
         this.setState({
@@ -175,7 +175,7 @@ class Profile extends Component {
             specTripId: i
         })
     }
-    closeTripDetailModal(){
+    closeTripDetailModal() {
         this.setState({
             tripDetailsModal: false
         })
@@ -307,10 +307,32 @@ class Profile extends Component {
                 >
                     <div className="tripNameSpec">
                         {usertrips[ti] ? usertrips[ti].tripinfo.tripname : null}
+                        <button>Delete Trip</button>
                     </div>
                     <div className="hotelSpec">
-                        {usertrips[ti] ? usertrips[ti].hotel.hotelname : null}
-                        {usertrips[ti] ? usertrips[ti].hotel.hotelrating : null}
+                        {usertrips[ti] ? (usertrips[ti].hotel ? usertrips[ti].hotel.hotelname : null) : null}
+                        {usertrips[ti] ? (usertrips[ti].hotel ? usertrips[ti].hotel.hotelrating : null) : null}
+                        {usertrips[ti] ? (usertrips[ti].hotel ? <button>Delete</button> : null) : null}
+                    </div>
+                    <div className="transportationSpec">
+                        {usertrips[ti] ? (usertrips[ti].transport ? usertrips[ti].transport.transportname : null) : null}
+                        {usertrips[ti] ? (usertrips[ti].transport ? usertrips[ti].transport.transportrating : null) : null}
+                        {usertrips[ti] ? (usertrips[ti].transport ? <button>Delete</button> : null) : null}
+                    </div>
+                    <div className="amuseSpec">
+                        {usertrips[ti] ? (usertrips[ti].amuse ? usertrips[ti].amuse.amusename : null) : null}
+                        {usertrips[ti] ? (usertrips[ti].amuse ? usertrips[ti].amuse.amuserating : null) : null}
+                        {usertrips[ti] ? (usertrips[ti].amuse ? <button>Delete</button> : null) : null}
+                    </div>
+                    <div className="shoppingSpec">
+                        {usertrips[ti] ? (usertrips[ti].shopping ? usertrips[ti].shopping.shopname : null) : null}
+                        {usertrips[ti] ? (usertrips[ti].shopping ? usertrips[ti].shopping.shoprating : null) : null}
+                        {usertrips[ti] ? (usertrips[ti].shopping ? <button>Delete</button> : null) : null}
+                    </div>
+                    <div className="foodSpec">
+                        {usertrips[ti] ? (usertrips[ti].food ? usertrips[ti].food.foodname : null) : null}
+                        {usertrips[ti] ? (usertrips[ti].food ? usertrips[ti].food.foodrating : null) : null}
+                        {usertrips[ti] ? (usertrips[ti].food ? <button>Delete</button> : null) : null}
                     </div>
                 </Modal>
                 <div className='trips'>
