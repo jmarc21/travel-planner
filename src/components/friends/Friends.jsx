@@ -46,9 +46,9 @@ class Friends extends Component {
         let users = this.state.users.filter((e, i) => {
             return e.username.toString().toLowerCase().includes(this.state.friendsearch)
         })
-        let searchedUsers = users.map((e, i) => {
+        let searchedUsers = this.state.users.map((e, i) => {
             for(var l = 0; l <= this.state.friends; l++){
-                if(users[i].auth_id === (this.state.friends[l] ? this.state.friends[l].userauthid : null)){
+                if(this.state.users[i].auth_id === (this.state.friends[l] ? this.state.friends[l].userauthid : null)){
                     return (
                         <div key={i}>
                             <img src={e.img} alt="" className='friendsearchimg' />
