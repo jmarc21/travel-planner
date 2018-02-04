@@ -38,7 +38,7 @@ class Friends extends Component {
     addFriend(i) {
         console.log(this.state.users[i])
     }
-    removeFriend(i){
+    removeFriend(i) {
         console.log('remove')
     }
     render() {
@@ -46,29 +46,19 @@ class Friends extends Component {
         let users = this.state.users.filter((e, i) => {
             return e.username.toString().toLowerCase().includes(this.state.friendsearch)
         })
-        let searchedUsers = this.state.users.map((e, i) => {
-            for(var l = 0; l <= this.state.friends; l++){
-                if(this.state.users[i].auth_id === (this.state.friends[l] ? this.state.friends[l].userauthid : null)){
+        let searchedUsers = users.map((e, i) => {
+            return (
+                this.state.friends.map((element, index) => {
                     return (
                         <div key={i}>
                             <img src={e.img} alt="" className='friendsearchimg' />
                             <h1 className='friendsearchusername'>{e.username}</h1>
                             <p className='friendsearchdescription'>{e.description ? e.description : null}</p>
-                            <button onClick={() => this.removeFriend(i)} className='RemoveFriend'>Remove Friend</button>
+                            {this.state.users[i].auth_id === (this.state.friends[index] ? this.state.friends[index].friendauthid : null) ? <button onClick={() => this.removeFriend(i)} className='removeFriend'>Remove Friend</button> : <button onClick={() => this.addFriend(i)} className='addFriend'>Add Friend</button>}
                         </div>
                     )
-                }
-                if(users[i].auth_id !== (this.state.friends[l] ? this.state.friends[l].userauthid : null)){
-                    return (
-                        <div key={i}>
-                            <img src={e.img} alt="" className='friendsearchimg' />
-                            <h1 className='friendsearchusername'>{e.username}</h1>
-                            <p className='friendsearchdescription'>{e.description ? e.description : null}</p>
-                            <button onClick={() => this.addFriend(i)} className='addFriend'>Add Friend</button>
-                        </div>
-                    )
-                }
-            }
+                })
+            )
         })
         return (
             <div className="users">
