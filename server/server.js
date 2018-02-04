@@ -264,6 +264,42 @@ app.post('/delete-hotel', (req,res) => {
         res.status(200).send(resp)
     })
 })
+app.post('/transport-hotel', (req,res) => {
+    const {hotelid} = req.body;
+    const db = app.get('db');
+    db.delete_transport([
+        hotelid
+    ]).then(resp => {
+        res.status(200).send(resp)
+    })
+})
+app.post('/amuse-hotel', (req,res) => {
+    const {hotelid} = req.body;
+    const db = app.get('db');
+    db.delete_amuse([
+        hotelid
+    ]).then(resp => {
+        res.status(200).send(resp)
+    })
+})
+app.post('/shop-hotel', (req,res) => {
+    const {hotelid} = req.body;
+    const db = app.get('db');
+    db.delete_shop([
+        hotelid
+    ]).then(resp => {
+        res.status(200).send(resp)
+    })
+})
+app.post('/food-hotel', (req,res) => {
+    const {hotelid} = req.body;
+    const db = app.get('db');
+    db.delete_food([
+        hotelid
+    ]).then(resp => {
+        res.status(200).send(resp)
+    })
+})
 //user trip components info
 app.post('/get-hotel-info', (req, res) => {
     const db = app.get('db');

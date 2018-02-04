@@ -205,16 +205,44 @@ class Profile extends Component {
         })
     }
     deleteTransport(){
-
+        const i = this.state.specTripId;
+        const usertrip = this.state.userTrips;
+        var hotelid = {
+            hotelid: usertrip[i].hotel.tripid
+        }
+        axios.post('/transport-hotel', hotelid).then(res => {
+            console.log(res)
+        })
     }
     deleteAmuse(){
-
+        const i = this.state.specTripId;
+        const usertrip = this.state.userTrips;
+        var hotelid = {
+            hotelid: usertrip[i].hotel.tripid
+        }
+        axios.post('/amuse-hotel', hotelid).then(res => {
+            console.log(res)
+        })
     }
     deleteShop(){
-
+        const i = this.state.specTripId;
+        const usertrip = this.state.userTrips;
+        var hotelid = {
+            hotelid: usertrip[i].hotel.tripid
+        }
+        axios.post('/shop-hotel', hotelid).then(res => {
+            console.log(res)
+        })
     }
     deleteFood(){
-
+        const i = this.state.specTripId;
+        const usertrip = this.state.userTrips;
+        var hotelid = {
+            hotelid: usertrip[i].hotel.tripid
+        }
+        axios.post('/food-hotel', hotelid).then(res => {
+            console.log(res)
+        })
     }
     render() {
         const user = this.props.user;
