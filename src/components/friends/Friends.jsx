@@ -1,19 +1,32 @@
 import React, { Component } from 'react';
 import './friends.css';
+import { connect } from 'react-redux';
 import axios from 'axios';
+import { getUserInfo } from './../ducks/users'
 
-export default class Friends extends Component {
+class Friends extends Component {
     constructor() {
         super();
         this.state = {
             users: [],
-            friendsearch: ''
+            friendsearch: '',
+            friends: []
         }
     }
-    componentDidMount() {
-        axios.get('/get-users').then(res => {
+    async componentDidMount() {
+        await this.props.getUserInfo()
+        const { user } = this.props
+        await axios.get('/get-users').then(res => {
             this.setState({
                 users: res.data
+            })
+        })
+        const id = {
+            authid: user.auth_id
+        }
+        await axios.post('/get-following', id).then(res => {
+            this.setState({
+                friends: res.data
             })
         })
     }
@@ -22,18 +35,41 @@ export default class Friends extends Component {
             friendsearch: val
         })
     }
+    addFriend(i) {
+        console.log(this.state.users[i])
+    }
+    removeFriend(i){
+        console.log('remove')
+    }
     render() {
+        console.log(this.state.friends)
         let users = this.state.users.filter((e, i) => {
-            return e.username.toString().toLowerCase().includes(this.state.friendsearch)})
+            return e.username.toString().toLowerCase().includes(this.state.friendsearch)
+        })
         let searchedUsers = users.map((e, i) => {
-                return (
-                    <div key={i}>
-                        <img src={e.img} alt="" className='friendsearchimg' />
-                        <h1 className='friendsearchusername'>{e.username}</h1>
-                        <p className='friendsearchdescription'>{e.description ? e.description : null}</p>
-                    </div>
-                )
-            })
+            for(var l = 0; l <= this.state.friends; l++){
+                if(users[i].auth_id === (this.state.friends[l] ? this.state.friends[l].userauthid : null)){
+                    return (
+                        <div key={i}>
+                            <img src={e.img} alt="" className='friendsearchimg' />
+                            <h1 className='friendsearchusername'>{e.username}</h1>
+                            <p className='friendsearchdescription'>{e.description ? e.description : null}</p>
+                            <button onClick={() => this.removeFriend(i)} className='RemoveFriend'>Remove Friend</button>
+                        </div>
+                    )
+                }
+                if(users[i].auth_id !== (this.state.friends[l] ? this.state.friends[l].userauthid : null)){
+                    return (
+                        <div key={i}>
+                            <img src={e.img} alt="" className='friendsearchimg' />
+                            <h1 className='friendsearchusername'>{e.username}</h1>
+                            <p className='friendsearchdescription'>{e.description ? e.description : null}</p>
+                            <button onClick={() => this.addFriend(i)} className='addFriend'>Add Friend</button>
+                        </div>
+                    )
+                }
+            }
+        })
         return (
             <div className="users">
                 <div>Search Users</div>
@@ -43,3 +79,9 @@ export default class Friends extends Component {
         )
     }
 }
+function mapStateToProps(state) {
+    return {
+        user: state.user
+    }
+}
+export default connect(mapStateToProps, { getUserInfo })(Friends)
