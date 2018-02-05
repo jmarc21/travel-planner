@@ -1,0 +1,20 @@
+.followingimg{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+.followingUsers{
+    width: 375px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+.followingusername{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.followingunfollowbutton{
+    border-radius: 5px;
+}

@@ -233,3 +233,41 @@
     font-size: 24px;
     font-weight: 600;
 }
+.tripNameSpec{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    justify-content: space-around;
+}
+.hotelandtransportspec{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.amuseshopandfoodspec{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.detailspec{
+    height: 70vh;
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.Spec{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.cattitle{
+    font-weight: 600;
+}
+button{
+    border-radius: 5px;
+}
+.deletewholetrip{
+    margin-left: 10px;
+}

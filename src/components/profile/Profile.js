@@ -379,34 +379,48 @@ class Profile extends Component {
                         onRequestClose={this.closeTripDetailModal}
                         ariaHideApp={false}
                     >
-                        <div className="tripNameSpec">
-                            {usertrips[ti] ? usertrips[ti].tripinfo.tripname : null}
-                            <button onClick={() => this.deleteTrip()}>Delete Trip</button>
-                        </div>
-                        <div className="hotelSpec">
-                            {usertrips[ti] ? (usertrips[ti].hotel ? usertrips[ti].hotel.hotelname : null) : null}
-                            {usertrips[ti] ? (usertrips[ti].hotel ? usertrips[ti].hotel.hotelrating : null) : null}
-                            {usertrips[ti] ? (usertrips[ti].hotel ? <button onClick={() => this.deleteHotel()}>Delete</button> : null) : null}
-                        </div>
-                        <div className="transportationSpec">
-                            {usertrips[ti] ? (usertrips[ti].transport ? usertrips[ti].transport.transportname : null) : null}
-                            {usertrips[ti] ? (usertrips[ti].transport ? usertrips[ti].transport.transportrating : null) : null}
-                            {usertrips[ti] ? (usertrips[ti].transport ? <button onClick={() => this.deleteTransport()}>Delete</button> : null) : null}
-                        </div>
-                        <div className="amuseSpec">
-                            {usertrips[ti] ? (usertrips[ti].amuse ? usertrips[ti].amuse.amusename : null) : null}
-                            {usertrips[ti] ? (usertrips[ti].amuse ? usertrips[ti].amuse.amuserating : null) : null}
-                            {usertrips[ti] ? (usertrips[ti].amuse ? <button onClick={() => this.deleteAmuse()}>Delete</button> : null) : null}
-                        </div>
-                        <div className="shoppingSpec">
-                            {usertrips[ti] ? (usertrips[ti].shopping ? usertrips[ti].shopping.shopname : null) : null}
-                            {usertrips[ti] ? (usertrips[ti].shopping ? usertrips[ti].shopping.shoprating : null) : null}
-                            {usertrips[ti] ? (usertrips[ti].shopping ? <button onClick={() => this.deleteShop()}>Delete</button> : null) : null}
-                        </div>
-                        <div className="foodSpec">
-                            {usertrips[ti] ? (usertrips[ti].food ? usertrips[ti].food.foodname : null) : null}
-                            {usertrips[ti] ? (usertrips[ti].food ? usertrips[ti].food.foodrating : null) : null}
-                            {usertrips[ti] ? (usertrips[ti].food ? <button onClick={() => this.deleteFood()}>Delete</button> : null) : null}
+                            <div className="tripNameSpec">
+                                <div className='triptitle'>
+                                    <div>Trip Name</div>
+                                    {usertrips[ti] ? usertrips[ti].tripinfo.tripname : null}
+                                    <button onClick={() => this.deleteTrip()} className='deletewholetrip'>Delete Trip</button>
+                                </div>
+                            </div>
+                        <div className='detailspec'>
+                            <div className='hotelandtransportspec'>
+                                <div className="Spec">
+                                    <div className='cattitle'>Hotel</div>
+                                    <div>{usertrips[ti] ? (usertrips[ti].hotel ? usertrips[ti].hotel.hotelname : null) : null}</div>
+                                    {usertrips[ti] ? (usertrips[ti].hotel ? usertrips[ti].hotel.hotelrating : null) : null}
+                                    {usertrips[ti] ? (usertrips[ti].hotel ? <button onClick={() => this.deleteHotel()}>Delete</button> : null) : null}
+                                </div>
+                                <div className="Spec">
+                                    <div className='cattitle'>Transportation</div>
+                                    <div>{usertrips[ti] ? (usertrips[ti].transport ? usertrips[ti].transport.transportname : null) : null}</div>
+                                    {usertrips[ti] ? (usertrips[ti].transport ? usertrips[ti].transport.transportrating : null) : null}
+                                    {usertrips[ti] ? (usertrips[ti].transport ? <button onClick={() => this.deleteTransport()}>Delete</button> : null) : null}
+                                </div>
+                            </div>
+                            <div className='amuseshopandfoodspec'>
+                                <div className="Spec">
+                                    <div className='cattitle'>Amusement</div>
+                                    <div>{usertrips[ti] ? (usertrips[ti].amuse ? usertrips[ti].amuse.amusename : null) : null}</div>
+                                    {usertrips[ti] ? (usertrips[ti].amuse ? usertrips[ti].amuse.amuserating : null) : null}
+                                    {usertrips[ti] ? (usertrips[ti].amuse ? <button onClick={() => this.deleteAmuse()}>Delete</button> : null) : null}
+                                </div>
+                                <div className="Spec">
+                                    <div className='cattitle'>Shopping</div>
+                                    <div>{usertrips[ti] ? (usertrips[ti].shopping ? usertrips[ti].shopping.shopname : null) : null}</div>
+                                    {usertrips[ti] ? (usertrips[ti].shopping ? usertrips[ti].shopping.shoprating : null) : null}
+                                    {usertrips[ti] ? (usertrips[ti].shopping ? <button onClick={() => this.deleteShop()}>Delete</button> : null) : null}
+                                </div>
+                                <div className="Spec">
+                                    <div className='cattitle'>Food</div>
+                                    <div>{usertrips[ti] ? (usertrips[ti].food ? usertrips[ti].food.foodname : null) : null}</div>
+                                    {usertrips[ti] ? (usertrips[ti].food ? usertrips[ti].food.foodrating : null) : null}
+                                    {usertrips[ti] ? (usertrips[ti].food ? <button onClick={() => this.deleteFood()}>Delete</button> : null) : null}
+                                </div>
+                            </div>
                         </div>
                     </Modal>
                     <div className='trips'>

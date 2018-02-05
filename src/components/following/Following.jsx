@@ -40,9 +40,9 @@ class Following extends Component {
         let following = this.state.following.map((e,i) => {
             return(
                 <div key={i} className="followingUsers">
-                    <img src={e.friendimg}/>
-                    <h1>{e.friendusername}</h1>
-                    <button onClick={() => this.unFollow(i)}>Unfollow</button>
+                    <img src={e.friendimg} className='followingimg'/>
+                    <h1 className='followingusername'>{e.friendusername}</h1>
+                    <button onClick={() => this.unFollow(i)} className='followingunfollowbutton'>Unfollow</button>
                 </div>
             )
         })
