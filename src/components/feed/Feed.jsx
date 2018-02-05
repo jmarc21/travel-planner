@@ -39,29 +39,29 @@ class Home extends Component {
                         <div className='hotelscomp'>
                             <div className='feedtitles'>Hotel:</div>
                             <div className='feedhotelname'>{e.hotelname}</div>
-                            <div className='feedhotelrating'>{e.hotelrating} out of 5</div>
+                            <div className='feedhotelrating'>rating: {e.hotelrating}/5</div>
                         </div>
                         <div className='transportcomp'>
                             <div className='feedtitles'>Transportation:</div>
                             <div className='feedtransportname'>{e.transportname}</div>
-                            <div className='feedtransportrating'>{e.transportrating} out of 5</div>
+                            <div className='feedtransportrating'>rating: {e.transportrating}/5</div>
                         </div>
                     </div>
                     <div className='amuseshopandfoodcontent'>
                         <div className='amusecomp'>
                             <div className='feedtitles'>Amusement:</div>
                             <div className='feedamusename'>{e.amusename}</div>
-                            <div className='feedamuserating'>{e.amuserating} out of 5</div>
+                            <div className='feedamuserating'>rating: {e.amuserating}/5</div>
                         </div>
                         <div className='shopcomp'>
                             <div className='feedtitles'>Shops:</div>
                             <div className='feedshoppingname'>{e.shopname}</div>
-                            <div className='feedshoppingrating'>{e.shoprating} out of 5</div>
+                            <div className='feedshoppingrating'>rating: {e.shoprating}/5</div>
                         </div>
                         <div className='foodcomp'>
                             <div className='feedtitles'>Food:</div>
                             <div className='feedfoodname'>{e.foodname}</div>
-                            <div className='feedfoodrating'>{e.foodrating} out of 5</div>
+                            <div className='feedfoodrating'>rating: {e.foodrating}/5</div>
                         </div>
                     </div>
                 </div>

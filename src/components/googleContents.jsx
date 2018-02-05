@@ -591,26 +591,41 @@ class Contents extends Component {
         if (selectedCateg === 'h') {
             axios.post('/hotel-trip-comp', tripComp).then(res => {
                 console.log(res)
+                this.setState({
+                    AddToTripModal: false
+                })
             })
         }
         if (selectedCateg === 't') {
             axios.post('/transport-trip-comp', tripComp).then(res => {
                 console.log(res)
+                this.setState({
+                    AddToTripModal: false
+                })
             })
         }
         if (selectedCateg === 'a') {
             axios.post('/amuse-trip-comp', tripComp).then(res => {
                 console.log(res)
+                this.setState({
+                    AddToTripModal: false
+                })
             })
         }
         if (selectedCateg === 'f') {
             axios.post('/food-trip-comp', tripComp).then(res => {
                 console.log(res)
+                this.setState({
+                    AddToTripModal: false
+                })
             })
         }
         if (selectedCateg === 's') {
             axios.post('/shop-trip-comp', tripComp).then(res => {
                 console.log(res)
+                this.setState({
+                    AddToTripModal: false
+                })
             })
         }
     }
