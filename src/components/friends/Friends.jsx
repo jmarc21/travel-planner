@@ -47,18 +47,16 @@ class Friends extends Component {
             return e.username.toString().toLowerCase().includes(this.state.friendsearch)
         })
         let searchedUsers = users.map((e, i) => {
-            return (
-                this.state.friends.map((element, index) => {
-                    return (
-                        <div key={i}>
-                            <img src={e.img} alt="" className='friendsearchimg' />
-                            <h1 className='friendsearchusername'>{e.username}</h1>
-                            <p className='friendsearchdescription'>{e.description ? e.description : null}</p>
-                            {this.state.users[i].auth_id === (this.state.friends[index] ? this.state.friends[index].friendauthid : null) ? <button onClick={() => this.removeFriend(i)} className='removeFriend'>Remove Friend</button> : <button onClick={() => this.addFriend(i)} className='addFriend'>Add Friend</button>}
-                        </div>
-                    )
-                })
-            )
+            for(var index = 0; index <= this.state.friends.length; index++){
+                return(
+                <div key={i}>
+                    <img src={e.img} alt="" className='friendsearchimg' />
+                    <h1 className='friendsearchusername'>{e.username}</h1>
+                    <p className='friendsearchdescription'>{e.description ? e.description : null}</p>
+                    { this.state.users[i].auth_id === (this.state.friends[index] ? this.state.friends[index].friendauthid : null) ? <button onClick={() => this.removeFriend(i)} className='removeFriend'>Remove Friend</button> : <button onClick={() => this.addFriend(i)} className='addFriend'>Add Friend</button>}
+                </div>
+                )
+            }
         })
         return (
             <div className="users">
