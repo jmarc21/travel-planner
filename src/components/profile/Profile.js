@@ -269,25 +269,30 @@ class Profile extends Component {
                     <div className='deets'>
                         <div className='hotelandtransport'>
                             <div className="hotels-profile">
+                                <div className='cattitle'>Hotel:</div>
                                 <div className='userhotelname'>{e.hotel ? e.hotel.hotelname : null}</div>
                                 <div className='userhotelrating'>{e.hotel ? e.hotel.hotelrating : null}</div>
                             </div>
                             <div className="transportations">
+                                <div className='cattitle'>Transportation:</div>
                                 <div className='usertransportname'>{e.transport ? e.transport.transportname : null}</div>
                                 <div className='usertransportrating'>{e.transport ? e.transport.transportrating : null}</div>
                             </div>
                         </div>
                         <div className='amuseshopfood'>
                             <div className="amusements">
+                                <div className='cattitle'>Amusements:</div>
                                 <div className='useramusename'>{e.amuse ? e.amuse.amusename : null}</div>
                                 <div className='useramuserating'>{e.amuse ? e.amuse.amuserating : null}</div>
 
                             </div>
                             <div className="shoppings">
+                                <div className='cattitle'>Shops:</div>
                                 <div className='usershoppingname'>{e.shopping ? e.shopping.shopname : null}</div>
                                 <div className='usershoppingrating'>{e.shopping ? e.shopping.shoprating : null}</div>
                             </div>
                             <div className="foods">
+                                <div className='cattitle'>Food:</div>
                                 <div className='userfoodname'>{e.food ? e.food.foodname : null}</div>
                                 <div className='userfoodrating'>{e.food ? e.food.foodrating : null}</div>
                             </div>
@@ -381,7 +386,7 @@ class Profile extends Component {
                     >
                             <div className="tripNameSpec">
                                 <div className='triptitle'>
-                                    <div>Trip Name</div>
+                                    <div className='ptn'>Trip Name</div>
                                     {usertrips[ti] ? usertrips[ti].tripinfo.tripname : null}
                                     <button onClick={() => this.deleteTrip()} className='deletewholetrip'>Delete Trip</button>
                                 </div>
