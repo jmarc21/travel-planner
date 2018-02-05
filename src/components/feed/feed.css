@@ -2,10 +2,12 @@
     height: 50px;
     width: 50px;
     border-radius: 50%;
+    object-fit: cover;
 }
 .friendcontent{
     display: flex;
-    flex-direction: row
+    flex-direction: row;
+    position: absolute;
 }
 .feedfriendusername{
     display: flex;
@@ -17,7 +19,8 @@
 }
 .feedtripname{
     font-weight: 600;
-    margin-left: 20px;
+    margin-left: 230px;
+    font-size: 34px;
 }
 .friendtrip{
     height: 300px;
@@ -41,6 +44,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    margin-left: 105px;
 }
 .feedtitles{
     font-weight: 600;

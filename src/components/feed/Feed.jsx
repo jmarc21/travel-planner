@@ -33,7 +33,7 @@ class Home extends Component {
                         <div className='feedfriendusername'>{e.friendusername}</div>
                     </div>
                     <div className='tripnamecontent'>
-                        <div className='feedtripname'>{e.tripname}</div>
+                        <div className='feedtripname'>Trip: {e.tripname}</div>
                     </div>
                     <div className='hotelandtransportcontent'>
                         <div className='hotelscomp'>

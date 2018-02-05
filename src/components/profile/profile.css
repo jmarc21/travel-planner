@@ -244,6 +244,7 @@
 }
 .hotelandtransport{
     padding: 10px;
+    margin-left: -220px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -308,6 +309,7 @@ button{
 }
 .transportations{
     padding: 40px;
+    margin-left: -320px;
 }
 .amusements{
     padding: 40px;
