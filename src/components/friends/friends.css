@@ -1,10 +1,32 @@
 .friendsearchimg{
     width: 50px;
+    height: 50px;
     border-radius: 50%;
 }
 .users{
     padding: 20px;
 }
 .removeFriend{
-    background-color: gray;
+    border-radius: 5px;
+}
+.addFriend{
+    border-radius: 5px;
+}
+.friendsearchdescription{
+    font-size: 12px;
+}
+.searchinput{
+    margin: 10px;
+}
+.user{
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+.usernameanddesc{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

@@ -11,13 +11,13 @@ class Followers extends Component {
                 followers: []
         }
     }
-    componentDidMount(){
-        this.props.getUserInfo();
+    async componentDidMount(){
+        await this.props.getUserInfo();
         const {user} = this.props
         var id = {
             authid: user.auth_id
         }
-        axios.post('/get-followers', id).then(res => {
+        await axios.post('/get-followers', id).then(res => {
             console.log(res)
             this.setState({
                 followers: res.data
@@ -27,14 +27,14 @@ class Followers extends Component {
     render() {
         let followers = this.state.followers.map((e,i) => {
             return(
-                <div className="followers">
-                    <img src={e.img} />
-                    <h1>{e.username}</h1>
+                <div className="followerspage">
+                    <img src={e.img} className='followerimg'/>
+                    <h1 className='followerusername'>{e.username}</h1>
                 </div>
             )
         })
         return (
-            <div className="followers">
+            <div className="followerslist">
                 <div>Followers</div>
                 {followers}
             </div>

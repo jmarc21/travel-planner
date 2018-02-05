@@ -1,0 +1,16 @@
+.followerimg{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+.followerspage{
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+}
+.followerusername{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 20px;
+}

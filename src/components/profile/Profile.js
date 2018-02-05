@@ -9,7 +9,6 @@ import editsvg from './edit.svg';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import { Link } from 'react-router-dom';
-import trashcan from './trashcan.svg'
 
 
 class Profile extends Component {
@@ -259,32 +258,40 @@ class Profile extends Component {
         let trips = this.state.userTrips.map((e, i) => {
             return (
                 <div key={i} className='usertrip'>
-                    <div className='usertripname'>{e.tripinfo.tripname}</div>
-                    <div className='details' onClick={() => this.openTripDetailsModal(i)}>
-                        <div className="detailsdot"></div>
-                        <div className="detailsdot"></div>
-                        <div className="detailsdot"></div>
+                    <div className='tripanddetails'>
+                        <div className='usertripname'>{e.tripinfo.tripname}</div>
+                        <div className='details' onClick={() => this.openTripDetailsModal(i)}>
+                            <div className="detailsdot"></div>
+                            <div className="detailsdot"></div>
+                            <div className="detailsdot"></div>
+                        </div>
                     </div>
-                    <div className="hotels-profile">
-                        <div className='userhotelname'>{e.hotel ? e.hotel.hotelname : null}</div>
-                        <div className='userhotelrating'>{e.hotel ? e.hotel.hotelrating : null}</div>
-                    </div>
-                    <div className="transportations">
-                        <div className='usertransportname'>{e.transport ? e.transport.transportname : null}</div>
-                        <div className='usertransportrating'>{e.transport ? e.transport.transportrating : null}</div>
-                    </div>
-                    <div className="amusements">
-                        <div className='useramusename'>{e.amuse ? e.amuse.amusename : null}</div>
-                        <div className='useramuserating'>{e.amuse ? e.amuse.amuserating : null}</div>
+                    <div className='deets'>
+                        <div className='hotelandtransport'>
+                            <div className="hotels-profile">
+                                <div className='userhotelname'>{e.hotel ? e.hotel.hotelname : null}</div>
+                                <div className='userhotelrating'>{e.hotel ? e.hotel.hotelrating : null}</div>
+                            </div>
+                            <div className="transportations">
+                                <div className='usertransportname'>{e.transport ? e.transport.transportname : null}</div>
+                                <div className='usertransportrating'>{e.transport ? e.transport.transportrating : null}</div>
+                            </div>
+                        </div>
+                        <div className='amuseshopfood'>
+                            <div className="amusements">
+                                <div className='useramusename'>{e.amuse ? e.amuse.amusename : null}</div>
+                                <div className='useramuserating'>{e.amuse ? e.amuse.amuserating : null}</div>
 
-                    </div>
-                    <div className="shoppings">
-                        <div className='usershoppingname'>{e.shopping ? e.shopping.shopname : null}</div>
-                        <div className='usershoppingrating'>{e.shopping ? e.shopping.shoprating : null}</div>
-                    </div>
-                    <div className="foods">
-                        <div className='userfoodname'>{e.food ? e.food.foodname : null}</div>
-                        <div className='userfoodrating'>{e.food ? e.food.foodrating : null}</div>
+                            </div>
+                            <div className="shoppings">
+                                <div className='usershoppingname'>{e.shopping ? e.shopping.shopname : null}</div>
+                                <div className='usershoppingrating'>{e.shopping ? e.shopping.shoprating : null}</div>
+                            </div>
+                            <div className="foods">
+                                <div className='userfoodname'>{e.food ? e.food.foodname : null}</div>
+                                <div className='userfoodrating'>{e.food ? e.food.foodrating : null}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )
@@ -319,20 +326,20 @@ class Profile extends Component {
                         <p>{user ? user.description : null}</p>
                     </div>
                     <div>
-                    <Link to='/followers' style={{ textDecoration: 'none', color: '#000000' }}><div className="followers-list">
-                        <div className="followers">
-                            <div>Followers</div>
-                            <div className="numOfFollowers">{this.state.followers}</div>
-                        </div>
-                    </div></Link>
-                    <Link to='/following' style={{ textDecoration: 'none', color: '#000000' }}><div className="following-list">
-                        <div className="following">
-                            <div>Following</div>
-                            <div className="numOfFollowing">{this.state.following}</div>
-                        </div>
-                    </div></Link>
-                    <Link to='/friends' style={{ textDecoration: 'none', color: '#000000' }}><div className="follower-search-button" onClick={() => this.openAddFriends()}>Search Friends</div></Link>
-                    <img className='settings' src={editsvg} alt="" onClick={() => this.editProfile()} />
+                        <Link to='/followers' style={{ textDecoration: 'none', color: '#000000' }}><div className="followers-list">
+                            <div className="followers">
+                                <div>Followers</div>
+                                <div className="numOfFollowers">{this.state.followers}</div>
+                            </div>
+                        </div></Link>
+                        <Link to='/following' style={{ textDecoration: 'none', color: '#000000' }}><div className="following-list">
+                            <div className="following">
+                                <div>Following</div>
+                                <div className="numOfFollowing">{this.state.following}</div>
+                            </div>
+                        </div></Link>
+                        <Link to='/friends' style={{ textDecoration: 'none', color: '#000000' }}><div className="follower-search-button" onClick={() => this.openAddFriends()}>Search Friends</div></Link>
+                        <img className='settings' src={editsvg} alt="" onClick={() => this.editProfile()} />
                     </div>
                     <Modal
                         className='addFriendModal'

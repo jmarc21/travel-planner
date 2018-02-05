@@ -36,7 +36,7 @@ class Friends extends Component {
         })
     }
     addFriend(i) {
-        const {user} = this.props
+        const { user } = this.props
         console.log(this.state.users[i])
         console.log(user)
         var id = {
@@ -64,10 +64,12 @@ class Friends extends Component {
         let searchedUsers = users.map((e, i) => {
             for (var index = 0; index <= this.state.friends.length; index++) {
                 return (
-                    <div key={i}>
+                    <div key={i} className='user'>
                         <img src={e.img} alt="" className='friendsearchimg' />
-                        <h1 className='friendsearchusername'>{e.username}</h1>
-                        <p className='friendsearchdescription'>{e.description ? e.description : null}</p>
+                        <div className='usernameanddesc'>
+                            <h1 className='friendsearchusername'>{e.username}</h1>
+                            <p className='friendsearchdescription'>{e.description ? e.description : null}</p>
+                        </div>
                         {this.state.users[i].auth_id === (this.state.friends[index] ? this.state.friends[index].friendauthid : null) ? <button onClick={() => this.removeFriend(i)} className='removeFriend'>Unfollow</button> : <button onClick={() => this.addFriend(i)} className='addFriend'>Follow</button>}
                     </div>
                 )
@@ -76,7 +78,7 @@ class Friends extends Component {
         return (
             <div className="users">
                 <div>Search Users</div>
-                <input type="text" placeholder='Search' onChange={(e) => this.updateSearchFriends(e.target.value)} />
+                <input type="text" placeholder='Search' className='searchinput' onChange={(e) => this.updateSearchFriends(e.target.value)} />
                 {searchedUsers}
             </div>
         )
