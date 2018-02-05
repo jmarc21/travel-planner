@@ -65,7 +65,7 @@ passport.deserializeUser((id, done) => {
 
 app.get('/auth', passport.authenticate('auth0'))
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: `http://localhost:3000/#/planner`,
+    successRedirect: `http://localhost:3000/#/feed`,
     failureRedirect: '/#/'
 }))
 

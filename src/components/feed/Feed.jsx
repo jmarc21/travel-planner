@@ -11,13 +11,13 @@ class Home extends Component {
             followingTrips: []
         }
     }
-    componentDidMount() {
-        this.props.getUserInfo()
+    async componentDidMount() {
+        await this.props.getUserInfo()
         const { user } = this.props
         var id = {
             id: user.auth_id
         }
-        axios.post('/getfollowerstrips', id).then(res => {
+        await axios.post('/getfollowerstrips', id).then(res => {
             this.setState({
                 followingTrips: res.data
             })

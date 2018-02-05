@@ -9,7 +9,7 @@ export default class Home extends Component {
             <div className='home'>
                 <div className="login-container">
                     <img src={logo} alt="" className='logo'/>
-                    <h1 className='titleHome'>Tripper</h1>
+                    <h1 className='titleHome'>TYBL</h1>
                     <a style={{ textDecoration: 'none', color: 'black' }} href={process.env.REACT_APP_LOGIN}><div className='login'>Login</div></a>
                 </div>
             </div>

@@ -181,20 +181,20 @@ class Profile extends Component {
             tripDetailsModal: false
         })
     }
-    deleteTrip(){
+    deleteTrip() {
         const i = this.state.specTripId;
         const usertrip = this.state.userTrips
         var tripid = {
             tripid: usertrip[i].tripinfo.id
         }
-        axios.post('/delete-trip', tripid ).then(res => {
+        axios.post('/delete-trip', tripid).then(res => {
             console.log(res)
-            if(res.data === 'deleted'){
+            if (res.data === 'deleted') {
                 window.location.reload()
             }
         })
     }
-    deleteHotel(){
+    deleteHotel() {
         const i = this.state.specTripId;
         const usertrip = this.state.userTrips;
         var hotelid = {
@@ -204,7 +204,7 @@ class Profile extends Component {
             console.log(res)
         })
     }
-    deleteTransport(){
+    deleteTransport() {
         const i = this.state.specTripId;
         const usertrip = this.state.userTrips;
         var hotelid = {
@@ -214,7 +214,7 @@ class Profile extends Component {
             console.log(res)
         })
     }
-    deleteAmuse(){
+    deleteAmuse() {
         const i = this.state.specTripId;
         const usertrip = this.state.userTrips;
         var hotelid = {
@@ -224,7 +224,7 @@ class Profile extends Component {
             console.log(res)
         })
     }
-    deleteShop(){
+    deleteShop() {
         const i = this.state.specTripId;
         const usertrip = this.state.userTrips;
         var hotelid = {
@@ -234,7 +234,7 @@ class Profile extends Component {
             console.log(res)
         })
     }
-    deleteFood(){
+    deleteFood() {
         const i = this.state.specTripId;
         const usertrip = this.state.userTrips;
         var hotelid = {
@@ -303,110 +303,114 @@ class Profile extends Component {
         let tripNames = this.state.tripnames.map((e, i) => {
             return (
                 <div key={i}>
-                    <div>{e.tripname}</div>
+                    <div className='profileTripname'>{e.tripname}</div>
                 </div>
             )
         })
         const usertrips = this.state.userTrips
         const ti = this.state.specTripId
         return (
-            <div>
-                <Header />
-                <div className='profile-container'>
-                    <img className='profile-pic' src={user ? user.img : null} />
-                    <h2 className='name-profile'>{user ? user.username : null}</h2>
-                    <p>{user ? user.description : null}</p>
-                </div>
-                <Link to='/followers' style={{ textDecoration: 'none', color: '#000000' }}><div className="followers-list">
-                    <div className="followers">
-                        <div>Followers</div>
-                        <div className="numOfFollowers">{this.state.followers}</div>
+            <div className='background1'>
+                <div className='backgroundop1'>
+                    <Header />
+                    <div className='profile-container'>
+                        <img className='profile-pic' src={user ? user.img : null} />
+                        <h2 className='name-profile'>{user ? user.username : null}</h2>
+                        <p>{user ? user.description : null}</p>
                     </div>
-                </div></Link>
-                <Link to='/following' style={{ textDecoration: 'none', color: '#000000' }}><div className="following-list">
-                    <div className="following">
-                        <div>Following</div>
-                        <div className="numOfFollowing">{this.state.following}</div>
-                    </div>
-                </div></Link>
-                <Link to='/friends' style={{ textDecoration: 'none', color: '#000000' }}><div className="follower-search-button" onClick={() => this.openAddFriends()}>Search Friends</div></Link>
-                <img className='settings' src={editsvg} alt="" onClick={() => this.editProfile()} />
-                <Modal
-                    className='addFriendModal'
-                    isOpen={this.state.addFriendsModal}
-                    onRequestClose={this.closeAddFriends}
-                >
-                    {users}
-                </Modal>
-                <Modal
-                    className='editProfileModal'
-                    isOpen={this.state.editProfileModal}
-                    onRequestClose={this.closeProfileModal}
-                    ariaHideApp={false}
-                >
-                    <Dropzone
-                        className='dropzoneProfile'
-                        multiple={false}
-                        accept='image/*'
-                        onDrop={this.onImageDrop.bind(this)}
-                    >
-                        <p>Drop an image or click to select a photo to update Profile</p>
-                    </Dropzone>
                     <div>
+                    <Link to='/followers' style={{ textDecoration: 'none', color: '#000000' }}><div className="followers-list">
+                        <div className="followers">
+                            <div>Followers</div>
+                            <div className="numOfFollowers">{this.state.followers}</div>
+                        </div>
+                    </div></Link>
+                    <Link to='/following' style={{ textDecoration: 'none', color: '#000000' }}><div className="following-list">
+                        <div className="following">
+                            <div>Following</div>
+                            <div className="numOfFollowing">{this.state.following}</div>
+                        </div>
+                    </div></Link>
+                    <Link to='/friends' style={{ textDecoration: 'none', color: '#000000' }}><div className="follower-search-button" onClick={() => this.openAddFriends()}>Search Friends</div></Link>
+                    <img className='settings' src={editsvg} alt="" onClick={() => this.editProfile()} />
+                    </div>
+                    <Modal
+                        className='addFriendModal'
+                        isOpen={this.state.addFriendsModal}
+                        onRequestClose={this.closeAddFriends}
+                    >
+                        {users}
+                    </Modal>
+                    <Modal
+                        className='editProfileModal'
+                        isOpen={this.state.editProfileModal}
+                        onRequestClose={this.closeProfileModal}
+                        ariaHideApp={false}
+                    >
+                        <Dropzone
+                            className='dropzoneProfile'
+                            multiple={false}
+                            accept='image/*'
+                            onDrop={this.onImageDrop.bind(this)}
+                        >
+                            <p>Drop an image or click to select a photo to update Profile</p>
+                        </Dropzone>
                         <div>
-                            {preview()}
+                            <div>
+                                {preview()}
+                            </div>
+                        </div>
+                        <h1 className='usernameText'>Username:</h1>
+                        <input type="text" className='updateUsernameProfile' onChange={(e) => this.updateUsername(e.target.value)} />
+                        <h1 className='bio'>Bio</h1>
+                        <textarea className='descriptioninput' cols="30" rows="5" onChange={(e) => this.updateBio(e.target.value)}></textarea>
+                        <button onClick={() => this.updateProfile()}>Save Changes</button>
+                    </Modal>
+                    <Modal
+                        className='tripDetailsModal'
+                        isOpen={this.state.tripDetailsModal}
+                        onRequestClose={this.closeTripDetailModal}
+                        ariaHideApp={false}
+                    >
+                        <div className="tripNameSpec">
+                            {usertrips[ti] ? usertrips[ti].tripinfo.tripname : null}
+                            <button onClick={() => this.deleteTrip()}>Delete Trip</button>
+                        </div>
+                        <div className="hotelSpec">
+                            {usertrips[ti] ? (usertrips[ti].hotel ? usertrips[ti].hotel.hotelname : null) : null}
+                            {usertrips[ti] ? (usertrips[ti].hotel ? usertrips[ti].hotel.hotelrating : null) : null}
+                            {usertrips[ti] ? (usertrips[ti].hotel ? <button onClick={() => this.deleteHotel()}>Delete</button> : null) : null}
+                        </div>
+                        <div className="transportationSpec">
+                            {usertrips[ti] ? (usertrips[ti].transport ? usertrips[ti].transport.transportname : null) : null}
+                            {usertrips[ti] ? (usertrips[ti].transport ? usertrips[ti].transport.transportrating : null) : null}
+                            {usertrips[ti] ? (usertrips[ti].transport ? <button onClick={() => this.deleteTransport()}>Delete</button> : null) : null}
+                        </div>
+                        <div className="amuseSpec">
+                            {usertrips[ti] ? (usertrips[ti].amuse ? usertrips[ti].amuse.amusename : null) : null}
+                            {usertrips[ti] ? (usertrips[ti].amuse ? usertrips[ti].amuse.amuserating : null) : null}
+                            {usertrips[ti] ? (usertrips[ti].amuse ? <button onClick={() => this.deleteAmuse()}>Delete</button> : null) : null}
+                        </div>
+                        <div className="shoppingSpec">
+                            {usertrips[ti] ? (usertrips[ti].shopping ? usertrips[ti].shopping.shopname : null) : null}
+                            {usertrips[ti] ? (usertrips[ti].shopping ? usertrips[ti].shopping.shoprating : null) : null}
+                            {usertrips[ti] ? (usertrips[ti].shopping ? <button onClick={() => this.deleteShop()}>Delete</button> : null) : null}
+                        </div>
+                        <div className="foodSpec">
+                            {usertrips[ti] ? (usertrips[ti].food ? usertrips[ti].food.foodname : null) : null}
+                            {usertrips[ti] ? (usertrips[ti].food ? usertrips[ti].food.foodrating : null) : null}
+                            {usertrips[ti] ? (usertrips[ti].food ? <button onClick={() => this.deleteFood()}>Delete</button> : null) : null}
+                        </div>
+                    </Modal>
+                    <div className='trips'>
+                        <div className='trip-names'>
+                            <div>Bucketlist Trips:</div>
+                            {tripNames}
                         </div>
                     </div>
-                    <h1 className='usernameText'>Username:</h1>
-                    <input type="text" className='updateUsernameProfile' onChange={(e) => this.updateUsername(e.target.value)} />
-                    <h1 className='bio'>Bio</h1>
-                    <textarea className='descriptioninput' cols="30" rows="5" onChange={(e) => this.updateBio(e.target.value)}></textarea>
-                    <button onClick={() => this.updateProfile()}>Save Changes</button>
-                </Modal>
-                <Modal
-                    className='tripDetailsModal'
-                    isOpen={this.state.tripDetailsModal}
-                    onRequestClose={this.closeTripDetailModal}
-                    ariaHideApp={false}
-                >
-                    <div className="tripNameSpec">
-                        {usertrips[ti] ? usertrips[ti].tripinfo.tripname : null}
-                        <button onClick={() => this.deleteTrip()}>Delete Trip</button>
+                    <div className="trip-details">
+                        {trips}
                     </div>
-                    <div className="hotelSpec">
-                        {usertrips[ti] ? (usertrips[ti].hotel ? usertrips[ti].hotel.hotelname : null) : null}
-                        {usertrips[ti] ? (usertrips[ti].hotel ? usertrips[ti].hotel.hotelrating : null) : null}
-                        {usertrips[ti] ? (usertrips[ti].hotel ? <button onClick={() => this.deleteHotel()}>Delete</button> : null) : null}
-                    </div>
-                    <div className="transportationSpec">
-                        {usertrips[ti] ? (usertrips[ti].transport ? usertrips[ti].transport.transportname : null) : null}
-                        {usertrips[ti] ? (usertrips[ti].transport ? usertrips[ti].transport.transportrating : null) : null}
-                        {usertrips[ti] ? (usertrips[ti].transport ? <button onClick={() => this.deleteTransport()}>Delete</button> : null) : null}
-                    </div>
-                    <div className="amuseSpec">
-                        {usertrips[ti] ? (usertrips[ti].amuse ? usertrips[ti].amuse.amusename : null) : null}
-                        {usertrips[ti] ? (usertrips[ti].amuse ? usertrips[ti].amuse.amuserating : null) : null}
-                        {usertrips[ti] ? (usertrips[ti].amuse ? <button onClick={() => this.deleteAmuse()}>Delete</button> : null) : null}
-                    </div>
-                    <div className="shoppingSpec">
-                        {usertrips[ti] ? (usertrips[ti].shopping ? usertrips[ti].shopping.shopname : null) : null}
-                        {usertrips[ti] ? (usertrips[ti].shopping ? usertrips[ti].shopping.shoprating : null) : null}
-                        {usertrips[ti] ? (usertrips[ti].shopping ? <button onClick={() => this.deleteShop()}>Delete</button> : null) : null}
-                    </div>
-                    <div className="foodSpec">
-                        {usertrips[ti] ? (usertrips[ti].food ? usertrips[ti].food.foodname : null) : null}
-                        {usertrips[ti] ? (usertrips[ti].food ? usertrips[ti].food.foodrating : null) : null}
-                        {usertrips[ti] ? (usertrips[ti].food ? <button onClick={() => this.deleteFood()}>Delete</button> : null) : null}
-                    </div>
-                </Modal>
-                <div className='trips'>
-                    <div className='trip-names'>
-                        <div>Bucketlist Trips:</div>
-                        {tripNames}
-                    </div>
-                </div>
-                <div className="trip-details">
-                    {trips}
                 </div>
             </div>
         )

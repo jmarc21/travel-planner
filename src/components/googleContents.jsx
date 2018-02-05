@@ -111,7 +111,7 @@ class Contents extends Component {
                 }
             },
             slide: false,
-            displayOpacity: false,
+            displayOpacity: true,
             visibleHotel: true,
             visibleTransport: false,
             visibleAmusement: false,
@@ -127,7 +127,11 @@ class Contents extends Component {
             selectedTrip: {},
             selectedCateg: '',
             colorSlide: false,
-            selectanimation: true
+            selectanimation: true,
+            selectTransport: true,
+            selectAmuse: true,
+            selectFood: true,
+            selectShop: true
         }
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClicked = this.onMapClicked.bind(this);
@@ -323,7 +327,7 @@ class Contents extends Component {
             })
         }
     }
-    showDetails(i, data) {
+    showDetails(i, data, props, marker, e) {
         // console.log(data)
         var place_id = {
             place_id: data[i].place_id
@@ -508,9 +512,9 @@ class Contents extends Component {
     selectTrip(i) {
         console.log(i)
         console.log(this.state.trips[i])
-        // this.setState({
-        //     colorSlide: true
-        // })
+        this.setState({
+            colorSlide: this.state.trips[i].tripname
+        })
         this.setState({
             selectedTrip: this.state.trips[i]
         })
@@ -519,31 +523,51 @@ class Contents extends Component {
         if (att === 'h') {
             this.setState({
                 selectedCateg: 'h',
-                selectanimation: this.state.selectanimation ? false : true
+                selectanimation: false,
+                selectTransport: true,
+                selectAmuse: true,
+                selectShop: true,
+                selectFood: true
             })
         }
         if (att === 't') {
             this.setState({
                 selectedCateg: 't',
-                selectanimation: true
+                selectTransport: false,
+                selectanimation: true,
+                selectAmuse: true,
+                selectShop: true,
+                selectFood: true
             })
         }
         if (att === 'a') {
             this.setState({
                 selectedCateg: 'a',
-                selectanimation: this.state.selectanimation ? false : true
+                selectAmuse: false,
+                selectTransport: true,
+                selectanimation: true,
+                selectShop: true,
+                selectFood: true
             })
         }
         if (att === 'f') {
             this.setState({
                 selectedCateg: 'f',
-                selectanimation: this.state.selectanimation ? false : true
+                selectShop: true,
+                selectTransport: true,
+                selectanimation: true,
+                selectAmuse: true,
+                selectFood: false
             })
         }
         if (att === 's') {
             this.setState({
                 selectedCateg: 's',
-                selectanimation: this.state.selectanimation ? false : true
+                selectFood: true,
+                selectTransport: true,
+                selectanimation: true,
+                selectAmuse: true,
+                selectShop: false ,
             })
         }
     }
@@ -1044,227 +1068,229 @@ class Contents extends Component {
         const user = this.props.user;
         let trips = this.state.trips.map((e, i) => {
             return (
-                <div key={i} className={this.state.colorSlide ? 'trip-choice choice-slide' : 'trip-choice'} onClick={() => this.selectTrip(i)}>
+                <div key={i} className={this.state.colorSlide === this.state.trips[i].tripname ? 'trip-choice choice-slide' : 'trip-choice'} onClick={() => this.selectTrip(i)}>
                     {e.tripname}
                 </div>
             )
         })
         return (
-            <div>
-                <div className={this.state.opacity ? 'planner-div opacity' : 'planner-div'}>
-                    <div className={styles.left}>
-                        <form onSubmit={this.onSubmit}
-                        >
-                            <input
-                                className='location-input'
-                                ref='autocomplete'
-                                type="text"
-                                placeholder="Search location..." />
-                            <input
-                                className='go-button'
-                                type='submit'
-                                value='Go'
-                                onClick={() => this.search()} />
-                        </form>
-                    </div>
-                    <div className='map'>
-                        <div className='map-container'>
-                            <Map {...props}
-                                className='map'
-                                containerStyle={{
-                                    position: 'relative',
-                                    height: '100vh',
-                                    width: '100vw',
-                                    position: "absolute",
-                                    top: '0px',
-                                }}
-                                styles={mapStyles}
-                                className='map-container'
-                                zoom={14}
-                                center={this.state.position}
-                                centerAroundCurrentLocation={false}>
-                                <Marker position={this.state.position}
-                                    icon={mapPin} />
-                                {position_marker_hotel}
-                                {position_marker_airport}
-                                {position_marker_restaurants}
-                                {position_marker_carRental}
-                                {position_marker_amusementPark}
-                                {position_marker_museum}
-                                {position_marker_aquarium}
-                                {position_marker_nightClub}
-                                {position_marker_spa}
-                                {position_marker_bowlingAlley}
-                                {position_marker_cafe}
-                                {position_marker_casino}
-                                {position_marker_clothingStore}
-                                {position_marker_departmentStore}
-                                {position_marker_shoeStore}
-                                {position_marker_shoppingMall}
-                                {position_marker_supermarket}
-                                <InfoWindow marker={this.state.activeMarker}
-                                    visible={this.state.showingInfoWindow}
-                                >
-                                    <div className='window-text'>
-                                        <h1>{this.state.selectedPlace.name}</h1>
-                                        <h1>Rating: {this.state.selectedPlace.rating}</h1>
-                                    </div>
+            <div className='background'>
+                <div className='backgroundop'>
+                    <div className={this.state.opacity ? 'planner-div opacity' : 'planner-div'}>
+                        <div className={styles.left}>
+                            <form onSubmit={this.onSubmit}
+                            >
+                                <input
+                                    className='location-input'
+                                    ref='autocomplete'
+                                    type="text"
+                                    placeholder="Search location..." />
+                                <input
+                                    className='go-button'
+                                    type='submit'
+                                    value='Go'
+                                    onClick={() => this.search()} />
+                            </form>
+                        </div>
+                        <div >
+                            <div className='map-container'>
+                                <Map {...props}
+                                    containerStyle={{
+                                        position: 'relative',
+                                        height: '80vh',
+                                        width: '67vw',
+                                        position: "absolute",
+                                        top: '50px',
+                                        right: '20px',
+                                    }}
+                                    styles={mapStyles}
+                                    className='map-container'
+                                    zoom={14}
+                                    center={this.state.position}
+                                    centerAroundCurrentLocation={false}>
+                                    <Marker position={this.state.position}
+                                        icon={mapPin} />
+                                    {position_marker_hotel}
+                                    {position_marker_airport}
+                                    {position_marker_restaurants}
+                                    {position_marker_carRental}
+                                    {position_marker_amusementPark}
+                                    {position_marker_museum}
+                                    {position_marker_aquarium}
+                                    {position_marker_nightClub}
+                                    {position_marker_spa}
+                                    {position_marker_bowlingAlley}
+                                    {position_marker_cafe}
+                                    {position_marker_casino}
+                                    {position_marker_clothingStore}
+                                    {position_marker_departmentStore}
+                                    {position_marker_shoeStore}
+                                    {position_marker_shoppingMall}
+                                    {position_marker_supermarket}
+                                    <InfoWindow marker={this.state.activeMarker}
+                                        visible={this.state.showingInfoWindow}
+                                    >
+                                        <div className='window-text'>
+                                            <h1>{this.state.pinDetails.name}</h1>
+                                            <h1>Rating: {this.state.pinDetails.rating}</h1>
+                                        </div>
 
-                                </InfoWindow>
-                            </Map>
-                        </div>
-                    </div>
-                    <div>
-                        <div onClick={this.openNewTrip} className='addtripbutton'>
-                            <div className='circle'>
-                                <div className='line1'></div>
-                                <div className='line2'></div>
-                            </div>
-                            <div className='addnewtrip'>Add new trip</div>
-                        </div>
-                        <div className={this.state.displayOpacity ? 'lists display-opacity' : 'lists'}>
-                            <div className='title-choices'>
-                                <div className='hotels-choice' onClick={() => this.visibleHotel()}>Hotels</div>
-                                <div className='transportation-choice' onClick={() => this.visibleTransport()}>Transportation</div>
-                                <div className='amusement-choice' onClick={() => this.visibleAmusement()}>Amusement</div>
-                                <div className='food-choice' onClick={() => this.visibleFood()}>Food</div>
-                                <div className='shopping-choice' onClick={() => this.visibleShopping()}>Shopping</div>
-                            </div>
-                            <div className={this.state.visibleHotel ? 'hotels visibility' : 'hotels'}>
-                                {hotelList}
-                            </div>
-                            <div className={this.state.visibleTransport ? 'transportation visibility' : 'transportation'}>
-                                {airportList}
-                                {carRentalList}
-                            </div>
-                            <div className={this.state.visibleFood ? 'food visibility' : 'food'}>
-                                {restaurantList}
-                                {cafeList}
-                                {supermarketList}
-                            </div>
-                            <div className={this.state.visibleAmusement ? 'amusement visibility' : 'amusement'}>
-                                {amusementParkList}
-                                {museumList}
-                                {aquariumList}
-                                {nightClubList}
-                                {spaList}
-                                {bowlingList}
-                                {casinoList}
-                            </div>
-                            <div className={this.state.visibleShopping ? 'shopping visibility' : 'shopping'}>
-                                {clothingStoreList}
-                                {departmentStoreList}
-                                {shoeStoreList}
-                                {shoppingMallList}
+                                    </InfoWindow>
+                                </Map>
                             </div>
                         </div>
-                    </div>
-                    <div className={this.state.slide ? 'slide-details slide' : 'slide-details'}>
-                        <div onClick={this.slide} className='exit'>
-                            <div className='exit-line1'></div>
-                            <div className='exit-line2'></div>
-                        </div>
-                        <div className='addtotrip-button' onClick={() => this.addtoTrip(user)}>Add to trip</div>
-                        <div className='photo-container'>
-                            <div className='pic-container'>
-                                <img src={this.state.pic} alt="" className='pic' />
-                                <div className='nameaddtotrip'>
-                                    <div className='title-bar'>
-                                        <div className='addtotrip'>
-                                            <h1 className='name'>{this.state.pinDetails.name}</h1>
-                                            <div className='hours-button' onClick={() => this.showHours()}>Hours</div>
-                                        </div>
-                                        <div className='address-container'>
-                                            <h2 className='address'>{this.state.pinDetails.address}</h2>
-                                        </div>
-                                        <h2 className='phone'>Phone: {this.state.pinDetails.internationalPhone}</h2>
-                                    </div>
+                        <div>
+                            <div onClick={this.openNewTrip} className='addtripbutton'>
+                                <div className='circle'>
+                                    <div className='line1'></div>
+                                    <div className='line2'></div>
+                                </div>
+                                <div className='addnewtrip'>Add new trip</div>
+                            </div>
+                            <div className={this.state.displayOpacity ? 'lists display-opacity' : 'lists'}>
+                                <div className='title-choices'>
+                                    <div className='hotels-choice' onClick={() => this.visibleHotel()}>Hotels</div>
+                                    <div className='transportation-choice' onClick={() => this.visibleTransport()}>Transportation</div>
+                                    <div className='amusement-choice' onClick={() => this.visibleAmusement()}>Amusement</div>
+                                    <div className='food-choice' onClick={() => this.visibleFood()}>Food</div>
+                                    <div className='shopping-choice' onClick={() => this.visibleShopping()}>Shopping</div>
+                                </div>
+                                <div className={this.state.visibleHotel ? 'hotels visibility' : 'hotels'}>
+                                    {hotelList}
+                                </div>
+                                <div className={this.state.visibleTransport ? 'transportation visibility' : 'transportation'}>
+                                    {airportList}
+                                    {carRentalList}
+                                </div>
+                                <div className={this.state.visibleFood ? 'food visibility' : 'food'}>
+                                    {restaurantList}
+                                    {cafeList}
+                                    {supermarketList}
+                                </div>
+                                <div className={this.state.visibleAmusement ? 'amusement visibility' : 'amusement'}>
+                                    {amusementParkList}
+                                    {museumList}
+                                    {aquariumList}
+                                    {nightClubList}
+                                    {spaList}
+                                    {bowlingList}
+                                    {casinoList}
+                                </div>
+                                <div className={this.state.visibleShopping ? 'shopping visibility' : 'shopping'}>
+                                    {clothingStoreList}
+                                    {departmentStoreList}
+                                    {shoeStoreList}
+                                    {shoppingMallList}
                                 </div>
                             </div>
                         </div>
-                        <div className='body'>
-                            <div className={this.state.showHours ? 'hour-list' : 'hour-list display'}>
-                                <h2 className='monday'>{this.state.pinDetails.hours.monday}</h2>
-                                <h2 className='tuesday'>{this.state.pinDetails.hours.tuesday}</h2>
-                                <h2 className='wednesday'>{this.state.pinDetails.hours.wednesday}</h2>
-                                <h2 className='thursday'>{this.state.pinDetails.hours.thursday}</h2>
-                                <h2 className='friday'>{this.state.pinDetails.hours.friday}</h2>
-                                <h2 className='saturday'>{this.state.pinDetails.hours.saturday}</h2>
-                                <h2 className='sunday'>{this.state.pinDetails.hours.sunday}</h2>
+                        <div className={this.state.slide ? 'slide-details slide' : 'slide-details'}>
+                            <div onClick={this.slide} className='exit'>
+                                <div className='exit-line1'></div>
+                                <div className='exit-line2'></div>
                             </div>
+                            <div className='addtotrip-button' onClick={() => this.addtoTrip(user)}>Add to trip</div>
+                            <div className='photo-container'>
+                                <div className='pic-container'>
+                                    <img src={this.state.pic} alt="" className='pic' />
+                                    <div className='nameaddtotrip'>
+                                        <div className='title-bar'>
+                                            <div className='addtotrip'>
+                                                <h1 className='name'>{this.state.pinDetails.name}</h1>
+                                                <div className='hours-button' onClick={() => this.showHours()}>Hours</div>
+                                            </div>
+                                            <div className='address-container'>
+                                                <h2 className='address'>{this.state.pinDetails.address}</h2>
+                                            </div>
+                                            <h2 className='phone'>Phone: {this.state.pinDetails.internationalPhone}</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='body'>
+                                <div className={this.state.showHours ? 'hour-list' : 'hour-list display'}>
+                                    <h2 className='monday'>{this.state.pinDetails.hours.monday}</h2>
+                                    <h2 className='tuesday'>{this.state.pinDetails.hours.tuesday}</h2>
+                                    <h2 className='wednesday'>{this.state.pinDetails.hours.wednesday}</h2>
+                                    <h2 className='thursday'>{this.state.pinDetails.hours.thursday}</h2>
+                                    <h2 className='friday'>{this.state.pinDetails.hours.friday}</h2>
+                                    <h2 className='saturday'>{this.state.pinDetails.hours.saturday}</h2>
+                                    <h2 className='sunday'>{this.state.pinDetails.hours.sunday}</h2>
+                                </div>
 
-                            <h2 className='reviews-tag'>Reviews:</h2>
-                            <div className='review'>
-                                <h2 className='authorname'>{this.state.pinDetails.reviews.one.authorName}</h2>
-                                <h2 className='rating'>Rating: {this.state.pinDetails.reviews.one.rating}/5</h2>
-                                <h2 className='text'>{this.state.pinDetails.reviews.one.text}</h2>
-                                <h2 className='posted'>{this.state.pinDetails.reviews.one.posted}</h2>
+                                <h2 className='reviews-tag'>Reviews:</h2>
+                                <div className='review'>
+                                    <h2 className='authorname'>{this.state.pinDetails.reviews.one.authorName}</h2>
+                                    <h2 className='rating'>Rating: {this.state.pinDetails.reviews.one.rating}/5</h2>
+                                    <h2 className='text'>{this.state.pinDetails.reviews.one.text}</h2>
+                                    <h2 className='posted'>{this.state.pinDetails.reviews.one.posted}</h2>
+                                </div>
+                                <div className='review'>
+                                    <h2 className='authorname'>{this.state.pinDetails.reviews.two.authorName}</h2>
+                                    <h2 className='rating'>Rating: {this.state.pinDetails.reviews.two.rating}/5</h2>
+                                    <h2 className='text'>{this.state.pinDetails.reviews.two.text}</h2>
+                                    <h2 className='posted'>{this.state.pinDetails.reviews.two.posted}</h2>
+                                </div>
+                                <div className='review'>
+                                    <h2 className='authorname'>{this.state.pinDetails.reviews.three.authorName}</h2>
+                                    <h2 className='rating'>Rating: {this.state.pinDetails.reviews.three.rating}/5</h2>
+                                    <h2 className='text'>{this.state.pinDetails.reviews.three.text}</h2>
+                                    <h2 className='posted'>{this.state.pinDetails.reviews.three.posted}</h2>
+                                </div>
+                                <div className='review'>
+                                    <h2 className='authorname'>{this.state.pinDetails.reviews.four.authorName}</h2>
+                                    <h2 className='rating'>Rating: {this.state.pinDetails.reviews.four.rating}/5</h2>
+                                    <h2 className='text'>{this.state.pinDetails.reviews.four.text}</h2>
+                                    <h2 className='posted'>{this.state.pinDetails.reviews.four.posted}</h2>
+                                </div>
+                                <div className='review'>
+                                    <h2 className='authorname'>{this.state.pinDetails.reviews.five.authorName}</h2>
+                                    <h2 className='rating'>Rating: {this.state.pinDetails.reviews.five.rating}/5</h2>
+                                    <h2 className='text'>{this.state.pinDetails.reviews.five.text}</h2>
+                                    <h2 className='posted'>{this.state.pinDetails.reviews.five.posted}</h2>
+                                </div>
+                                <h2 className='website'>{this.state.pinDetails.website}</h2>
                             </div>
-                            <div className='review'>
-                                <h2 className='authorname'>{this.state.pinDetails.reviews.two.authorName}</h2>
-                                <h2 className='rating'>Rating: {this.state.pinDetails.reviews.two.rating}/5</h2>
-                                <h2 className='text'>{this.state.pinDetails.reviews.two.text}</h2>
-                                <h2 className='posted'>{this.state.pinDetails.reviews.two.posted}</h2>
-                            </div>
-                            <div className='review'>
-                                <h2 className='authorname'>{this.state.pinDetails.reviews.three.authorName}</h2>
-                                <h2 className='rating'>Rating: {this.state.pinDetails.reviews.three.rating}/5</h2>
-                                <h2 className='text'>{this.state.pinDetails.reviews.three.text}</h2>
-                                <h2 className='posted'>{this.state.pinDetails.reviews.three.posted}</h2>
-                            </div>
-                            <div className='review'>
-                                <h2 className='authorname'>{this.state.pinDetails.reviews.four.authorName}</h2>
-                                <h2 className='rating'>Rating: {this.state.pinDetails.reviews.four.rating}/5</h2>
-                                <h2 className='text'>{this.state.pinDetails.reviews.four.text}</h2>
-                                <h2 className='posted'>{this.state.pinDetails.reviews.four.posted}</h2>
-                            </div>
-                            <div className='review'>
-                                <h2 className='authorname'>{this.state.pinDetails.reviews.five.authorName}</h2>
-                                <h2 className='rating'>Rating: {this.state.pinDetails.reviews.five.rating}/5</h2>
-                                <h2 className='text'>{this.state.pinDetails.reviews.five.text}</h2>
-                                <h2 className='posted'>{this.state.pinDetails.reviews.five.posted}</h2>
-                            </div>
-                            <h2 className='website'>{this.state.pinDetails.website}</h2>
                         </div>
                     </div>
+                    <Modal
+                        className='newTrip'
+                        isOpen={this.state.newTripModal}
+                        onAfterOpen={this.afterOpenNewtrip}
+                        onRequestClose={this.closeNewTrip}
+                    >
+                        <div onClick={this.closeNewTrip} className='modal-exit'>
+                            <div className='mexit-line1'></div>
+                            <div className='mexit-line2'></div>
+                        </div>
+                        <form >
+                            <h1 className='tripname'>Trip Name</h1>
+                            <input type="text" className='form-input' onChange={e => this.updateTripName(e.target.value)} />
+                            <button className='submit-button' onClick={() => this.addTrip(user)}>Submit</button>
+                        </form>
+                    </Modal>
+                    <Modal
+                        className='addToTripModal'
+                        isOpen={this.state.AddToTripModal}
+                        onRequestClose={this.closeAddToTrip}
+                    >
+                        <div onClick={this.closeAddToTrip} className='modal-trip-exit'>
+                            <div className='mexit-line1'></div>
+                            <div className='mexit-line2'></div>
+                        </div>
+                        <form className='form'>
+                            <h1 className='selectTrip'>Select on trip</h1>
+                            {trips}
+                            <h1 className='selectCategory'>Select Category</h1>
+                            <div className={this.state.selectanimation ? 'choice' : 'choice grow'} onClick={() => this.tripChoiceAttrib('h')}>Hotel</div>
+                            <div className={this.state.selectTransport ? 'choice' : 'choice grow'} onClick={() => this.tripChoiceAttrib('t')}>Transportation</div>
+                            <div className={this.state.selectAmuse ? 'choice' : 'choice grow'} onClick={() => this.tripChoiceAttrib('a')}>Amusement</div>
+                            <div className={this.state.selectFood ? 'choice' : 'choice grow'} onClick={() => this.tripChoiceAttrib('f')}>Food</div>
+                            <div className={this.state.selectShop ? 'choice' : 'choice grow'} onClick={() => this.tripChoiceAttrib('s')}>Shopping</div>
+                            <button onClick={() => this.submitToTrip()} className='toTripButton'>Done</button>
+                        </form>
+                    </Modal>
                 </div>
-                <Modal
-                    className='newTrip'
-                    isOpen={this.state.newTripModal}
-                    onAfterOpen={this.afterOpenNewtrip}
-                    onRequestClose={this.closeNewTrip}
-                >
-                    <div onClick={this.closeNewTrip} className='modal-exit'>
-                        <div className='mexit-line1'></div>
-                        <div className='mexit-line2'></div>
-                    </div>
-                    <form >
-                        <h1 className='tripname'>Trip Name</h1>
-                        <input type="text" className='form-input' onChange={e => this.updateTripName(e.target.value)} />
-                        <button className='submit-button' onClick={() => this.addTrip(user)}>Submit</button>
-                    </form>
-                </Modal>
-                <Modal
-                    className='addToTripModal'
-                    isOpen={this.state.AddToTripModal}
-                    onRequestClose={this.closeAddToTrip}
-                >
-                    <div onClick={this.closeAddToTrip} className='modal-trip-exit'>
-                        <div className='mexit-line1'></div>
-                        <div className='mexit-line2'></div>
-                    </div>
-                    <form className='form'>
-                        <h1>Click on trip</h1>
-                        {trips}
-                        <h1>Choose Category</h1>
-                        <div className={this.state.selectanimation ? 'choice' : 'choice grow'} onClick={() => this.tripChoiceAttrib('h')}>Hotel</div>
-                        <div className='choice' onClick={() => this.tripChoiceAttrib('t')}>Transportation</div>
-                        <div className='choice' onClick={() => this.tripChoiceAttrib('a')}>Amusement</div>
-                        <div className='choice' onClick={() => this.tripChoiceAttrib('f')}>Food</div>
-                        <div className='choice' onClick={() => this.tripChoiceAttrib('s')}>Shopping</div>
-                        <button onClick={() => this.submitToTrip()}>Done</button>
-                    </form>
-                </Modal>
             </div>
         )
     }

@@ -5,10 +5,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-image: url('./cityandman.jpeg');
+    background-image: url('./collusium.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
+    background-position: left;
     z-index: -2
 }
 .login-container{
@@ -18,18 +18,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #00000075;
+    background-color: #000000d3;
     /* margin-left: 50px; */
     /* padding-left: 40px; */
 }
 .titleHome{
     font-size: 92px;
     color: #F3E9DC;
-    margin-top: 20px;
+    margin-top: 50px;
     margin-bottom: 40px;
     font-family: 'Shrikhand', cursive;
     font-weight: 400;
-     text-shadow: 1px 1px #212121;
+    text-shadow: 1px 1px #212121;
 }
 h3{
     font-size: 24px;
@@ -45,12 +45,14 @@ h3{
     justify-content: space-around;
     height: 40px;
     width: 100px;
-    background-color: #006494;
+    background-color: #DC493A;
+    color: #F3E9DC;
     border-radius: 30px;
     font-family: 'Shrikhand';
     position: absolute;
     top: 10px;
     right: 10px;
+    box-shadow: inset 0px -5px 5px 0px rgba(0, 0, 0, 0.346)
 }
 .logo{
     position: absolute;

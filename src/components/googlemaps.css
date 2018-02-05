@@ -5,8 +5,8 @@
       z-index: 1;
       border: none;
       position: absolute;
-      top: 70px;
-      left: 130px; ;
+      top: 7px;
+      left: 400px; ;
       border-radius: 3px;
       background-color: rgb(255, 255, 255);
       text-decoration-color: black;
@@ -14,6 +14,22 @@
       -moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
       box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
       
+}
+.location-input:focus{
+    outline: none;
+}
+.background{
+    background-image: url('./countryside.jpg');
+    background-size: cover;
+    background-repeat: none;
+    background-position: center;
+    height: 95vh;
+    width: 100vw;
+}
+.backgroundop{
+    background-color: rgba(0, 0, 0, 0.73);
+    height: 95vh;
+    width: 100vw;
 }
 .location-input[type = text]{
     background-image: url('./svg/search.svg');
@@ -27,8 +43,8 @@
       z-index: 1; 
       border: none;
       position: relative;
-      top: 70px;
-      left: 335px;
+      top: 7px;
+      left: 610px;
       border-radius: 3px;
       background-color: rgb(255, 255, 255);
       -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
@@ -36,21 +52,27 @@
       box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
       
 }
+.go-button:focus{
+    outline: none;
+}
 .slide-details{
     background-color: #f0f0f0;
     opacity: 1;
-    height: 550px;
+    height: 92vh;
     width: 400px;
     position: absolute;
-    top: 60px;
+    top: 0px;
     left: -590px;
     transition: .4s;
     z-index: 2;
     overflow-y: scroll;
-    border-right: 3px solid black;
-    border-top: 3px solid black;
-    border-bottom: 3px solid black;
-    border-radius: 5px;
+    /* border-right: 3px solid black; */
+    /* border-top: 3px solid black; */
+    /* border-bottom: 3px solid black; */
+    /* border-radius: 5px; */
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
 }
 h2 h1{
     color: white;
@@ -91,19 +113,18 @@ h2 h1{
     border-radius: 2px;
 }
 .lists{
-    height: 420px;
+    height: 84vh;
     width: 310px;
     position: absolute;
-    top: 115px;
+    top: 15px;
     left: 15px;
-    z-index: -2;
-    background-color: #b8b8b8;  
+    background-color: #F3E9DC;  
     border-radius: 5px;
     padding: 10px;
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
-    opacity: 0;
+    opacity: 1;
     transition: .7s;
 }
 .display-opacity{
@@ -167,7 +188,7 @@ h2 h1{
     transition: .6s;
 }
 .hotels{
-    height: 400px;
+    height: 80vh;
     width: 310px;
     overflow-y: scroll;
     opacity: 0;
@@ -177,7 +198,7 @@ h2 h1{
     z-index: 0;
 }
 .transportation{
-    height: 400px;
+    height: 80vh;
     width: 310px;
     overflow-y: scroll;
     opacity: 0;
@@ -187,7 +208,7 @@ h2 h1{
     z-index: 0;
 }
 .food{
-    height: 400px;
+    height: 80vh;
     width: 310px;
     overflow-y: scroll;
     opacity: 0;
@@ -197,7 +218,7 @@ h2 h1{
     z-index: 0;
 }
 .amusement{
-    height: 400px;
+    height: 80vh;
     width: 310px;
     overflow-y: scroll;
     opacity: 0;
@@ -207,7 +228,7 @@ h2 h1{
     z-index: 0;
 }
 .shopping{
-    height: 400px;
+    height: 80vh;
     width: 310px;
     overflow-y: scroll;
     opacity: 0;
@@ -369,8 +390,8 @@ h2 h1{
     width: 150px;
     z-index: 0;
     position: relative;
-    top: 35px;
-    left: 400px;
+    top: -28px;
+    left: 670px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -431,14 +452,14 @@ h2 h1{
 .submit-button{
     height: 40px;
     width: 80px;
-    background-color: #DC493A;
+    background-color: #F3E9DC;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top: 40px;
-    border: 1px solid black;
+    border: none;
     margin-bottom: 10px;
     color: rgb(0, 0, 0);
 }
@@ -453,7 +474,7 @@ h2 h1{
     opacity: .5;
 }
 .newTrip{
-    z-index: 5;
+    z-index: 6;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -512,7 +533,7 @@ h2 h1{
     width: 400px;
     border-radius: 5px;
     top: 50%;
-    left: 50%;
+    left: 60%;
     right: auto;
     bottom: auto;
     margin-right: -50%;
@@ -525,24 +546,16 @@ h2 h1{
 }
 .choice{
     padding: 5px;
+    transition: .6s;
 }
 .grow{
-    animation: grow
+    background-color: #F3E9DC;
+    width: 150px;
+    border-radius: 10px;
 }
-@keyframes grow{
-    from{
-        width: 0;
-        background-color: white;
-    }
-    to{
-        width: 200;
-        background-color: white;
-    }
-}
+
 .trip-choice{
     height: 15px;
-    width: 150px;
-    /* text-align: center; */
     padding: 5px;
     transition: .5s;
 }
@@ -552,21 +565,21 @@ h2 h1{
     position: relative;
     right: -178px;
 }
-
-/* .trip-choice:hover{
-    background-color: red;
-} */
-/* .choice-slide{
-    animation-name: colorSlide;
-    animation-duration: .5s;
+.choice-slide{
+    background-color: #F3E9DC;
+    width: 150px;
+    border-radius: 10px;
 }
-@keyframes colorSlide{
-    from{
-        background-color: red;
-        width: 0px
-    }
-    to{
-        background-color: red;
-        width: 150px;
-    }
-} */
+.toTripButton{
+    height: 25px;
+    width: 50px;
+    border: none;
+    border-radius: 5px;
+    background-color: #F3E9DC;
+}
+.selectTrip{
+    font-weight: 600;
+}
+.selectCategory{
+    font-weight: 600;
+}
