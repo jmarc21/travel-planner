@@ -121,13 +121,56 @@
 /* }  */
 .mobilenav{
     height: 300px;
-    width: 200px;
+    width: 150px;
     background-color: #006494;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 0px;
 }
 .links{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+}
+.navmobile{
+    height: 30px;
+    width: 30px;
+    /* background-color: #006494; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 5px;
+    position: absolute;
+    right: 150px;
+}
+.hammenu{
+    display: flex;
+    flex-direction: row;
+}
+.hamcomp{
+    display: flex;
+    flex-direction: row;
+}
+.mobileline1{
+    height: 5px;
+    width: 30px;
+    background-color: black;
+    border-radius: 5px;
+}
+.mobileline2{
+    height: 5px;
+    width: 30px;
+    background-color: black;
+    border-radius: 5px;
+}
+.mobileline3{
+    height: 5px;
+    width: 30px;
+    background-color: black;
+    border-radius: 5px;
 }
 @media (max-width: 999px){
     .nav{

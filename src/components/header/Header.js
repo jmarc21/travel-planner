@@ -16,19 +16,23 @@ export default class Header extends Component {
                         <a href='/auth/logout' style={{ textDecoration: 'none' }}><div className='logout'>Log out</div></a>
                     </nav>
                 </div>
-                <nav className='mobilenav'>
+                <div className="hammenu">
+                    <div className="hamcomp">
                     <div className="navmobile">
                         <div className="mobileline1"></div>
                         <div className="mobileline2"></div>
                         <div className="mobileline3"></div>
                     </div>
-                    <div className="links">
-                        <Link style={{ textDecoration: 'none' }} to='/feed'><div className='feed'>Feed</div></Link>
-                        <Link style={{ textDecoration: 'none' }} to='/profile'><div className='profile'>Profile</div></Link>
-                        <Link style={{ textDecoration: 'none' }} to='/planner'><div className='plan'>Plan a trip</div></Link>
-                        <a href='/auth/logout' style={{ textDecoration: 'none' }}><div className='logout'>Log out</div></a>
+                    <nav className='mobilenav'>
+                        <div className="links">
+                            <Link style={{ textDecoration: 'none' }} to='/feed'><div className='feed'>Feed</div></Link>
+                            <Link style={{ textDecoration: 'none' }} to='/profile'><div className='profile'>Profile</div></Link>
+                            <Link style={{ textDecoration: 'none' }} to='/planner'><div className='plan'>Plan a trip</div></Link>
+                            <a href='/auth/logout' style={{ textDecoration: 'none' }}><div className='logout'>Log out</div></a>
+                        </div>
+                    </nav>
                     </div>
-                </nav>
+                </div>
             </div>
         )
     }
