@@ -7,6 +7,7 @@
     justify-content: space-between;
     background-color: #006494;
     z-index: 1;
+    display: none;
 }
 .appname{
     font-size: 34px;
@@ -118,6 +119,16 @@
     /* width: 110px; */
     /* border-radius: 5px; */
 /* }  */
+.mobilenav{
+    height: 300px;
+    width: 200px;
+    background-color: #006494;
+}
+.links{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
 @media (max-width: 999px){
     .nav{
         margin-left: 200px;
@@ -132,4 +143,7 @@
     .nav{
         margin-left: 50px;
     }
+}
+@media (max-width: 650px){
+    
 }
