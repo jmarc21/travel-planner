@@ -11,17 +11,28 @@ class Following extends Component {
             following: []
         }
     }
-    componentDidMount(){
-        this.props.getUserInfo()
+    async componentDidMount(){
+        await this.props.getUserInfo()
         const {user} = this.props;
         console.log(user)
         var id = {
             authid: user.auth_id
         }
-        axios.post('/get-following',id).then(res => {
+        await axios.post('/get-following',id).then(res => {
             this.setState({
                 following: res.data
             })
+        })
+    }
+    unFollow(i){
+        console.log(this.state.following[i])
+        var id = {
+            id: this.state.following[i].id
+        }
+        axios.post('/unfollow', id).then(res => {
+            if(res.data === 'unfollowed'){
+                window.location.reload()
+            }
         })
     }
     render() {
@@ -31,6 +42,7 @@ class Following extends Component {
                 <div key={i} className="followingUsers">
                     <img src={e.friendimg}/>
                     <h1>{e.friendusername}</h1>
+                    <button onClick={() => this.unFollow(i)}>Unfollow</button>
                 </div>
             )
         })

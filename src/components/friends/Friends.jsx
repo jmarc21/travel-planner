@@ -36,7 +36,22 @@ class Friends extends Component {
         })
     }
     addFriend(i) {
+        const {user} = this.props
         console.log(this.state.users[i])
+        console.log(user)
+        var id = {
+            user: {
+                auth_id: user.auth_id
+            },
+            friend: {
+                username: this.state.users[i].username,
+                auth_id: this.state.users[i].auth_id,
+                img: this.state.users[i].img
+            }
+        }
+        axios.post('/add-friend', id).then(res => {
+            console.log(res)
+        })
     }
     removeFriend(i) {
         console.log('remove')
@@ -47,14 +62,14 @@ class Friends extends Component {
             return e.username.toString().toLowerCase().includes(this.state.friendsearch)
         })
         let searchedUsers = users.map((e, i) => {
-            for(var index = 0; index <= this.state.friends.length; index++){
-                return(
-                <div key={i}>
-                    <img src={e.img} alt="" className='friendsearchimg' />
-                    <h1 className='friendsearchusername'>{e.username}</h1>
-                    <p className='friendsearchdescription'>{e.description ? e.description : null}</p>
-                    { this.state.users[i].auth_id === (this.state.friends[index] ? this.state.friends[index].friendauthid : null) ? <button onClick={() => this.removeFriend(i)} className='removeFriend'>Remove Friend</button> : <button onClick={() => this.addFriend(i)} className='addFriend'>Add Friend</button>}
-                </div>
+            for (var index = 0; index <= this.state.friends.length; index++) {
+                return (
+                    <div key={i}>
+                        <img src={e.img} alt="" className='friendsearchimg' />
+                        <h1 className='friendsearchusername'>{e.username}</h1>
+                        <p className='friendsearchdescription'>{e.description ? e.description : null}</p>
+                        {this.state.users[i].auth_id === (this.state.friends[index] ? this.state.friends[index].friendauthid : null) ? <button onClick={() => this.removeFriend(i)} className='removeFriend'>Unfollow</button> : <button onClick={() => this.addFriend(i)} className='addFriend'>Follow</button>}
+                    </div>
                 )
             }
         })

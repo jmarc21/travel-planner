@@ -367,6 +367,16 @@ app.post('/add-friend', (req, res) => {
         res.status(200).send('friend added')
     })
 })
+app.post('/unfollow', (req,res) => {
+    console.log('id', req.body)
+    const {id} = req.body
+    const db = app.get('db');
+    db.unfollow([
+        id
+    ]).then(resp => {
+        res.status(200).send('unfollowed')
+    })
+})
 app.post('/numOfFollowing', (req, res) => {
     console.log('asdfads', req.body)
     const { auth_id } = req.body;
