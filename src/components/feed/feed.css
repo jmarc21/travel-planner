@@ -1,0 +1,23 @@
+.feedfriendimg{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+.friendcontent{
+    display: flex;
+    flex-direction: row
+}
+.friendtrip{
+    display: flex;
+    flex-direction: column;
+}
+.hotelandtransportcontent{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.amuseshopandfoodcontent{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
