@@ -69,9 +69,13 @@ class Home extends Component {
         })
         return (
             <div>
-                <Header />
-                <div className='followingtrips'>
-                    {trips}
+                <div className="backgroundpic">
+                    <div className="picopa">
+                        <Header />
+                        <div className='followingtrips'>
+                            {trips}
+                        </div>
+                    </div>
                 </div>
             </div>
         )

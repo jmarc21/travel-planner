@@ -1095,14 +1095,6 @@ class Contents extends Component {
                         <div >
                             <div className='map-container'>
                                 <Map {...props}
-                                    containerStyle={{
-                                        position: 'relative',
-                                        height: '80vh',
-                                        width: '67vw',
-                                        position: "absolute",
-                                        top: '50px',
-                                        right: '20px',
-                                    }}
                                     styles={mapStyles}
                                     className='map-container'
                                     zoom={14}
@@ -1287,7 +1279,7 @@ class Contents extends Component {
                             <div className={this.state.selectAmuse ? 'choice' : 'choice grow'} onClick={() => this.tripChoiceAttrib('a')}>Amusement</div>
                             <div className={this.state.selectFood ? 'choice' : 'choice grow'} onClick={() => this.tripChoiceAttrib('f')}>Food</div>
                             <div className={this.state.selectShop ? 'choice' : 'choice grow'} onClick={() => this.tripChoiceAttrib('s')}>Shopping</div>
-                            <button onClick={() => this.submitToTrip()} className='toTripButton'>Done</button>
+                            <div onClick={() => this.submitToTrip()} className='toTripButton'>Done</div>
                         </form>
                     </Modal>
                 </div>

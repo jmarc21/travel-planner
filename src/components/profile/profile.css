@@ -2,7 +2,18 @@
     font-size: 32px;
     margin-top: 30px;
 }
-
+.backgroundone{
+    height: 100vh;
+    width: 100vw;
+    background-image: url('./clifs.jpg');
+    background-position: center;
+    background-size: cover;
+}
+.backgroundopone{
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.575);
+}
 .profile-container{
     height: 300px;
     width: 300px;
@@ -11,10 +22,12 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    /* background-color: #F3E9DC; */
+    background-color: #F3E9DC;
     border-radius: 10px;
     top: 100px;
-    left: 50px;
+    left: 80px;
+    border-radius: 5px;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.292)   
 }
 .profile-pic{
     width: 200px;
@@ -43,7 +56,7 @@
     font-size: 20px;
     border-radius: 5px;
     padding: 20px;
-    border: 2px solid rgba(0, 0, 0, 0.127);
+    background-color: #F3E9DC;
     box-shadow: 2px 2px rgba(0, 0, 0, 0.292)   
 }
 .trip-names{
@@ -74,7 +87,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border: 2px solid rgba(0, 0, 0, 0.127);
+    background-color: #F3E9DC;
     box-shadow: 2px 2px rgba(0, 0, 0, 0.292)    
 }
 .following-list{
@@ -87,8 +100,8 @@
     left: 550px;
     display: flex;
     flex-direction: row;
+    background-color: #F3E9DC;
     justify-content: space-between;
-    border: 2px solid rgba(0, 0, 0, 0.127);
     box-shadow: 2px 2px rgba(0, 0, 0, 0.292)
 }
 .followers{
@@ -110,8 +123,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: #F3E9DC;
     border-radius: 5px;
-    border: 2px solid rgba(0, 0, 0, 0.127);
     box-shadow: 2px 2px rgba(0, 0, 0, 0.292) 
 }
 .addFriendModal{
@@ -133,7 +146,7 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    border: 2px solid rgba(0, 0, 0, 0.127);
+    background-color: #F3E9DC;
     box-shadow: 2px 2px rgba(0, 0, 0, 0.292)   
 }
 .settings{
@@ -143,14 +156,27 @@
     left: 1030px;
 }
 .editProfileModal{
-    height: 80vh;
-    width: 80vw;
+    height: 50vh;
+    width: 50vw;
     background-color: #F3E9DC;
     margin: auto;
     margin-top: 90px;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 2px 2px rgba(0, 0, 0, 0.411);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.bio{
+    font-size: 22px;
+}
+.userchanges{
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 .editProfileModal:focus{
     outline: none;
@@ -291,4 +317,99 @@ button{
 }
 .foods{
     padding: 40px;
+}
+@media (max-width: 1145px){
+    .trips{
+        width: 400px;
+    }
+    .settings{
+        left: 840px;
+    }
+}
+@media (max-width: 915px){
+    .profile-container{
+        width: 200px;
+        height: 200px;
+    }
+    .profile-pic{
+        height: 100px;
+        width: 100px;
+    }
+    .name-profile{
+        font-size: 22px;
+    }
+    .trips{
+        left: 300px;
+    }
+    .follower-search-button{
+        left: 500px;
+    }
+    .followers-list{
+        left: 300px;
+    }
+    .following-list{
+        left: 400px;
+    }
+    .settings{
+        left: 690px;
+    }
+}
+@media (max-width: 800px){
+    .trips{
+        width: 160px;
+        height: 100px;
+        top: 310px;
+        left: 80px;
+    }
+    .followers-list{
+        top: 100px;
+    }
+    .following-list{
+        top: 100px;
+    }
+    .trip-details{
+        margin-top: 10px;
+    }
+    .settings{
+        left: 290px;
+        top: 200px;
+    }
+    .follower-search-button{
+        top: 150px;
+        left: 300px;
+    }
+}
+@media (max-width: 500px){
+    .profile-container{
+        left: 110px;
+    }
+    .trip-details{
+        margin-top: 100px;
+        margin-left: 0px;
+    }
+    .trips{
+        top: 380px;
+        left: 30px;
+        width: 313px;
+    }
+    .followers-list{
+        top: 310px;
+        left: 50px;
+    }
+    .following-list{
+        top: 310px;
+        left: 150px;
+    }
+    .follower-search-button{
+        top: 310px;
+        left: 250px;
+    }
+    .settings{
+        top: 100px;
+        left: 310px;
+    }
+    .editProfileModal{
+        height: 300px;
+        width: 360px;
+    }
 }

@@ -4,6 +4,19 @@ import '../../reset.css';
 import './header.css';
 
 export default class Header extends Component {
+    constructor(){
+        super();
+        this.state = {
+            slide: false
+        }
+        this.open = this.open.bind(this)
+    }
+    open(){
+        console.log(this.state.slide)
+        this.setState({
+            slide: this.state.slide ? false : true
+        })
+    }
     render() {
         return (
             <div>
@@ -17,20 +30,21 @@ export default class Header extends Component {
                     </nav>
                 </div>
                 <div className="hammenu">
+                    <div className='appname'>TYBL</div>
                     <div className="hamcomp">
-                    <div className="navmobile">
-                        <div className="mobileline1"></div>
-                        <div className="mobileline2"></div>
-                        <div className="mobileline3"></div>
-                    </div>
-                    <nav className='mobilenav'>
-                        <div className="links">
-                            <Link style={{ textDecoration: 'none' }} to='/feed'><div className='feed'>Feed</div></Link>
-                            <Link style={{ textDecoration: 'none' }} to='/profile'><div className='profile'>Profile</div></Link>
-                            <Link style={{ textDecoration: 'none' }} to='/planner'><div className='plan'>Plan a trip</div></Link>
-                            <a href='/auth/logout' style={{ textDecoration: 'none' }}><div className='logout'>Log out</div></a>
+                        <div className={this.state.slide ? 'navmobile slidenav' : "navmobile"} onClick={() => this.open()}>
+                            <div className="mobileline1"></div>
+                            <div className="mobileline2"></div>
+                            <div className="mobileline3"></div>
                         </div>
-                    </nav>
+                        <nav className={this.state.slide ? 'mobilenav slideham':'mobilenav'}>
+                            <div className="links">
+                                <Link style={{ textDecoration: 'none' }} to='/feed'><div className='feed'>Feed</div></Link>
+                                <Link style={{ textDecoration: 'none' }} to='/profile'><div className='profile'>Profile</div></Link>
+                                <Link style={{ textDecoration: 'none' }} to='/planner'><div className='plan'>Plan a trip</div></Link>
+                                <a href='/auth/logout' style={{ textDecoration: 'none' }}><div className='logout'>Log out</div></a>
+                            </div>
+                        </nav>
                     </div>
                 </div>
             </div>

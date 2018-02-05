@@ -322,29 +322,39 @@ class Profile extends Component {
         const usertrips = this.state.userTrips
         const ti = this.state.specTripId
         return (
-            <div className='background1'>
-                <div className='backgroundop1'>
+            <div className='backgroundone'>
+                <div className='backgroundopone'>
                     <Header />
-                    <div className='profile-container'>
-                        <img className='profile-pic' src={user ? user.img : null} />
-                        <h2 className='name-profile'>{user ? user.username : null}</h2>
-                        <p>{user ? user.description : null}</p>
-                    </div>
-                    <div>
-                        <Link to='/followers' style={{ textDecoration: 'none', color: '#000000' }}><div className="followers-list">
-                            <div className="followers">
-                                <div>Followers</div>
-                                <div className="numOfFollowers">{this.state.followers}</div>
+                    <div className="profilecontent">
+                        <div className='profile-container'>
+                            <img className='profile-pic' src={user ? user.img : null} />
+                            <h2 className='name-profile'>{user ? user.username : null}</h2>
+                            <p>{user ? user.description : null}</p>
+                        </div>
+                        <div>
+                            <div className='trips'>
+                                <div className='trip-names'>
+                                    <div>Bucketlist Trips:</div>
+                                    {tripNames}
+                                </div>
                             </div>
-                        </div></Link>
-                        <Link to='/following' style={{ textDecoration: 'none', color: '#000000' }}><div className="following-list">
-                            <div className="following">
-                                <div>Following</div>
-                                <div className="numOfFollowing">{this.state.following}</div>
+                            <div>
+                                <Link to='/followers' style={{ textDecoration: 'none', color: '#000000' }}><div className="followers-list">
+                                    <div className="followers">
+                                        <div>Followers</div>
+                                        <div className="numOfFollowers">{this.state.followers}</div>
+                                    </div>
+                                </div></Link>
+                                <Link to='/following' style={{ textDecoration: 'none', color: '#000000' }}><div className="following-list">
+                                    <div className="following">
+                                        <div>Following</div>
+                                        <div className="numOfFollowing">{this.state.following}</div>
+                                    </div>
+                                </div></Link>
+                                <Link to='/friends' style={{ textDecoration: 'none', color: '#000000' }}><div className="follower-search-button" onClick={() => this.openAddFriends()}>Search Friends</div></Link>
+                                <img className='settings' src={editsvg} alt="" onClick={() => this.editProfile()} />
                             </div>
-                        </div></Link>
-                        <Link to='/friends' style={{ textDecoration: 'none', color: '#000000' }}><div className="follower-search-button" onClick={() => this.openAddFriends()}>Search Friends</div></Link>
-                        <img className='settings' src={editsvg} alt="" onClick={() => this.editProfile()} />
+                        </div>
                     </div>
                     <Modal
                         className='addFriendModal'
@@ -367,16 +377,24 @@ class Profile extends Component {
                         >
                             <p>Drop an image or click to select a photo to update Profile</p>
                         </Dropzone>
-                        <div>
+                        <div className="preview">
                             <div>
-                                {preview()}
+                                <div>
+                                    {preview()}
+                                </div>
                             </div>
                         </div>
-                        <h1 className='usernameText'>Username:</h1>
-                        <input type="text" className='updateUsernameProfile' onChange={(e) => this.updateUsername(e.target.value)} />
-                        <h1 className='bio'>Bio</h1>
-                        <textarea className='descriptioninput' cols="30" rows="5" onChange={(e) => this.updateBio(e.target.value)}></textarea>
-                        <button onClick={() => this.updateProfile()}>Save Changes</button>
+                        <div className="userchanges">
+                            <div>
+                                <h1 className='usernameText'>Username:</h1>
+                                <input type="text" className='updateUsernameProfile' onChange={(e) => this.updateUsername(e.target.value)} />
+                            </div>
+                            <div>
+                                <h1 className='bio'>Bio:</h1>
+                                <textarea className='descriptioninput' cols="30" rows="5" onChange={(e) => this.updateBio(e.target.value)}></textarea>
+                            </div>
+                            <button onClick={() => this.updateProfile()} className='savechanges'>Save Changes</button>
+                        </div>
                     </Modal>
                     <Modal
                         className='tripDetailsModal'
@@ -384,13 +402,13 @@ class Profile extends Component {
                         onRequestClose={this.closeTripDetailModal}
                         ariaHideApp={false}
                     >
-                            <div className="tripNameSpec">
-                                <div className='triptitle'>
-                                    <div className='ptn'>Trip Name</div>
-                                    {usertrips[ti] ? usertrips[ti].tripinfo.tripname : null}
-                                    <button onClick={() => this.deleteTrip()} className='deletewholetrip'>Delete Trip</button>
-                                </div>
+                        <div className="tripNameSpec">
+                            <div className='triptitle'>
+                                <div className='ptn'>Trip Name</div>
+                                {usertrips[ti] ? usertrips[ti].tripinfo.tripname : null}
+                                <button onClick={() => this.deleteTrip()} className='deletewholetrip'>Delete Trip</button>
                             </div>
+                        </div>
                         <div className='detailspec'>
                             <div className='hotelandtransportspec'>
                                 <div className="Spec">
@@ -428,12 +446,6 @@ class Profile extends Component {
                             </div>
                         </div>
                     </Modal>
-                    <div className='trips'>
-                        <div className='trip-names'>
-                            <div>Bucketlist Trips:</div>
-                            {tripNames}
-                        </div>
-                    </div>
                     <div className="trip-details">
                         {trips}
                     </div>

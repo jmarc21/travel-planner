@@ -6,6 +6,9 @@
 }
 .users{
     padding: 20px;
+    height: 100vh;
+    width: 100vw;
+    background-color: #F3E9DC
 }
 .removeFriend{
     border-radius: 5px;

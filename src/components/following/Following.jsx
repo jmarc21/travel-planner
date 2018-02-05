@@ -47,8 +47,8 @@ class Following extends Component {
             )
         })
         return (
-            <div className="following">
-                <div>Following</div>
+            <div className="followinglist">
+                <div className='followingtitleone'>Following</div>
                 {following}
             </div>
         )
