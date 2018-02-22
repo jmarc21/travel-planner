@@ -270,31 +270,31 @@ class Profile extends Component {
                         <div className='hotelandtransport'>
                             <div className="hotels-profile">
                                 <div className='cattitle'>Hotel:</div>
-                                <div className='userhotelname'>{e.hotel ? e.hotel.hotelname : null}</div>
-                                <div className='userhotelrating'>Rating: {e.hotel ? e.hotel.hotelrating : null}</div>
+                                <div className='username'>{e.hotel ? e.hotel.hotelname : null}</div>
+                                <div className='userhotelrating'>Rating: {e.hotel ? e.hotel.hotelrating : null} out of 5</div>
                             </div>
                             <div className="transportations">
                                 <div className='cattitle'>Transportation:</div>
-                                <div className='usertransportname'>{e.transport ? e.transport.transportname : null}</div>
-                                <div className='usertransportrating'>Rating: {e.transport ? e.transport.transportrating : null}</div>
+                                <div className='username'>{e.transport ? e.transport.transportname : null}</div>
+                                <div className='usertransportrating'>Rating: {e.transport ? e.transport.transportrating : null} out of 5</div>
                             </div>
                         </div>
                         <div className='amuseshopfood'>
                             <div className="amusements">
                                 <div className='cattitle'>Amusements:</div>
-                                <div className='useramusename'>{e.amuse ? e.amuse.amusename : null}</div>
-                                <div className='useramuserating'>Rating: {e.amuse ? e.amuse.amuserating : null}</div>
+                                <div className='username'>{e.amuse ? e.amuse.amusename : null}</div>
+                                <div className='useramuserating'>Rating: {e.amuse ? e.amuse.amuserating : null} out of 5</div>
 
                             </div>
                             <div className="shoppings">
                                 <div className='cattitle'>Shops:</div>
-                                <div className='usershoppingname'>{e.shopping ? e.shopping.shopname : null}</div>
-                                <div className='usershoppingrating'>Rating: {e.shopping ? e.shopping.shoprating : null}</div>
+                                <div className='username'>{e.shopping ? e.shopping.shopname : null}</div>
+                                <div className='usershoppingrating'>Rating: {e.shopping ? e.shopping.shoprating : null} out of 5</div>
                             </div>
                             <div className="foods">
                                 <div className='cattitle'>Food:</div>
-                                <div className='userfoodname'>{e.food ? e.food.foodname : null}</div>
-                                <div className='userfoodrating'>Rating: {e.food ? e.food.foodrating : null}</div>
+                                <div className='username'>{e.food ? e.food.foodname : null}</div>
+                                <div className='userfoodrating'>Rating: {e.food ? e.food.foodrating : null} out of 5</div>
                             </div>
                         </div>
                     </div>

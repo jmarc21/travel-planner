@@ -16,9 +16,13 @@
     font-size: 22px;
     font-weight: 600;
 }
+.feedname{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 .feedtripname{
     font-weight: 600;
-    margin-left: 230px;
+    margin-left: 60px;
     font-size: 34px;
 }
 .friendtrip{
@@ -56,4 +60,10 @@
 }
 .picopa{
     background-color: rgba(0, 0, 0, 0.575);
+}
+.hotelandtransportcontent > div{
+    font-size: 24px;
+}
+.amuseshopandfoodcontent > div {
+    font-size: 24px;
 }

@@ -35,7 +35,7 @@ class Followers extends Component {
         })
         return (
             <div className="followerslist">
-                <div>Followers</div>
+                <div className="followerslisttitle">Followers</div>
                 {followers}
             </div>
         )

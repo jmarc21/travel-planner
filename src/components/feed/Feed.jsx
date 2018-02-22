@@ -33,35 +33,35 @@ class Home extends Component {
                         <div className='feedfriendusername'>{e.friendusername}</div>
                     </div>
                     <div className='tripnamecontent'>
-                        <div className='feedtripname'>Trip: {e.tripname}</div>
+                        <div className='feedtripname'>{e.tripname}</div>
                     </div>
                     <div className='hotelandtransportcontent'>
                         <div className='hotelscomp'>
                             <div className='feedtitles'>Hotel:</div>
-                            <div className='feedhotelname'>{e.hotelname}</div>
-                            <div className='feedhotelrating'>rating: {e.hotelrating}/5</div>
+                            <div className='feedname'>{e.hotelname}</div>
+                            <div className='feedhotelrating'>Rating: {e.hotelrating} out of 5</div>
                         </div>
                         <div className='transportcomp'>
                             <div className='feedtitles'>Transportation:</div>
-                            <div className='feedtransportname'>{e.transportname}</div>
-                            <div className='feedtransportrating'>rating: {e.transportrating}/5</div>
+                            <div className='feedname'>{e.transportname}</div>
+                            <div className='feedtransportrating'>Rating: {e.transportrating} out of 5</div>
                         </div>
                     </div>
                     <div className='amuseshopandfoodcontent'>
                         <div className='amusecomp'>
                             <div className='feedtitles'>Amusement:</div>
-                            <div className='feedamusename'>{e.amusename}</div>
-                            <div className='feedamuserating'>rating: {e.amuserating}/5</div>
+                            <div className='feedname'>{e.amusename}</div>
+                            <div className='feedamuserating'>Rating: {e.amuserating} out of 5</div>
                         </div>
                         <div className='shopcomp'>
                             <div className='feedtitles'>Shops:</div>
-                            <div className='feedshoppingname'>{e.shopname}</div>
-                            <div className='feedshoppingrating'>rating: {e.shoprating}/5</div>
+                            <div className='feedname'>{e.shopname}</div>
+                            <div className='feedshoppingrating'>Rating: {e.shoprating} out of 5</div>
                         </div>
                         <div className='foodcomp'>
                             <div className='feedtitles'>Food:</div>
-                            <div className='feedfoodname'>{e.foodname}</div>
-                            <div className='feedfoodrating'>rating: {e.foodrating}/5</div>
+                            <div className='feedname'>{e.foodname}</div>
+                            <div className='feedfoodrating'>Rating: {e.foodrating} out of 5</div>
                         </div>
                     </div>
                 </div>

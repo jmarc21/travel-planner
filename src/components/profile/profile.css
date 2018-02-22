@@ -2,17 +2,26 @@
     font-size: 32px;
     margin-top: 30px;
 }
+.deets > div{
+    font-size: 22px;
+}
 .backgroundone{
-    height: 100vh;
+    height: 200vh;
     width: 100vw;
     background-image: url('./clifs.jpg');
-    background-position: center;
     background-size: cover;
+    background-repeat: none;
+    background-position: center;
 }
 .backgroundopone{
-    height: 100vh;
+    height: 200vh;
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.575);
+    background-attachment: fixed;
+}
+.savechanges{
+    height: 30px;
+
 }
 .profile-container{
     height: 300px;
@@ -193,6 +202,10 @@
 .bucketlisttrips{
     width: 400px;
     height: 200px;
+}
+.username{
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 .usernameText{
     font-size: 22px;
