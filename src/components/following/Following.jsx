@@ -18,7 +18,7 @@ class Following extends Component {
         var id = {
             authid: user.auth_id
         }
-        await axios.post('/get-following',id).then(res => {
+        axios.post('/get-following',id).then(res => {
             this.setState({
                 following: res.data
             })

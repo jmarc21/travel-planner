@@ -24,7 +24,7 @@ class Friends extends Component {
         const id = {
             authid: user.auth_id
         }
-        await axios.post('/get-following', id).then(res => {
+        axios.post('/get-following', id).then(res => {
             this.setState({
                 friends: res.data
             })
@@ -37,8 +37,6 @@ class Friends extends Component {
     }
     addFriend(i) {
         const { user } = this.props
-        console.log(this.state.users[i])
-        console.log(user)
         var id = {
             user: {
                 auth_id: user.auth_id
@@ -57,7 +55,6 @@ class Friends extends Component {
         console.log('remove')
     }
     render() {
-        console.log(this.state.friends)
         let users = this.state.users.filter((e, i) => {
             return e.username.toString().toLowerCase().includes(this.state.friendsearch)
         })

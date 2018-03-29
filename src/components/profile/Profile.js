@@ -46,7 +46,7 @@ class Profile extends Component {
         var id = {
             auth_id: user.auth_id
         }
-        await axios.post('/getUserTrips', id).then(res => {
+        axios.post('/getUserTrips', id).then(res => {
             var tripid = res.data.map((e, i) => {
                 return e.id
             })
@@ -59,17 +59,17 @@ class Profile extends Component {
                 })
             })
         })
-        await axios.post('/numOfFollowing', id).then(res => {
+        axios.post('/numOfFollowing', id).then(res => {
             this.setState({
                 following: res.data[0].count
             })
         })
-        await axios.post('/numOfFollowers', id).then(res => {
+        axios.post('/numOfFollowers', id).then(res => {
             this.setState({
                 followers: res.data[0].count
             })
         })
-        await axios.post('/getUserTrips', id).then(res => {
+        axios.post('/getUserTrips', id).then(res => {
             this.setState({
                 tripnames: res.data
             })
@@ -168,8 +168,6 @@ class Profile extends Component {
         })
     }
     openTripDetailsModal(i) {
-        console.log(i)
-        console.log(this.state.userTrips[i])
         this.setState({
             tripDetailsModal: true,
             specTripId: i
@@ -187,7 +185,6 @@ class Profile extends Component {
             tripid: usertrip[i].tripinfo.id
         }
         axios.post('/delete-trip', tripid).then(res => {
-            console.log(res)
             if (res.data === 'deleted') {
                 window.location.reload()
             }
@@ -245,7 +242,6 @@ class Profile extends Component {
     }
     render() {
         const user = this.props.user;
-        console.log(this.state.userTrips)
         let users = this.state.users.map((e, i) => {
             return (
                 <div key={i} className='addFriendslist'>

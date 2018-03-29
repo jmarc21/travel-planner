@@ -6,8 +6,7 @@ const express = require('express')
     , Auth0Strategy = require('passport-auth0')
     , massive = require('massive')
     , cors = require('cors')
-    , axios = require('axios')
-    , createInitialSession = require('./session');
+    , axios = require('axios');
 
 const { AUTH_DOMAIN, AUTH_CLIENT_ID, AUTH_CLIENT_SECRET, AUTH_CALLBACK_URL, CONNECTION_STRING } = process.env
 
@@ -19,12 +18,11 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    // cookie: {maxAge: 43200000}
 }))
-// app.use(createInitialSession)
 app.use(passport.initialize());
 app.use(passport.session());
 
+//setting up connection to my database
 massive(CONNECTION_STRING).then((db) => {
     app.set('db', db);
 })

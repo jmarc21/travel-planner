@@ -143,7 +143,6 @@ class Contents extends Component {
         this.visibleShopping = this.visibleShopping.bind(this)
         this.showHours = this.showHours.bind(this)
         this.openNewTrip = this.openNewTrip.bind(this)
-        // this.afterOpenNewtrip = this.afterOpenNewtrip.bind(this)
         this.closeNewTrip = this.closeNewTrip.bind(this)
         this.closeaddTripModal = this.closeaddTripModal.bind(this)
         this.closeAddToTrip = this.closeAddToTrip.bind(this)
@@ -152,14 +151,9 @@ class Contents extends Component {
     onSubmit(e) {
         e.preventDefault();
     }
-
     componentDidMount() {
         this.props.getUserInfo()
-        // const user = this.props.user;
-        // this.setState({
-        //     auth_id: user.auth_id,
-        //     userName: user.username
-        // })
+
     }
     componentDidUpdate(prevProps) {
         const { map } = this.props;
@@ -458,9 +452,6 @@ class Contents extends Component {
             newTripModal: true
         })
     }
-    // afterOpenNewtrip() {
-    //     this.stat
-    // }
     closeNewTrip() {
         this.setState({
             newTripModal: false
@@ -636,7 +627,6 @@ class Contents extends Component {
     }
     render() {
         const props = this.props;
-        // const { position } = this.state;
         let position_marker_hotel = this.state.hotelData.map((e, i) =>
             <Marker key={i}
                 name={e.name}

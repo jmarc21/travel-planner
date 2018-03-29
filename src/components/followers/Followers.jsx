@@ -17,7 +17,7 @@ class Followers extends Component {
         var id = {
             authid: user.auth_id
         }
-        await axios.post('/get-followers', id).then(res => {
+        axios.post('/get-followers', id).then(res => {
             console.log(res)
             this.setState({
                 followers: res.data

@@ -16,15 +16,6 @@ export function getUserInfo() {
         payload: userData
     }
 }
-// export function getTrips(){
-//     let tripData = axios.get('/getUserTrips').then(res => {
-//         console.log(res)
-//     })
-//     return {
-//         type: GET_USER_TRIPS,
-//         payload: 
-//     }
-// }
 
 export default function reducer(state = initialState, action){
     switch(action.type) {

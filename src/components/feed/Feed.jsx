@@ -13,12 +13,13 @@ class Home extends Component {
         }
     }
     async componentDidMount() {
+        //using async await to get the users data before the axios call is made.
         await this.props.getUserInfo()
         const { user } = this.props
         var id = {
             id: user.auth_id
         }
-        await axios.post('/getfollowerstrips', id).then(res => {
+        axios.post('/getfollowerstrips', id).then(res => {
             this.setState({
                 followingTrips: res.data
             })
