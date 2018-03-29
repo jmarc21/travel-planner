@@ -23,4 +23,4 @@ Your drafts and finished trips will be shown in most recent order. Within the tr
 
 <h2>Plan A Trip</h2>
 <img src="./readmeImages/PlanATrip.png">
-Plan a trip is were you can add all the locations to your trip. 
+Plan a trip is were you can add all the locations to your trip. When a trip is searched the location hits the Google locations API and returns all the data for the hotel, transport, amusement, shopping, and food locations. 
