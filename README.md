@@ -12,4 +12,6 @@
     <li>Used AuthO to login and automatically create user profiles.</li>
 </ul>
 
-<h3>-  Screenshots</h3>
+<h3>Feed View</h3>
+
+<img src="./readmeImages/feedImg.png">
