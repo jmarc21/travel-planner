@@ -15,3 +15,12 @@ Tybl is a Fullstack Web Application. A travel planning app that allows users to 
 <h2>Feed View</h2>
 
 <img src="./readmeImages/feedImg.png">
+The trips shown on your feed are only trips from users that you follow and have all the data filled in. When a you unfollow a user their trips remove from your feed as well.
+
+<h2>Profile</h2>
+<img src="./readmeImages/ProfileTYBL.png">
+Your drafts and finished trips will be shown in most recent order. Within the trip you can delete single locations or you can delete the whole trip. The user can update thier Profile image, Description, and Username. 
+
+<h2>Plan A Trip</h2>
+<img src="./readmeImages/PlanATrip.png">
+Plan a trip is were you can add all the locations to your trip. 
