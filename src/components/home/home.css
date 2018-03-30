@@ -42,8 +42,8 @@ h3{
 .login{
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-around;
+    align-items: center;
     height: 40px;
     width: 100px;
     margin-bottom: 100px;
@@ -52,6 +52,27 @@ h3{
     border-radius: 30px;
     font-family: 'Shrikhand';
     box-shadow: inset 0px -5px 5px 0px rgba(0, 0, 0, 0.346)
+}
+.guestLogin{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    height: 40px;
+    width: 100px;
+    margin-bottom: 100px;
+    background-color: #DC493A;
+    color: #F3E9DC;
+    border-radius: 30px;
+    font-family: 'Shrikhand';
+    box-shadow: inset 0px -5px 5px 0px rgba(0, 0, 0, 0.346)
+}
+.loginContainer{
+    width: 250px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 .holditall{
     display: flex;

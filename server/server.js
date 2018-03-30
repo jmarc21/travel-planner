@@ -51,6 +51,18 @@ passport.use(new Auth0Strategy({
         }
     })
 }))
+app.use(function (req, res, next) {
+    if (!req.user) {
+        req.user = {
+            id: 3,
+            username: 'John Doe',
+            img: 'https://s.gravatar.com/avatar/ed76a6ffa29b8351ffeeb097179fa18e?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fjo.png',
+            auth_id: 'auth0|5a6faba7fc182d03b1e6a771',
+            description: null
+        };
+    }
+    next();
+});
 // app.get('/guestLogin', (req,res) => {
 //     req.user = {
 //         id: 3,
@@ -84,8 +96,8 @@ app.get('/auth/me', (req, res) => {
         res.status(200).send(req.user);
     }
 })
-app.post('/update-profile', (req,res) => {
-    const {profilepic, username, bio, user} = req.body;
+app.post('/update-profile', (req, res) => {
+    const { profilepic, username, bio, user } = req.body;
     const db = app.get('db');
     db.update_user([
         profilepic,
@@ -253,9 +265,9 @@ app.post('/shop-trip-comp', (req, res) => {
     })
 })
 //delete Trips
-app.post('/delete-trip' , (req, res) => {
-    console.log('delete',req.body)
-    const {tripid} = req.body
+app.post('/delete-trip', (req, res) => {
+    console.log('delete', req.body)
+    const { tripid } = req.body
     const db = app.get('db')
     db.delete_trip([
         tripid
@@ -263,8 +275,8 @@ app.post('/delete-trip' , (req, res) => {
         res.status(200).send('deleted')
     })
 })
-app.post('/delete-hotel', (req,res) => {
-    const {hotelid} = req.body;
+app.post('/delete-hotel', (req, res) => {
+    const { hotelid } = req.body;
     const db = app.get('db');
     db.delete_hotel([
         hotelid
@@ -272,8 +284,8 @@ app.post('/delete-hotel', (req,res) => {
         res.status(200).send(resp)
     })
 })
-app.post('/transport-hotel', (req,res) => {
-    const {hotelid} = req.body;
+app.post('/transport-hotel', (req, res) => {
+    const { hotelid } = req.body;
     const db = app.get('db');
     db.delete_transport([
         hotelid
@@ -281,8 +293,8 @@ app.post('/transport-hotel', (req,res) => {
         res.status(200).send(resp)
     })
 })
-app.post('/amuse-hotel', (req,res) => {
-    const {hotelid} = req.body;
+app.post('/amuse-hotel', (req, res) => {
+    const { hotelid } = req.body;
     const db = app.get('db');
     db.delete_amuse([
         hotelid
@@ -290,8 +302,8 @@ app.post('/amuse-hotel', (req,res) => {
         res.status(200).send(resp)
     })
 })
-app.post('/shop-hotel', (req,res) => {
-    const {hotelid} = req.body;
+app.post('/shop-hotel', (req, res) => {
+    const { hotelid } = req.body;
     const db = app.get('db');
     db.delete_shop([
         hotelid
@@ -299,8 +311,8 @@ app.post('/shop-hotel', (req,res) => {
         res.status(200).send(resp)
     })
 })
-app.post('/food-hotel', (req,res) => {
-    const {hotelid} = req.body;
+app.post('/food-hotel', (req, res) => {
+    const { hotelid } = req.body;
     const db = app.get('db');
     db.delete_food([
         hotelid
@@ -375,9 +387,9 @@ app.post('/add-friend', (req, res) => {
         res.status(200).send('friend added')
     })
 })
-app.post('/unfollow', (req,res) => {
+app.post('/unfollow', (req, res) => {
     console.log('id', req.body)
-    const {id} = req.body
+    const { id } = req.body
     const db = app.get('db');
     db.unfollow([
         id
@@ -405,9 +417,9 @@ app.post('/numOfFollowers', (req, res) => {
         res.status(200).send(resp)
     })
 })
-app.post('/get-following', (req,res) => {
-    console.log('following',req.body)
-    const {authid} = req.body;
+app.post('/get-following', (req, res) => {
+    console.log('following', req.body)
+    const { authid } = req.body;
     const db = app.get('db');
     db.get_following([
         authid
@@ -415,13 +427,13 @@ app.post('/get-following', (req,res) => {
         res.status(200).send(resp)
     })
 })
-app.post('/get-followers', (req,res) => {
-    console.log('followers',req.body)
-    const {authid} = req.body;
+app.post('/get-followers', (req, res) => {
+    console.log('followers', req.body)
+    const { authid } = req.body;
     const db = app.get('db')
     db.get_followers([
         authid
-    ]).then( resp => {
+    ]).then(resp => {
         res.status(200).send(resp)
     })
 })
@@ -563,7 +575,7 @@ app.post('/detail-pic', (req, res) => {
         })
 })
 
-app.use( express.static( `${__dirname}/../build` ) );
+app.use(express.static(`${__dirname}/../build`));
 
 const { SERVER_PORT } = process.env
 app.listen(SERVER_PORT, () => {
