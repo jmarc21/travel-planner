@@ -51,6 +51,16 @@ passport.use(new Auth0Strategy({
         }
     })
 }))
+// app.get('/guestLogin', (req,res) => {
+//     req.user = {
+//         id: 3,
+//         username: 'John Doe',
+//         img: 'https://s.gravatar.com/avatar/ed76a6ffa29b8351ffeeb097179fa18e?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fjo.png',
+//         auth_id: 'auth0|5a6faba7fc182d03b1e6a771',
+//         description: null
+//     }
+//     console.log(req.user)
+// })
 passport.serializeUser((id, done) => {
     return done(null, id);
 })
@@ -66,8 +76,8 @@ app.get('/auth/callback', passport.authenticate('auth0', {
     successRedirect: `/#/feed`,
     failureRedirect: '/#/'
 }))
-
 app.get('/auth/me', (req, res) => {
+    console.log(req)
     if (!req.user) {
         res.status(404).send('User not found.');
     } else {
