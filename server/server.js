@@ -55,8 +55,8 @@ app.use(function (req, res, next) {
     if (!req.user) {
         req.user = {
             id: 3,
-            username: 'John Doe',
-            img: 'https://s.gravatar.com/avatar/ed76a6ffa29b8351ffeeb097179fa18e?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fjo.png',
+            username: 'Guest',
+            img: 'https://s.gravatar.com/avatar/ed76a6ffa29b8351ffeeb097179fa18e?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fg.png',
             auth_id: 'auth0|5a6faba7fc182d03b1e6a771',
             description: null
         };
